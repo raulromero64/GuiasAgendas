@@ -1,0 +1,106 @@
+{
+  "hero": {
+    "title": "Cuentos Animados:",
+    "highlight": "Imagina, Juega, Aprende",
+    "description": "Una guía interactiva de cuentos mágicos y agendas de aprendizaje para niños. Diseñado para despertar la curiosidad y fomentar hábitos positivos."
+  },
+  "books": [
+    {
+      "id": "b1",
+      "slug": "prejardin",
+      "title": "Prejardín",
+      "desc": "Iniciación al mundo mágico de los cuentos y colores.",
+      "lessons": ["Colores y formas", "Mis primeros trazos", "Sonidos divertidos"],
+      "iconType": "Star",
+      "iconColor": "text-yellow-400",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b2",
+      "slug": "jardin",
+      "title": "Jardín",
+      "desc": "Aventuras con letras y números para pequeños exploradores.",
+      "lessons": ["El baile de las vocales", "Contando hasta 10", "Figuras geométricas"],
+      "iconType": "BookOpen",
+      "iconColor": "text-pink-500",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b3",
+      "slug": "primero-primaria",
+      "title": "Primero Primaria",
+      "desc": "Lectoescritura y matemáticas fundamentales.",
+      "lessons": ["Consonantes mágicas", "Sumas de caramelos", "El ciclo del agua"],
+      "iconType": "Map",
+      "iconColor": "text-green-500",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b4",
+      "slug": "segundo-primaria",
+      "title": "Segundo Primaria",
+      "desc": "Desarrollo del pensamiento lógico y comprensión lectora.",
+      "lessons": ["Historias cortas", "Sumas y restas", "Cuidando el planeta"],
+      "iconType": "BookOpen",
+      "iconColor": "text-blue-500",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b5",
+      "slug": "tercero-primaria",
+      "title": "Tercero Primaria",
+      "desc": "Exploración de la ciencia y matemáticas avanzadas.",
+      "lessons": ["Multiplicación divertida", "El sistema solar", "Mi primera redacción"],
+      "iconType": "Star",
+      "iconColor": "text-purple-500",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b6",
+      "slug": "cuarto-primaria",
+      "title": "Cuarto Primaria",
+      "desc": "Historia, geografía y resolución de problemas.",
+      "lessons": ["Mapas del mundo", "Fracciones mágicas", "Cuentos largos"],
+      "iconType": "Map",
+      "iconColor": "text-orange-500",
+      "action": "Ingresar"
+    },
+    {
+      "id": "b7",
+      "slug": "quinto-primaria",
+      "title": "Quinto Primaria",
+      "desc": "Preparación para secundaria con retos interactivos.",
+      "lessons": ["Geometría espacial", "Biología interactiva", "Proyecto final"],
+      "iconType": "BookOpen",
+      "iconColor": "text-indigo-500",
+      "action": "Ingresar"
+    }
+  ],
+  "agendaFeatures": ["Organización Visual", "Gestión de Tareas", "Refuerzo de Hábitos"],
+  "agendaMission": {
+    "mañana": "Aventura Escolar",
+    "tarde": ["Lectura Mágica", "Deporte"],
+    "habito": "Cuidar mi Planta",
+    "recompensa": "10 min de Cuento Extra"
+  },
+  "blogPosts": [
+    {
+      "id": "post1",
+      "title": "El poder de los cuentos animados en el desarrollo cognitivo.",
+      "imageAlt": "Niño leyendo",
+      "excerpt": "Leer más..."
+    },
+    {
+      "id": "post2",
+      "title": "¿Cómo usar la Agenda Educativa sin que sea aburrido?",
+      "imageAlt": "Agenda infantil",
+      "excerpt": "Leer más..."
+    },
+    {
+      "id": "post3",
+      "title": "De la pantalla al papel: El puente de los Libros Guía.",
+      "imageAlt": "Libros físicos y tablet",
+      "excerpt": "Leer más..."
+    }
+  ]
+}
