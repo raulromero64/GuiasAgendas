@@ -1,6 +1,6 @@
 # PLANIFICACION DEL PROYECTO
 
-La planificacion es la fuente oficial de verdad del proyecto.
+La planificacion traduce el Plan Maestro en lineamientos de ejecucion del proyecto.
 
 ## 1. Vision del proyecto
 
@@ -8,13 +8,19 @@ La planificacion es la fuente oficial de verdad del proyecto.
 - Centralizar la verdad operativa en la documentacion del proyecto.
 - Permitir continuidad entre sesiones, sprints y nuevas IAs sin perder contexto.
 
-## 2. Objetivos
+## 2. Rol de este documento
+
+- Operativiza la ruta definida en docs/01-PLAN-MAESTRO.md.
+- Define principios y metodologia para ejecutar cada sprint.
+- No reemplaza la jerarquia ni la secuencia de contexto del framework.
+
+## 3. Objetivos
 
 - MVP: consolidar una base funcional estable y documentada.
 - Version 1.0: entregar una arquitectura preparada para evolucionar con bajo riesgo.
 - Evolucion futura: incorporar nuevas capacidades sin romper la trazabilidad ni la modularidad.
 
-## 3. Principios del proyecto
+## 4. Principios del proyecto
 
 - Calidad antes que velocidad.
 - Modularidad y responsabilidad unica.
@@ -24,33 +30,19 @@ La planificacion es la fuente oficial de verdad del proyecto.
 - Estabilidad operativa y continuidad del contexto.
 - Ninguna IA debe inferir objetivos fuera de esta planificacion.
 
-## 4. Roadmap general
+## 5. Flujo de contexto obligatorio
 
-### Fase 0 - Fundacion y orden documental
+START-HERE -> PLAN-MAESTRO -> PLANIFICACION -> SPRINT-ACTUAL
 
-- Establecer la metodologia oficial.
-- Normalizar la documentacion maestra.
-- Preparar la base para auditoria y migracion.
+- Ninguna sesion puede iniciar implementacion sin completar esta secuencia.
 
-### Fase 1 - Consolidacion tecnica
+## 6. Marco de fases
 
-- Alinear estructura, convenciones y puntos de extension.
-- Reducir deuda tecnica prioritaria.
-- Asegurar una base estable para evolucion funcional.
+- Las fases oficiales del proyecto viven en docs/01-PLAN-MAESTRO.md.
+- Todo sprint debe mapearse explicitamente a una fase del Plan Maestro.
+- Ninguna tarea fuera de fase puede ejecutarse sin aprobacion de Direccion.
 
-### Fase 2 - Evolucion funcional
-
-- Incorporar nuevas capacidades de negocio de forma incremental.
-- Mantener compatibilidad con la arquitectura definida.
-- Validar cada entrega con evidencia tecnica y documental.
-
-### Fase 3 - Escala y mantenimiento
-
-- Optimizar sostenibilidad, observabilidad y mantenimiento.
-- Preparar el proyecto para crecimiento prolongado.
-- Revisar el roadmap de forma periodica sin perder trazabilidad.
-
-## 5. Metodologia de trabajo
+## 7. Metodologia de trabajo
 
 Flujo obligatorio:
 
@@ -60,15 +52,17 @@ Analizar -> Probar -> Corregir (solo si falla) -> Validar -> Commit de estabilid
 - El trabajo diario siempre debe partir de la planificacion maestra y del sprint vigente.
 - No se inicia desarrollo sin contexto documentado y alcance aprobado.
 
-## 6. Estado actual
+## 8. Estado actual
 
-- Sprint activo: 0.2
-- Fase activa: 0
+- Sprint activo: 0.3
+- Fase activa: Phase 1 - Descubrimiento del Dominio Escolar y Modelo Operativo
+- Estado de consolidacion documental: Completada
 
-## 7. Jerarquia oficial
+## 9. Jerarquia oficial
 
-1. OpenDev IA Framework
-2. PLANIFICACION.md
-3. SPRINT-ACTUAL.md
-4. Codigo fuente
-5. HISTORIAL.md
+1. docs/01-PLAN-MAESTRO.md
+2. AI/START-HERE.md
+3. docs/PLANIFICACION.md
+4. docs/SPRINT-ACTUAL.md
+5. Codigo fuente
+6. docs/06-HISTORIAL.md

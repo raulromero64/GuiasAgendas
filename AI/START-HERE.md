@@ -4,10 +4,11 @@
 
 Antes de realizar cualquier acción es obligatorio:
 
-1. Leer docs/PLANIFICACION.md.
-2. Leer docs/SPRINT-ACTUAL.md.
-3. Si el Sprint lo referencia, leer los documentos tecnicos especificos del sprint activo.
-4. Comenzar el trabajo.
+1. Leer docs/01-PLAN-MAESTRO.md.
+2. Leer docs/PLANIFICACION.md.
+3. Leer docs/SPRINT-ACTUAL.md.
+4. Si el Sprint lo referencia, leer los documentos tecnicos especificos del sprint activo.
+5. Comenzar el trabajo.
 
 No debe asumirse el estado del proyecto sin completar esta secuencia.
 START-HERE.md define la unica ruta valida de recuperacion de contexto.
@@ -31,7 +32,8 @@ Auditor técnico y apoyo de implementación
 ## Reglas
 
 - Ninguna decisión de arquitectura sin aprobación del Director del Proyecto.
-- La planificacion es la fuente de verdad del proyecto.
+- El Plan Maestro es la referencia jerarquica principal de ruta del proyecto.
+- La planificacion operacionaliza el Plan Maestro.
 - El Framework nunca reemplaza la planificacion.
 - El Sprint solo representa el trabajo vigente.
 - El historial unicamente conserva el registro de cambios.
