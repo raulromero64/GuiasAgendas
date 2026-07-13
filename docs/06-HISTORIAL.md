@@ -1,5 +1,19 @@
 # 06 - Historial
 
+## 2026-07-13 - Protocolo de coordinacion entre IAs
+
+### Resumen de la sesion
+
+- Se incorporo AI/FRAMEWORK/02-PROTOCOLO-COORDINACION.md como documento oficial del OpenDev IA Framework.
+- Se reforzo en la Constitucion la jerarquia oficial, la ruta de recuperacion de contexto y la inmutabilidad del Framework v1.0.
+- Se actualizo el indice general para incluir el nuevo protocolo dentro de las referencias del Framework IA.
+
+### Estado al cierre
+
+- Framework IA: congelado como version oficial.
+- Codigo fuente de la aplicacion: sin cambios.
+- Siguiente foco: ninguna modificacion al Framework sin autorizacion expresa del Director del Proyecto.
+
 ## 2026-07-13 - Congelacion del Framework IA
 
 ### Resumen de la sesion

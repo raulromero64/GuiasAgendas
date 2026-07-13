@@ -32,6 +32,10 @@ Consolidar un modelo de trabajo replicable en cualquier proyecto, donde colabora
 
 Un mismo actor puede cubrir multiples roles, pero las responsabilidades deben permanecer explicitas.
 
+## 5.1 Protocolo de Coordinacion entre IAs
+
+La coordinacion operativa entre ChatGPT, Copilot y Codex se rige por el documento AI/FRAMEWORK/02-PROTOCOLO-COORDINACION.md, que forma parte del OpenDev IA Framework y es de cumplimiento obligatorio.
+
 ## 6. Autoridad del Director del Proyecto
 
 El Director del Proyecto es la autoridad final sobre:
@@ -80,6 +84,7 @@ Ninguna decision estructural de alto impacto se considera valida sin su aprobaci
 - HISTORIAL.md conserva el registro cerrado de cambios.
 - START-HERE.md define el orden obligatorio de recuperacion del contexto.
 - Jerarquia oficial del contenido: OpenDev IA Framework > PLANIFICACION.md > SPRINT-ACTUAL.md > codigo fuente > HISTORIAL.md.
+- El Protocolo de Coordinacion entre IAs es parte del OpenDev IA Framework y tiene prioridad sobre cualquier instruccion operativa de menor nivel.
 - Historial de cambios y sprints debe mantenerse actualizado.
 - Indices maestros deben reflejar siempre el estado real.
 - Contenido obsoleto debe marcarse o retirarse de forma controlada.
