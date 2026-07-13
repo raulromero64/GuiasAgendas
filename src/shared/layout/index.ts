@@ -1,0 +1,5 @@
+export { ShellContent } from '@/shared/layout/ShellContent'
+export { ShellFooter } from '@/shared/layout/ShellFooter'
+export { ShellFrame } from '@/shared/layout/ShellFrame'
+export { ShellHeader } from '@/shared/layout/ShellHeader'
+export { ShellSidebar } from '@/shared/layout/ShellSidebar'

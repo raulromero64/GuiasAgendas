@@ -1,16 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-brand-50: 238 248 241;
+    --color-brand-100: 217 239 223;
+    --color-brand-200: 183 223 194;
+    --color-brand-300: 143 203 158;
+    --color-brand-400: 99 180 121;
+    --color-brand-500: 63 153 92;
+    --color-brand-600: 47 127 73;
+    --color-brand-700: 39 101 61;
+    --color-brand-800: 35 81 53;
+    --color-brand-900: 31 67 45;
+    --color-neutral-50: 246 248 247;
+    --color-neutral-100: 238 242 240;
+    --color-neutral-200: 221 229 226;
+    --color-neutral-300: 194 207 202;
+    --color-neutral-400: 149 168 160;
+    --color-neutral-500: 111 132 123;
+    --color-neutral-600: 86 105 97;
+    --color-neutral-700: 70 85 79;
+    --color-neutral-800: 59 70 66;
+    --color-neutral-900: 52 61 58;
+    --color-semantic-info: 47 127 73;
+    --color-semantic-success: 36 132 93;
+    --color-semantic-warning: 185 131 29;
+    --color-semantic-danger: 184 71 60;
+    --color-surface-canvas: 246 248 247;
+    --color-surface-panel: 255 255 255;
+    --color-content-primary: 59 70 66;
+    --color-content-secondary: 86 105 97;
+    --color-content-muted: 111 132 123;
+    --color-border-subtle: 221 229 226;
+    --color-border-strong: 194 207 202;
+    --color-focus-ring: 99 180 121;
+  }
+
   body {
-    @apply antialiased text-slate-900 bg-white selection:bg-blue-100 selection:text-blue-900;
+    @apply bg-surface-canvas text-content-primary antialiased selection:bg-brand-100 selection:text-brand-900;
+    font-family: 'Manrope', sans-serif;
   }
 
   /* Accessibility focus rings */
   :focus-visible {
-    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+    @apply outline-none ring-2 ring-focus-ring ring-offset-2;
   }
 }

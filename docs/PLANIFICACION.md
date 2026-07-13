@@ -11,6 +11,7 @@ La planificacion traduce el Plan Maestro en lineamientos de ejecucion del proyec
 ## 2. Rol de este documento
 
 - Operativiza la ruta definida en docs/01-PLAN-MAESTRO.md.
+- Se alinea con las reglas permanentes definidas en docs/03-ARQUITECTURA.md.
 - Define principios y metodologia para ejecutar cada sprint.
 - No reemplaza la jerarquia ni la secuencia de contexto del framework.
 
@@ -25,6 +26,7 @@ La planificacion traduce el Plan Maestro en lineamientos de ejecucion del proyec
 - Calidad antes que velocidad.
 - Modularidad y responsabilidad unica.
 - Arquitectura clara y extensible.
+- Desarrollo Just-in-Time segun docs/03-ARQUITECTURA.md.
 - Documentacion obligatoria y vigente.
 - Pruebas y validacion antes de cerrar cambios.
 - Estabilidad operativa y continuidad del contexto.
@@ -32,7 +34,7 @@ La planificacion traduce el Plan Maestro en lineamientos de ejecucion del proyec
 
 ## 5. Flujo de contexto obligatorio
 
-START-HERE -> PLAN-MAESTRO -> PLANIFICACION -> SPRINT-ACTUAL
+START-HERE -> PLAN-MAESTRO -> ARQUITECTURA -> PLANIFICACION -> SPRINT-ACTUAL
 
 - Ninguna sesion puede iniciar implementacion sin completar esta secuencia.
 
@@ -54,15 +56,16 @@ Analizar -> Probar -> Corregir (solo si falla) -> Validar -> Commit de estabilid
 
 ## 8. Estado actual
 
-- Sprint activo: 0.3
-- Fase activa: Phase 1 - Descubrimiento del Dominio Escolar y Modelo Operativo
+- Sprint activo: 1.2
+- Fase activa: Phase 1 - Platform Foundation
 - Estado de consolidacion documental: Completada
 
 ## 9. Jerarquia oficial
 
 1. docs/01-PLAN-MAESTRO.md
 2. AI/START-HERE.md
-3. docs/PLANIFICACION.md
-4. docs/SPRINT-ACTUAL.md
-5. Codigo fuente
-6. docs/06-HISTORIAL.md
+3. docs/03-ARQUITECTURA.md
+4. docs/PLANIFICACION.md
+5. docs/SPRINT-ACTUAL.md
+6. Codigo fuente
+7. docs/06-HISTORIAL.md

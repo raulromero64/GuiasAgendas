@@ -5,10 +5,11 @@
 Antes de realizar cualquier acción es obligatorio:
 
 1. Leer docs/01-PLAN-MAESTRO.md.
-2. Leer docs/PLANIFICACION.md.
-3. Leer docs/SPRINT-ACTUAL.md.
-4. Si el Sprint lo referencia, leer los documentos tecnicos especificos del sprint activo.
-5. Comenzar el trabajo.
+2. Leer docs/03-ARQUITECTURA.md.
+3. Leer docs/PLANIFICACION.md.
+4. Leer docs/SPRINT-ACTUAL.md.
+5. Si el Sprint lo referencia, leer los documentos tecnicos especificos del sprint activo.
+6. Comenzar el trabajo.
 
 No debe asumirse el estado del proyecto sin completar esta secuencia.
 START-HERE.md define la unica ruta valida de recuperacion de contexto.
@@ -43,7 +44,7 @@ Auditor técnico y apoyo de implementación
 - No modificar el Framework IA sin autorización.
 - Mantener documentación, Git y código sincronizados.
 - Todo cambio debe pertenecer al Sprint activo.
-- Priorizar componentes reutilizables y arquitectura modular.
+- Las reglas permanentes de arquitectura (incluyendo Desarrollo Just-in-Time) viven en docs/03-ARQUITECTURA.md.
 - Mantener respuestas y reportes concisos para ahorrar contexto.
 
 Fin del documento.

@@ -48,7 +48,7 @@ Propietario: Direccion del Proyecto
 
 ## 5. Flujo oficial de recuperacion de contexto
 
-START-HERE -> PLAN-MAESTRO -> PLANIFICACION -> SPRINT-ACTUAL
+START-HERE -> PLAN-MAESTRO -> ARQUITECTURA -> PLANIFICACION -> SPRINT-ACTUAL
 
 ---
 

@@ -2,6 +2,9 @@
 
 ## Documentacion oficial
 
+- 01-PLAN-MAESTRO.md
+- 03-ARQUITECTURA.md
+- 04-DESIGN-SYSTEM.md
 - PLANIFICACION.md
 - SPRINT-ACTUAL.md
 - 06-HISTORIAL.md
