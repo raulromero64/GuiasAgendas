@@ -2,7 +2,7 @@
 
 ## 1. Proposito del Framework
 
-OpenDev IA Framework establece un marco operativo comun para coordinar trabajo entre personas y agentes de IA en proyectos de software. Su fin es asegurar decisiones trazables, ejecucion ordenada, calidad verificable y continuidad entre sprints, equipos y repositorios.
+OpenDev IA Framework establece un marco operativo comun para coordinar trabajo entre personas y agentes de IA en proyectos de software. Su fin es asegurar decisiones trazables, ejecucion ordenada, calidad verificable y continuidad entre sprints, equipos y repositorios. Es la metodologia oficial del proyecto.
 
 ## 2. Mision
 
@@ -47,6 +47,14 @@ Ninguna decision estructural de alto impacto se considera valida sin su aprobaci
 ## 7. Reglas Inquebrantables
 
 - No iniciar trabajo sin contexto minimo obligatorio del sprint activo.
+- El Framework nunca reemplaza la planificacion.
+- La planificacion es la fuente de verdad del proyecto.
+- El Sprint solo representa el trabajo vigente.
+- El historial unicamente conserva el registro de cambios.
+- Ninguna IA debe inferir objetivos fuera de la planificacion.
+- Las nuevas funcionalidades deben incorporarse al roadmap y a la planificacion antes de iniciar su desarrollo.
+- Una vez aprobado Framework v1.0, queda congelado y no puede modificarse durante el desarrollo normal.
+- Cualquier mejora detectada debe registrarse como propuesta para una futura version, sin alterar la version vigente.
 - No ejecutar cambios fuera de alcance aprobado.
 - No duplicar documentacion ni crear fuentes paralelas de verdad.
 - No alterar politicas del framework sin autorizacion formal.
@@ -67,6 +75,11 @@ Ninguna decision estructural de alto impacto se considera valida sin su aprobaci
 
 - Toda documentacion oficial debe vivir en rutas definidas por el framework.
 - Cada documento debe tener proposito unico y ubicacion canonica.
+- PLANIFICACION.md define la verdad permanente del proyecto.
+- SPRINT-ACTUAL.md define el trabajo vigente.
+- HISTORIAL.md conserva el registro cerrado de cambios.
+- START-HERE.md define el orden obligatorio de recuperacion del contexto.
+- Jerarquia oficial del contenido: OpenDev IA Framework > PLANIFICACION.md > SPRINT-ACTUAL.md > codigo fuente > HISTORIAL.md.
 - Historial de cambios y sprints debe mantenerse actualizado.
 - Indices maestros deben reflejar siempre el estado real.
 - Contenido obsoleto debe marcarse o retirarse de forma controlada.
@@ -87,7 +100,14 @@ Ninguna decision estructural de alto impacto se considera valida sin su aprobaci
 - Registrar hallazgos, riesgos y acciones correctivas.
 - Asegurar coherencia entre codigo, documentacion y estado operativo.
 
-## 12. Vigencia del Framework
+## 12. Orden de Implementacion y Congelacion
+
+1. Actualizar la documentacion.
+2. Validar coherencia.
+3. Realizar commit de estabilidad del Framework IA.
+4. A partir de ese commit, el Framework queda congelado.
+
+## 13. Vigencia del Framework
 
 Esta Constitucion entra en vigencia desde su publicacion y aplica a todo proyecto que adopte OpenDev IA Framework.
 
@@ -96,5 +116,5 @@ Se mantiene vigente hasta su reemplazo por una version superior aprobada formalm
 ---
 
 Version: 1.0.0
-Estado: Activo
+Estado: Congelado
 Naturaleza: Generica y reutilizable

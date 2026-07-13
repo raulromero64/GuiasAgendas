@@ -2,8 +2,9 @@
 
 ## Documentacion oficial
 
+- PLANIFICACION.md
+- SPRINT-ACTUAL.md
 - 06-HISTORIAL.md
-- 07-SPRINT-ACTUAL.md
 - 99-INDICE-GENERAL.md
 
 ## Referencias del Framework IA

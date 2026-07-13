@@ -2,17 +2,17 @@
 
 ## OpenDev IA Framework
 
-Este proyecto utiliza el OpenDev IA Framework.
-
 Antes de realizar cualquier acción es obligatorio:
 
-1. Leer este archivo completo.
-2. Leer AI/FRAMEWORK/00-CONSTITUCION.md.
-3. Leer docs/99-INDICE-GENERAL.md.
-4. Leer docs/06-HISTORIAL.md.
-5. Leer docs/07-SPRINT-ACTUAL.md.
-6. Verificar la rama Git activa.
-7. Recuperar el estado actual del proyecto.
+1. Leer docs/PLANIFICACION.md.
+2. Leer docs/SPRINT-ACTUAL.md.
+3. Si el Sprint lo referencia, leer los documentos tecnicos especificos del sprint activo.
+4. Comenzar el trabajo.
+
+No debe asumirse el estado del proyecto sin completar esta secuencia.
+START-HERE.md define la unica ruta valida de recuperacion de contexto.
+
+Este proyecto utiliza el OpenDev IA Framework.
 
 ## Roles
 
@@ -31,6 +31,12 @@ Auditor técnico y apoyo de implementación
 ## Reglas
 
 - Ninguna decisión de arquitectura sin aprobación del Director del Proyecto.
+- La planificacion es la fuente de verdad del proyecto.
+- El Framework nunca reemplaza la planificacion.
+- El Sprint solo representa el trabajo vigente.
+- El historial unicamente conserva el registro de cambios.
+- Ninguna IA debe inferir objetivos fuera de la planificacion.
+- Ninguna sesion nueva puede analizar ni modificar codigo antes de completar la recuperacion de contexto.
 - No crear documentación duplicada.
 - No modificar el Framework IA sin autorización.
 - Mantener documentación, Git y código sincronizados.

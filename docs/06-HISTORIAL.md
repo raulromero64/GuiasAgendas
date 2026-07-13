@@ -1,5 +1,20 @@
 # 06 - Historial
 
+## 2026-07-13 - Congelacion del Framework IA
+
+### Resumen de la sesion
+
+- Se actualizo la ruta oficial de inicio para exigir PLANIFICACION.md y SPRINT-ACTUAL.md antes de cualquier analisis.
+- Se consolidaron las reglas permanentes del OpenDev IA Framework: planificacion como fuente de verdad, sprint como trabajo vigente e historial como registro cerrado.
+- Se incorporo la jerarquia oficial de documentacion y el orden de implementacion que conduce al commit de estabilidad.
+- Se declaro el Framework IA como congelado tras la version v1.0.
+
+### Estado al cierre
+
+- Framework IA: congelado como version oficial.
+- Codigo fuente de la aplicacion: sin cambios.
+- Siguiente foco: solo trabajo autorizado por el Director del Proyecto y documentado en la planificacion.
+
 ## 2026-07-13 - Cierre de sesión Sprint 0.2
 
 ### Resumen de la sesión
