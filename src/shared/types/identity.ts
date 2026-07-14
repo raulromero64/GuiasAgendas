@@ -25,6 +25,12 @@ export interface User {
   name: string
   email: string
   role: RoleKey
+  permissionClaims?: string[]
+}
+
+export interface AuthorizationPolicy {
+  allOf?: PermissionKey[]
+  anyOf?: PermissionKey[]
 }
 
 export interface Session {
@@ -43,5 +49,6 @@ export interface AuthSnapshot {
 export interface AuthContextValue extends AuthSnapshot {
   permissions: PermissionKey[]
   hasPermission: (permission: PermissionKey) => boolean
+  isAuthorized: (policy?: AuthorizationPolicy) => boolean
   signOut: () => Promise<void>
 }

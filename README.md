@@ -11,6 +11,19 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+## IAM Environment Variables (Sprint 1.6)
+
+Auth0 is the official IAM provider. Configure these variables in your local `.env` (see `.env.example`):
+
+- `VITE_AUTH_PROVIDER` (`auth0` by default; `development` only for tests)
+- `VITE_AUTH0_DOMAIN`
+- `VITE_AUTH0_CLIENT_ID`
+- `VITE_AUTH0_AUDIENCE`
+- `VITE_AUTH0_SCOPE` (default: `openid profile email`)
+- `VITE_AUTH0_REDIRECT_URI` (default: app origin)
+- `VITE_AUTH0_ROLE_CLAIM` (default: `https://elcervantista.app/role`)
+- `VITE_AUTH0_PERMISSIONS_CLAIM` (default: `https://elcervantista.app/permissions`)
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:

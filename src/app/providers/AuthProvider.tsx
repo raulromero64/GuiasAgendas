@@ -1,26 +1,24 @@
 import type { PropsWithChildren } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { MOCK_AUTH_SESSION, MOCK_AUTH_USER } from '@/shared/constants/identity'
 import { AuthContext } from '@/shared/lib/auth-context'
+import { authService } from '@/shared/services/auth.service'
+import {
+  hasPermission,
+  isAuthorized,
+  resolveEffectivePermissions,
+} from '@/shared/services/authorization.engine'
 import type { AuthService } from '@/shared/services/auth.service'
-import { sessionService } from '@/shared/services/session.service'
 import type { AuthContextValue, AuthSnapshot } from '@/shared/types/identity'
-import { hasPermission, resolveRolePermissions } from '@/shared/utils/identity'
 
-const authService: AuthService = {
-  async getCurrentSession() {
-    return sessionService.getSession()
-  },
-  async signOut() {
-    sessionService.clearSession()
-  },
+interface AuthProviderProps extends PropsWithChildren {
+  service?: AuthService
 }
 
 /**
  * Provider IAM base para orquestar sesion, usuario y permisos.
  */
-export function AuthProvider({ children }: PropsWithChildren) {
+export function AuthProvider({ children, service = authService }: AuthProviderProps) {
   const [authSnapshot, setAuthSnapshot] = useState<AuthSnapshot>({
     user: null,
     session: null,
@@ -30,11 +28,12 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     async function bootstrapIdentity() {
-      const currentSession = await authService.getCurrentSession()
+      const currentSession = await service.getCurrentSession()
+      const currentUser = currentSession ? await service.getCurrentUser(currentSession) : null
 
-      if (currentSession) {
+      if (currentSession && currentUser) {
         setAuthSnapshot({
-          user: MOCK_AUTH_USER,
+          user: currentUser,
           session: currentSession,
           isAuthenticated: true,
           isLoading: false,
@@ -42,30 +41,35 @@ export function AuthProvider({ children }: PropsWithChildren) {
         return
       }
 
-      // Sesion mock temporal hasta integrar proveedor real en proximo sprint.
-      sessionService.saveSession(MOCK_AUTH_SESSION)
       setAuthSnapshot({
-        user: MOCK_AUTH_USER,
-        session: MOCK_AUTH_SESSION,
-        isAuthenticated: true,
+        user: null,
+        session: null,
+        isAuthenticated: false,
         isLoading: false,
       })
     }
 
     void bootstrapIdentity()
-  }, [])
+  }, [service])
 
-  const permissions = useMemo(
-    () => (authSnapshot.user ? resolveRolePermissions(authSnapshot.user.role) : []),
-    [authSnapshot.user]
-  )
+  const permissions = useMemo(() => {
+    if (!authSnapshot.user) {
+      return []
+    }
+
+    return resolveEffectivePermissions({
+      role: authSnapshot.user.role,
+      permissionClaims: authSnapshot.user.permissionClaims,
+    })
+  }, [authSnapshot.user])
 
   const contextValue: AuthContextValue = {
     ...authSnapshot,
     permissions,
     hasPermission: (permission) => hasPermission(permissions, permission),
+    isAuthorized: (policy) => isAuthorized(permissions, policy),
     signOut: async () => {
-      await authService.signOut()
+      await service.signOut()
       setAuthSnapshot({
         user: null,
         session: null,

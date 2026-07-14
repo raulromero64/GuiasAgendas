@@ -1,4 +1,4 @@
-import type { Permission, PermissionKey, Role, Session, User } from '@/shared/types/identity'
+import type { Permission, PermissionKey, Role } from '@/shared/types/identity'
 
 /**
  * Permisos oficiales del dominio IAM SMP.
@@ -51,25 +51,6 @@ export const IDENTITY_ROLES: Role[] = [
   },
 ]
 
-/**
- * Usuario de demostracion para infraestructura IAM sin proveedor externo.
- */
-export const MOCK_AUTH_USER: User = {
-  id: 'usr-admin-cervantes',
-  name: 'Administrador SMP',
-  email: 'admin@smp.local',
-  role: 'admin',
-}
-
-/**
- * Sesion temporal de demostracion para rutas protegidas.
- */
-export const MOCK_AUTH_SESSION: Session = {
-  token: 'mock-session-token',
-  startedAt: new Date().toISOString(),
-  expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 12).toISOString(),
-}
-
 export const SESSION_STORAGE_KEY = 'smp.identity.session'
 
 /**
@@ -103,8 +84,8 @@ export const IDENTITY_ROUTE_FLOW: Array<{
     access: 'auth',
   },
   {
-    id: 'protected-route',
-    title: 'ProtectedRoute + AppLayout',
+    id: 'authorization-guard',
+    title: 'AuthorizationGuard + AppLayout',
     path: '/app',
     description: 'Zona administrativa protegida por sesion y permisos.',
     access: 'protected',
@@ -120,4 +101,4 @@ export const IDENTITY_BADGE_TONE: Record<
   protected: 'success',
 }
 
-export const FALLBACK_ROLE_PERMISSIONS: PermissionKey[] = ['dashboard.read']
+export const FALLBACK_ROLE_PERMISSIONS: PermissionKey[] = []

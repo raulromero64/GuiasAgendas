@@ -3,28 +3,27 @@
 ## 1. Estado vigente
 
 - Fase activa: Phase 1 - Platform Foundation
-- Sprint activo: 1.5
+- Sprint activo: 1.6
 - Estado: En progreso
 
 Este documento contiene unicamente el trabajo vigente y no redefine la planificacion.
 
 ## 2. Objetivo del sprint
 
-- Construir la infraestructura base del sistema de identidad (IAM) del SMP.
+- Integrar autenticacion real con Auth0 manteniendo arquitectura IAM por contrato.
 
 ## 3. Alcance vigente
 
-- Implementar dominio Identity: User, Role, Permission y Session.
-- Implementar types compartidos, AuthProvider, useAuth, contrato AuthService y SessionService.
-- Centralizar roles y permisos del dominio IAM.
-- Implementar PublicLayout, AuthLayout y ProtectedRoute preparado para futuras fases.
-- Actualizar Dashboard/UI Showcase para visualizar flujo de layouts y rutas de identidad.
-- Mantener alcance sin logica de negocio, autenticacion ni modulos funcionales.
+- Implementar Auth0Provider cumpliendo IAuthProvider.
+- Registrar Auth0 como proveedor IAM oficial en factory por configuracion.
+- Mantener DevelopmentAuthProvider solo para pruebas y entornos locales.
+- Preparar y documentar variables de entorno IAM necesarias.
+- Mantener alcance limitado a autenticacion (sin autorizacion funcional).
 
 ## 4. Reglas especificas del sprint vigente
 
 - No desarrollar logica de negocio.
-- No implementar autenticacion.
+- No implementar autorizacion funcional.
 - No crear modulos funcionales en este sprint.
 
 ## 5. Cierre del sprint anterior
@@ -35,5 +34,9 @@ Este documento contiene unicamente el trabajo vigente y no redefine la planifica
 
 ## 6. Documentos especificos del sprint
 
-- No hay un modulo tecnico especifico definido para este sprint.
-- Si el sprint incorpora documentos tecnicos concretos, deben listarse aqui antes de iniciar trabajo sobre ese alcance.
+- Diseno tecnico IAM Sprint 1.6 (autenticacion):
+  - AuthService se mantiene desacoplado y depende del contrato IAuthProvider.
+  - Auth0Provider se define como proveedor IAM oficial.
+  - DevelopmentAuthProvider permanece disponible solo para pruebas.
+  - La seleccion de proveedor se resuelve por configuracion en factory.
+  - Variables de entorno IAM documentadas para despliegue local y continuo.
