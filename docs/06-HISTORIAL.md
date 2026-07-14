@@ -1,5 +1,43 @@
 # 06 - Historial
 
+## 2026-07-14 - Auditoria completa de Estructura Academica pre Sprint 1.9
+
+### Resumen de la sesion
+
+- Se ejecuto auditoria integral sobre arquitectura, dominio, aplicacion, pruebas y escalabilidad de PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Se confirmo cumplimiento general de Clean Architecture, DDD, SRP y separacion por contratos en capa de aplicacion.
+- Se validaron invariantes centrales por entidad y reglas de unicidad por scope institucional/academico.
+- Se detectaron riesgos de integridad referencial cruzada entre agregados por ausencia de validaciones inter-modulo en capa de aplicacion.
+- Se detecto riesgo de concurrencia por falta de control de version en agregados distintos de PeriodoLectivo.
+- Se verifico suite de pruebas en verde (80/80).
+- Se registro deuda tecnica de cobertura: script `test:coverage` bloqueado por dependencia faltante `@vitest/coverage-v8`.
+
+### Estado al cierre
+
+- Sprint 1.8.1: cierre tecnico auditado.
+- Estructura Academica: certificada con observaciones.
+- Condicion para Sprint 1.9: priorizar mitigaciones de integridad referencial y concurrencia antes de ampliar procesos operativos (Matriculas, Horarios, Asistencia, Calificaciones y Reportes).
+
+## 2026-07-14 - Cierre oficial Sprint 1.7 e inicio Sprint 1.8.1
+
+### Resumen de la sesion
+
+- Se declaro cerrado oficialmente el Sprint 1.7.
+- Se inicio formalmente el Sprint 1.8.1.
+- Se definio como primer modulo funcional del producto: Estructura Academica.
+- Se establecio el orden de implementacion: PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Se adopto el principio operativo: Primero los catalogos, despues los procesos.
+- Se establecio PeriodoLectivo como eje del sistema.
+- Se separo el diseno entre catalogos maestros y datos operativos.
+- Se incorporo Institucion como entidad raiz para crecimiento futuro.
+- Se adopto como principio permanente de producto: cada funcionalidad debe ahorrar tiempo, reducir errores o facilitar la toma de decisiones.
+
+### Estado al cierre
+
+- Sprint 1.7: cerrado oficialmente.
+- Sprint 1.8.1: activo, en fase de diseno funcional y arquitectura del modulo Estructura Academica.
+- Siguiente foco: implementacion incremental del modulo en el orden definido.
+
 ## 2026-07-14 - Cierre tecnico Sprint 1.7 (RBAC)
 
 ### Resumen de la sesion

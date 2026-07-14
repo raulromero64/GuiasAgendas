@@ -78,3 +78,11 @@ START-HERE
 
 - Este documento se actualiza solo por decisiones permanentes de arquitectura.
 - Todo cambio aqui debe reflejarse en PLANIFICACION y START-HERE cuando afecte jerarquia o flujo.
+
+## 8. Decisiones permanentes (2026-07-14)
+
+- Principio estructural: Primero los catalogos, despues los procesos.
+- Eje funcional del sistema: PeriodoLectivo.
+- Separacion obligatoria de datos: catalogos maestros y datos operativos no deben mezclarse.
+- Entidad raiz para crecimiento futuro: Institucion.
+- Principio permanente de producto: cada funcionalidad debe ahorrar tiempo, reducir errores o facilitar la toma de decisiones.
