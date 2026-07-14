@@ -1,8 +1,5 @@
-import {
-  FALLBACK_ROLE_PERMISSIONS,
-  IDENTITY_PERMISSIONS,
-  IDENTITY_ROLES,
-} from '@/shared/constants/identity'
+import { IDENTITY_ROLES } from '@/shared/constants/identity'
+import { isKnownPermission } from '@/shared/security/permissions'
 import type { AuthorizationPolicy, PermissionKey, RoleKey } from '@/shared/types/identity'
 
 interface AuthorizationInput {
@@ -10,15 +7,13 @@ interface AuthorizationInput {
   permissionClaims?: string[]
 }
 
-const knownPermissions = new Set<PermissionKey>(IDENTITY_PERMISSIONS.map((item) => item.key))
-
 function normalizePermissionClaims(permissionClaims?: string[]): PermissionKey[] {
   if (!permissionClaims?.length) {
     return []
   }
 
   return permissionClaims.filter((permission): permission is PermissionKey =>
-    knownPermissions.has(permission as PermissionKey)
+    isKnownPermission(permission)
   )
 }
 
@@ -28,7 +23,7 @@ function resolveRolePermissions(role: RoleKey | null): PermissionKey[] {
   }
 
   const roleConfig = IDENTITY_ROLES.find((item) => item.key === role)
-  return roleConfig?.permissions ?? FALLBACK_ROLE_PERMISSIONS
+  return roleConfig?.permissions ?? []
 }
 
 export function resolveEffectivePermissions({ role, permissionClaims }: AuthorizationInput) {
@@ -52,7 +47,8 @@ export function isAuthorized(permissions: PermissionKey[], policy?: Authorizatio
 
   const allSatisfied = requiredAll.every((permission) => hasPermission(permissions, permission))
   const anySatisfied =
-    requiredAny.length === 0 || requiredAny.some((p) => hasPermission(permissions, p))
+    requiredAny.length === 0 ||
+    requiredAny.some((permission) => hasPermission(permissions, permission))
 
   return allSatisfied && anySatisfied
 }

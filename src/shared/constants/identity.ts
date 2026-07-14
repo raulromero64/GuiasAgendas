@@ -1,17 +1,10 @@
+import { PERMISSIONS } from '@/shared/security/permissions'
 import type { Permission, PermissionKey, Role } from '@/shared/types/identity'
 
 /**
  * Permisos oficiales del dominio IAM SMP.
  */
-export const IDENTITY_PERMISSIONS: Permission[] = [
-  { key: 'dashboard.read', label: 'Visualizar dashboard' },
-  { key: 'students.read', label: 'Visualizar estudiantes' },
-  { key: 'students.write', label: 'Gestionar estudiantes' },
-  { key: 'academic.read', label: 'Visualizar modulo academico' },
-  { key: 'academic.write', label: 'Gestionar modulo academico' },
-  { key: 'settings.read', label: 'Visualizar configuracion' },
-  { key: 'settings.write', label: 'Gestionar configuracion' },
-]
+export const IDENTITY_PERMISSIONS: Permission[] = PERMISSIONS
 
 /**
  * Mapeo centralizado de roles y permisos.

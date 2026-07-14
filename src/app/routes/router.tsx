@@ -5,13 +5,13 @@ import { AuthLayout } from '@/app/layout/AuthLayout'
 import { PublicLayout } from '@/app/layout/PublicLayout'
 import { DashboardPage } from '@/app/pages/DashboardPage'
 import { AuthorizationGuard } from '@/app/routes/AuthorizationGuard'
-import { routeAuthorizationPolicies } from '@/app/routes/authorization.policies'
 import { SectionStructurePage } from '@/app/pages/SectionStructurePage'
 import {
   AUTH_LAYOUT_ROUTE,
   DASHBOARD_ENTRY_ROUTE,
   PUBLIC_ENTRY_ROUTE,
 } from '@/shared/constants/identity'
+import { authorizationPolicies } from '@/shared/security/authorization.policies'
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
   },
   {
     path: DASHBOARD_ENTRY_ROUTE,
-    element: <AuthorizationGuard policy={routeAuthorizationPolicies.dashboard} />,
+    element: <AuthorizationGuard policy={authorizationPolicies.dashboard} />,
     children: [
       {
         element: <AppLayout />,
@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'academico',
-            element: <AuthorizationGuard policy={routeAuthorizationPolicies.academico} />,
+            element: <AuthorizationGuard policy={authorizationPolicies.academico} />,
             children: [
               {
                 index: true,
@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'estudiantes',
-            element: <AuthorizationGuard policy={routeAuthorizationPolicies.estudiantes} />,
+            element: <AuthorizationGuard policy={authorizationPolicies.estudiantes} />,
             children: [
               {
                 index: true,
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'agenda',
-            element: <AuthorizationGuard policy={routeAuthorizationPolicies.agenda} />,
+            element: <AuthorizationGuard policy={authorizationPolicies.agenda} />,
             children: [
               {
                 index: true,
@@ -116,7 +116,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'configuracion',
-            element: <AuthorizationGuard policy={routeAuthorizationPolicies.configuracion} />,
+            element: <AuthorizationGuard policy={authorizationPolicies.configuracion} />,
             children: [
               {
                 index: true,

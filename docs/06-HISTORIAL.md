@@ -1,5 +1,22 @@
 # 06 - Historial
 
+## 2026-07-14 - Cierre tecnico Sprint 1.7 (RBAC)
+
+### Resumen de la sesion
+
+- Se consolido el modulo unico de seguridad en src/shared/security para autorizacion.
+- Se verifico que authorization.engine.ts concentra la validacion de permisos.
+- Se confirmo AuthorizationGuard como unico guard operativo del proyecto.
+- Se verifico que las rutas consumen politicas sin evaluar permisos directamente.
+- Se detecto que students.write y academic.write estan definidos y aun no usados por politicas vigentes.
+- Build y lint ejecutados con resultado exitoso.
+
+### Estado al cierre
+
+- Sprint 1.7: cierre tecnico completado.
+- Arquitectura RBAC: consolidada sin duplicidades activas.
+- Siguiente foco: cierre funcional/ejecutivo y planificacion del siguiente sprint.
+
 ## 2026-07-13 - Protocolo de coordinacion entre IAs
 
 ### Resumen de la sesion

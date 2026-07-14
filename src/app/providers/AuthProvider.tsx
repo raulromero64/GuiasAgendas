@@ -7,7 +7,7 @@ import {
   hasPermission,
   isAuthorized,
   resolveEffectivePermissions,
-} from '@/shared/services/authorization.engine'
+} from '@/shared/security/authorization.engine'
 import type { AuthService } from '@/shared/services/auth.service'
 import type { AuthContextValue, AuthSnapshot } from '@/shared/types/identity'
 
