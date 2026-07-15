@@ -1,6 +1,6 @@
 # PLAN MAESTRO DEL PROYECTO
 
-## EL CERVANTISTA + School Management Platform (SMP)
+## School Management Platform (SMP)
 
 Estado: Documento vivo
 Version: 0.2 (consolidacion OpenDev IA Framework)
@@ -19,7 +19,8 @@ Propietario: Direccion del Proyecto
 
 ## 2. Alcance del plan maestro
 
-- Aplica a EL CERVANTISTA y al producto School Management Platform (SMP).
+- Aplica al producto School Management Platform (SMP).
+- EL CERVANTISTA se considera una implementacion o configuracion particular de cliente dentro de SMP.
 - Define fases de evolucion del producto, no el detalle operativo de sprints.
 - Sirve como referencia principal para identificar siempre el siguiente paso del proyecto.
 
