@@ -11,6 +11,18 @@
 - 06-HISTORIAL.md
 - 99-INDICE-GENERAL.md
 
+## Documentacion comercial
+
+- comercial/README.md
+- comercial/01-PLAN-COMERCIAL.md
+- comercial/02-PRESENTACION-DE-SMP.md
+- comercial/03-ESTRATEGIA-DE-VENTAS.md
+- comercial/04-MANUAL-PARA-DEMOSTRACIONES.md
+- comercial/05-PREGUNTAS-FRECUENTES.md
+- comercial/06-IMPLEMENTACION-EN-COLEGIOS.md
+- comercial/07-SOPORTE-Y-CAPACITACION.md
+- comercial/08-CASOS-DE-EXITO.md
+
 ## Referencias del Framework IA
 
 - AI/START-HERE.md
