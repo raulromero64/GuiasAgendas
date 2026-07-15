@@ -51,12 +51,15 @@ describe('Grado domain', () => {
       codigo: 'G2',
       nombre: 'Segundo',
       orden: 2,
+      updatedBy: 'user-1',
     })
 
     const updated = grado.toPrimitives()
     expect(updated.codigo).toBe('G2')
     expect(updated.nombre).toBe('Segundo')
     expect(updated.orden).toBe(2)
+    expect(updated.version).toBe(2)
+    expect(updated.updatedBy).toBe('user-1')
   })
 
   it('permite inactivar y activar grado', () => {

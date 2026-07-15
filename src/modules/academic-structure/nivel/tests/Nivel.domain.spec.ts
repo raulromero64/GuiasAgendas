@@ -43,12 +43,15 @@ describe('Nivel domain', () => {
       codigo: 'SECUNDARIA',
       nombre: 'Secundaria',
       orden: 2,
+      updatedBy: 'user-1',
     })
 
     const updated = nivel.toPrimitives()
     expect(updated.codigo).toBe('SECUNDARIA')
     expect(updated.nombre).toBe('Secundaria')
     expect(updated.orden).toBe(2)
+    expect(updated.version).toBe(2)
+    expect(updated.updatedBy).toBe('user-1')
   })
 
   it('permite inactivar y activar nivel', () => {

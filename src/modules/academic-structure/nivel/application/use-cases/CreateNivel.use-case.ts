@@ -1,4 +1,9 @@
 import type { NivelRepository } from '@/modules/academic-structure/nivel/application/ports/NivelRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import { Nivel } from '@/modules/academic-structure/nivel/domain/Nivel'
 import {
   NivelCodeAlreadyExistsError,
@@ -16,20 +21,37 @@ interface CreateNivelInput {
 
 export class CreateNivelUseCase {
   private readonly repository: NivelRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
 
-  constructor(repository: NivelRepository) {
+  constructor(
+    repository: NivelRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
   }
 
   async execute(input: CreateNivelInput) {
-    const normalizedCodigo = input.codigo.trim().toUpperCase()
-    const normalizedNombre = input.nombre.trim()
+    await this.referentialIntegrityChecker.assertInstitutionScope(input.institucionId)
 
-    if (await this.repository.existsByCodigoInInstitucion(input.institucionId, normalizedCodigo)) {
+    const normalizedCodigo = normalizeCatalogCode(input.codigo)
+    const normalizedNombre = normalizeCatalogName(input.nombre)
+
+    if (
+      await this.repository.existsByCodigoInInstitucion({
+        institucionId: input.institucionId,
+        codigo: normalizedCodigo,
+      })
+    ) {
       throw new NivelCodeAlreadyExistsError(normalizedCodigo)
     }
 
-    if (await this.repository.existsByNombreInInstitucion(input.institucionId, normalizedNombre)) {
+    if (
+      await this.repository.existsByNombreInInstitucion({
+        institucionId: input.institucionId,
+        nombre: normalizedNombre,
+      })
+    ) {
       throw new NivelNameAlreadyExistsError(normalizedNombre)
     }
 

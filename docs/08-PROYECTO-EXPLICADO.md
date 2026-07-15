@@ -7,12 +7,22 @@
 
 ## Como mantener este documento
 
+- Este documento es el Libro Oficial del Proyecto.
 - Cada sprint es un capitulo nuevo.
 - Las secciones anteriores no se modifican; solo se agregan nuevos capitulos.
 - No hacer resumenes ejecutivos dentro del libro.
 - No describir codigo.
 - Escribir en lenguaje coloquial, claro y profesional.
 - Explicar siempre con enfoque de operacion escolar real.
+
+## Reglas permanentes del Libro Oficial (vigente desde 2026-07-15)
+
+- Nunca resumir la funcionalidad de la plataforma.
+- Explicar cada modulo en lenguaje sencillo, orientado a personas sin conocimientos tecnicos.
+- Explicar para cada modulo: que hace, por que existe, como lo usa un colegio y que beneficio aporta.
+- Incluir beneficio por perfil: administrativos, docentes, estudiantes y directivos.
+- Explicar relacion funcional con otros modulos y dar ejemplos practicos de uso.
+- Este documento debe servir como manual funcional, material de capacitacion y apoyo para presentaciones comerciales.
 
 ## Formato obligatorio de cada capitulo
 
@@ -22,15 +32,10 @@ Cada nuevo sprint debe seguir este formato:
 # Sprint X.X
 
 ## ¿Que problema teniamos antes de este sprint?
-
 Situacion real en un colegio, explicada de forma simple.
-
 ## ¿Que decision de arquitectura tomamos y por que?
-
 Explicacion en palabras sencillas de la decision y su motivo.
-
 ## ¿Que beneficio obtiene un colegio?
-
 Impacto concreto para directivos, docentes, estudiantes o personal administrativo.
 
 ## ¿Que impacto deja para el futuro del sistema?
@@ -489,4 +494,60 @@ flowchart LR
 	U[Casos de uso] --> C
 	T[Pruebas] --> C
 	C --> R[Riesgos y acciones previas Sprint 1.9]
+```
+
+---
+
+# Sprint 1.8.1 - Cierre oficial de decisiones criticas de arquitectura
+
+## ¿Que problema tenia el colegio antes de este cierre?
+
+La base academica ya estaba organizada, pero faltaban dos garantias clave para crecer sin errores: validar bien las relaciones entre catalogos y evitar que dos personas se pisen cambios al mismo tiempo.
+
+## ¿Como se trabajaria sin estas decisiones?
+
+Un colegio podia terminar con relaciones inconsistentes entre periodo, nivel, grado, grupo y asignatura, o con cambios perdidos cuando varios usuarios editaban en paralelo.
+
+## ¿Que decidimos construir?
+
+Decidimos cerrar Sprint 1.8.1 con dos reglas oficiales para todo el sistema:
+
+- Integridad referencial transversal entre Institucion, PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Concurrencia con Optimistic Locking y contrato homogeneo de versionado por agregado.
+
+## ¿Por que esta decision era la mejor?
+
+Porque protege la coherencia academica y permite trabajo multiusuario sin bloquear toda la operacion. El colegio puede crecer con mas usuarios y mas procesos sin perder control de datos.
+
+## ¿Que alternativas se descartaron y por que?
+
+- Validar relaciones solo en cada pantalla: se descarto por riesgo de reglas distintas entre modulos.
+- Controlar concurrencia solo en base de datos: se descarto porque no explica el conflicto de forma clara para usuarios y areas operativas.
+
+## Beneficios concretos por rol
+
+- Directivos: mayor confianza en reportes y decisiones institucionales.
+- Administrativos: menos correcciones manuales por datos cruzados de forma incorrecta.
+- Docentes: estabilidad al registrar y actualizar informacion academica.
+- Estudiantes: menor riesgo de inconsistencias en su trayectoria academica.
+
+## Relacion con los siguientes modulos
+
+Matriculas, Horarios, Calificaciones y Asistencia heredan una base de datos mas confiable, con menos retrabajo y menor riesgo operativo en etapas de crecimiento.
+
+## Ejemplo practico de uso en un colegio
+
+Si coordinacion actualiza un grupo mientras secretaria ajusta su grado, el sistema detecta conflictos de version y evita guardar informacion pisada; ademas, impide asociar datos entre instituciones diferentes.
+
+## Diagrama simple
+
+```mermaid
+flowchart LR
+	I[Institucion] --> P[Periodo]
+	I --> N[Nivel]
+	N --> G[Grado]
+	G --> R[Grupo]
+	I --> A[Asignatura]
+	W[Usuario A y Usuario B editan] --> V[Control de version]
+	V --> C[Conflicto detectado o guardado seguro]
 ```

@@ -3,8 +3,8 @@
 ## 1. Estado vigente
 
 - Fase activa: Phase 1 - Platform Foundation
-- Sprint activo: 1.8.1
-- Estado: Cierre tecnico auditado
+- Sprint activo: 1.9
+- Estado: Sprint 1.8.1 cerrado oficialmente y Sprint 1.9 abierto
 
 Este documento contiene unicamente el trabajo vigente y no redefine la planificacion.
 
@@ -66,5 +66,16 @@ Este documento contiene unicamente el trabajo vigente y no redefine la planifica
 
 ### 7.4 Estado de certificacion para Sprint 1.9
 
-- Estructura Academica: certificada con observaciones.
-- Decision operativa: habilitada para iniciar Sprint 1.9 si se atienden primero las recomendaciones criticas de integridad referencial y concurrencia.
+- Estructura Academica: certificada para cierre de Sprint 1.8.1.
+- Decision operativa: integridad referencial transversal y concurrencia con Optimistic Locking aprobadas como decisiones oficiales de arquitectura.
+
+## 8. Cierre oficial Sprint 1.8.1
+
+- Se aprueba como estandar permanente la integridad referencial transversal entre Institucion, PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Se aprueba como estandar permanente la concurrencia mediante Optimistic Locking con contrato homogeneo de versionado por agregado.
+- El Sprint 1.8.1 queda oficialmente cerrado con decisiones criticas resueltas a nivel de arquitectura.
+
+## 9. Apertura oficial Sprint 1.9
+
+- Sprint 1.9 abierto oficialmente bajo las reglas permanentes actualizadas en arquitectura.
+- El trabajo de implementacion y documentacion del Sprint 1.9 se define por decision de ChatGPT.

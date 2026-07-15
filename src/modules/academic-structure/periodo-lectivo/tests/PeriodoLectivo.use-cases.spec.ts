@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
 import { CreatePeriodoLectivoUseCase } from '@/modules/academic-structure/periodo-lectivo/application/use-cases/CreatePeriodoLectivo.use-case'
 import { ClosePeriodoLectivoUseCase } from '@/modules/academic-structure/periodo-lectivo/application/use-cases/ClosePeriodoLectivo.use-case'
 import { GetActivePeriodoLectivoUseCase } from '@/modules/academic-structure/periodo-lectivo/application/use-cases/GetActivePeriodoLectivo.use-case'
@@ -11,6 +12,7 @@ import {
   PeriodoLectivoNotFoundError,
   PeriodoLectivoPendingAcademicProcessesError,
 } from '@/modules/academic-structure/periodo-lectivo/domain/PeriodoLectivo.errors'
+import { OptimisticConcurrencyConflictError } from '@/modules/academic-structure/domain/OptimisticConcurrency.errors'
 import { PeriodoLectivo } from '@/modules/academic-structure/periodo-lectivo/domain/PeriodoLectivo'
 
 class InMemoryPeriodoLectivoRepository implements PeriodoLectivoRepository {
@@ -54,6 +56,14 @@ class InMemoryAcademicProcessStatusChecker {
   async hasPendingAcademicProcesses(periodoLectivoId: string) {
     return this.pendingByPeriodoId.get(periodoLectivoId) ?? false
   }
+}
+
+const optimisticLockingPolicyStub: OptimisticLockingPolicy = {
+  assertExpectedVersion(input) {
+    if (input.expectedVersion !== input.currentVersion) {
+      throw new OptimisticConcurrencyConflictError(input)
+    }
+  },
 }
 
 describe('PeriodoLectivo use cases', () => {
@@ -101,7 +111,7 @@ describe('PeriodoLectivo use cases', () => {
   it('edita un periodo existente', async () => {
     const repository = new InMemoryPeriodoLectivoRepository()
     const createUseCase = new CreatePeriodoLectivoUseCase(repository)
-    const updateUseCase = new UpdatePeriodoLectivoUseCase(repository)
+    const updateUseCase = new UpdatePeriodoLectivoUseCase(repository, optimisticLockingPolicyStub)
 
     await createUseCase.execute({
       id: 'periodo-2026',
@@ -113,6 +123,8 @@ describe('PeriodoLectivo use cases', () => {
 
     const result = await updateUseCase.execute({
       id: 'periodo-2026',
+      expectedVersion: 1,
+      updatedBy: 'user-1',
       nombre: 'Periodo Escolar 2026',
     })
 
@@ -191,13 +203,38 @@ describe('PeriodoLectivo use cases', () => {
 
   it('falla al editar periodo inexistente', async () => {
     const repository = new InMemoryPeriodoLectivoRepository()
-    const updateUseCase = new UpdatePeriodoLectivoUseCase(repository)
+    const updateUseCase = new UpdatePeriodoLectivoUseCase(repository, optimisticLockingPolicyStub)
 
     await expect(() =>
       updateUseCase.execute({
         id: 'inexistente',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         nombre: 'Periodo X',
       })
     ).rejects.toThrowError(PeriodoLectivoNotFoundError)
+  })
+
+  it('falla cuando la version esperada no coincide', async () => {
+    const repository = new InMemoryPeriodoLectivoRepository()
+    const createUseCase = new CreatePeriodoLectivoUseCase(repository)
+    const updateUseCase = new UpdatePeriodoLectivoUseCase(repository, optimisticLockingPolicyStub)
+
+    await createUseCase.execute({
+      id: 'periodo-2026',
+      institucionId: 'inst-1',
+      nombre: 'Periodo 2026',
+      fechaInicio: new Date('2026-01-10T00:00:00.000Z'),
+      fechaFin: new Date('2026-12-20T00:00:00.000Z'),
+    })
+
+    await expect(() =>
+      updateUseCase.execute({
+        id: 'periodo-2026',
+        expectedVersion: 2,
+        updatedBy: 'user-2',
+        nombre: 'Periodo Escolar 2026',
+      })
+    ).rejects.toThrowError(OptimisticConcurrencyConflictError)
   })
 })

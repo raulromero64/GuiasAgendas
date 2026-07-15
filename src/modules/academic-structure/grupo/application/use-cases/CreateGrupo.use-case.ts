@@ -1,4 +1,9 @@
 import type { GrupoRepository } from '@/modules/academic-structure/grupo/application/ports/GrupoRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import { Grupo } from '@/modules/academic-structure/grupo/domain/Grupo'
 import {
   GrupoCodeAlreadyExistsError,
@@ -20,14 +25,26 @@ interface CreateGrupoInput {
 
 export class CreateGrupoUseCase {
   private readonly repository: GrupoRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
 
-  constructor(repository: GrupoRepository) {
+  constructor(
+    repository: GrupoRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
   }
 
   async execute(input: CreateGrupoInput) {
-    const normalizedCodigo = input.codigo.trim().toUpperCase()
-    const normalizedNombre = input.nombre.trim()
+    await this.referentialIntegrityChecker.assertGrupoScope({
+      institucionId: input.institucionId,
+      periodoLectivoId: input.periodoLectivoId,
+      nivelId: input.nivelId,
+      gradoId: input.gradoId,
+    })
+
+    const normalizedCodigo = normalizeCatalogCode(input.codigo)
+    const normalizedNombre = normalizeCatalogName(input.nombre)
 
     if (
       await this.repository.existsByCodigoInScope({

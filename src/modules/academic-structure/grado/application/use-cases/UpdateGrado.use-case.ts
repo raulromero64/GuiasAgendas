@@ -1,4 +1,10 @@
 import type { GradoRepository } from '@/modules/academic-structure/grado/application/ports/GradoRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import {
   GradoCodeAlreadyExistsError,
   GradoNameAlreadyExistsError,
@@ -7,6 +13,8 @@ import {
 
 interface UpdateGradoInput {
   id: string
+  expectedVersion: number
+  updatedBy: string
   codigo?: string
   nombre?: string
   orden?: number
@@ -14,9 +22,17 @@ interface UpdateGradoInput {
 
 export class UpdateGradoUseCase {
   private readonly repository: GradoRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
+  private readonly optimisticLockingPolicy: OptimisticLockingPolicy
 
-  constructor(repository: GradoRepository) {
+  constructor(
+    repository: GradoRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker,
+    optimisticLockingPolicy: OptimisticLockingPolicy
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
+    this.optimisticLockingPolicy = optimisticLockingPolicy
   }
 
   async execute(input: UpdateGradoInput) {
@@ -25,8 +41,21 @@ export class UpdateGradoUseCase {
       throw new GradoNotFoundError(input.id)
     }
 
-    const nextCodigo = input.codigo?.trim().toUpperCase()
-    const nextNombre = input.nombre?.trim()
+    await this.referentialIntegrityChecker.assertGradoScope({
+      institucionId: grado.institucionId,
+      periodoLectivoId: grado.periodoLectivoId,
+      nivelId: grado.nivelId,
+    })
+
+    this.optimisticLockingPolicy.assertExpectedVersion({
+      aggregateName: 'Grado',
+      aggregateId: grado.id,
+      expectedVersion: input.expectedVersion,
+      currentVersion: grado.version,
+    })
+
+    const nextCodigo = input.codigo ? normalizeCatalogCode(input.codigo) : undefined
+    const nextNombre = input.nombre ? normalizeCatalogName(input.nombre) : undefined
 
     if (
       nextCodigo &&
@@ -58,6 +87,7 @@ export class UpdateGradoUseCase {
       codigo: nextCodigo,
       nombre: nextNombre,
       orden: input.orden,
+      updatedBy: input.updatedBy,
     })
 
     await this.repository.save(grado)

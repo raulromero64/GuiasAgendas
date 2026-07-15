@@ -1,4 +1,10 @@
 import type { GrupoRepository } from '@/modules/academic-structure/grupo/application/ports/GrupoRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import {
   GrupoCodeAlreadyExistsError,
   GrupoNameAlreadyExistsError,
@@ -7,6 +13,8 @@ import {
 
 interface UpdateGrupoInput {
   id: string
+  expectedVersion: number
+  updatedBy: string
   codigo?: string
   nombre?: string
   capacidadMaxima?: number
@@ -15,9 +23,17 @@ interface UpdateGrupoInput {
 
 export class UpdateGrupoUseCase {
   private readonly repository: GrupoRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
+  private readonly optimisticLockingPolicy: OptimisticLockingPolicy
 
-  constructor(repository: GrupoRepository) {
+  constructor(
+    repository: GrupoRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker,
+    optimisticLockingPolicy: OptimisticLockingPolicy
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
+    this.optimisticLockingPolicy = optimisticLockingPolicy
   }
 
   async execute(input: UpdateGrupoInput) {
@@ -26,8 +42,22 @@ export class UpdateGrupoUseCase {
       throw new GrupoNotFoundError(input.id)
     }
 
-    const nextCodigo = input.codigo?.trim().toUpperCase()
-    const nextNombre = input.nombre?.trim()
+    await this.referentialIntegrityChecker.assertGrupoScope({
+      institucionId: grupo.institucionId,
+      periodoLectivoId: grupo.periodoLectivoId,
+      nivelId: grupo.nivelId,
+      gradoId: grupo.gradoId,
+    })
+
+    this.optimisticLockingPolicy.assertExpectedVersion({
+      aggregateName: 'Grupo',
+      aggregateId: grupo.id,
+      expectedVersion: input.expectedVersion,
+      currentVersion: grupo.version,
+    })
+
+    const nextCodigo = input.codigo ? normalizeCatalogCode(input.codigo) : undefined
+    const nextNombre = input.nombre ? normalizeCatalogName(input.nombre) : undefined
 
     if (
       nextCodigo &&
@@ -60,6 +90,7 @@ export class UpdateGrupoUseCase {
       nombre: nextNombre,
       capacidadMaxima: input.capacidadMaxima,
       turno: input.turno,
+      updatedBy: input.updatedBy,
     })
 
     await this.repository.save(grupo)

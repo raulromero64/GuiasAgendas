@@ -15,6 +15,8 @@ interface NivelProps {
   nombre: string
   orden: number
   estado: EstadoNivel
+  version: number
+  updatedBy: string
   createdAt: Date
   updatedAt: Date
 }
@@ -32,6 +34,7 @@ interface UpdateNivelProps {
   codigo?: string
   nombre?: string
   orden?: number
+  updatedBy: string
 }
 
 export class Nivel {
@@ -69,6 +72,8 @@ export class Nivel {
       nombre: validatedNombre.toString(),
       orden: validatedOrden.toNumber(),
       estado: activarAlCrear ? 'activo' : 'inactivo',
+      version: 1,
+      updatedBy: 'system',
       createdAt: now,
       updatedAt: now,
     })
@@ -78,7 +83,7 @@ export class Nivel {
     return new Nivel(props)
   }
 
-  update({ codigo, nombre, orden }: UpdateNivelProps) {
+  update({ codigo, nombre, orden, updatedBy }: UpdateNivelProps) {
     const nextCodigo = codigo ? NivelCodigo.create(codigo).toString() : this.props.codigo
     const nextNombre = nombre ? NivelNombre.create(nombre).toString() : this.props.nombre
     const nextOrden =
@@ -89,6 +94,8 @@ export class Nivel {
       codigo: nextCodigo,
       nombre: nextNombre,
       orden: nextOrden,
+      version: this.props.version + 1,
+      updatedBy,
       updatedAt: new Date(),
     }
   }
@@ -131,6 +138,10 @@ export class Nivel {
 
   get nombre() {
     return this.props.nombre
+  }
+
+  get version() {
+    return this.props.version
   }
 
   toPrimitives() {

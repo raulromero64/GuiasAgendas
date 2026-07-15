@@ -17,6 +17,8 @@ interface GradoProps {
   nombre: string
   orden: number
   estado: EstadoGrado
+  version: number
+  updatedBy: string
   createdAt: Date
   updatedAt: Date
 }
@@ -36,6 +38,7 @@ interface UpdateGradoProps {
   codigo?: string
   nombre?: string
   orden?: number
+  updatedBy: string
 }
 
 export class Grado {
@@ -85,6 +88,8 @@ export class Grado {
       nombre: validatedNombre.toString(),
       orden: validatedOrden.toNumber(),
       estado: activarAlCrear ? 'activo' : 'inactivo',
+      version: 1,
+      updatedBy: 'system',
       createdAt: now,
       updatedAt: now,
     })
@@ -94,7 +99,7 @@ export class Grado {
     return new Grado(props)
   }
 
-  update({ codigo, nombre, orden }: UpdateGradoProps) {
+  update({ codigo, nombre, orden, updatedBy }: UpdateGradoProps) {
     const nextCodigo = codigo ? GradoCodigo.create(codigo).toString() : this.props.codigo
     const nextNombre = nombre ? GradoNombre.create(nombre).toString() : this.props.nombre
     const nextOrden =
@@ -105,6 +110,8 @@ export class Grado {
       codigo: nextCodigo,
       nombre: nextNombre,
       orden: nextOrden,
+      version: this.props.version + 1,
+      updatedBy,
       updatedAt: new Date(),
     }
   }
@@ -155,6 +162,10 @@ export class Grado {
 
   get nombre() {
     return this.props.nombre
+  }
+
+  get version() {
+    return this.props.version
   }
 
   toPrimitives() {

@@ -27,6 +27,8 @@ interface AsignaturaProps {
     planeacionAcademica: true
   }
   estado: EstadoAsignatura
+  version: number
+  updatedBy: string
   createdAt: Date
   updatedAt: Date
 }
@@ -46,6 +48,7 @@ interface UpdateAsignaturaProps {
   nombre?: string
   tipo?: string
   intensidadHorariaBase?: number
+  updatedBy: string
 }
 
 export class Asignatura {
@@ -95,6 +98,8 @@ export class Asignatura {
         planeacionAcademica: true,
       },
       estado: activarAlCrear ? 'activo' : 'inactivo',
+      version: 1,
+      updatedBy: 'system',
       createdAt: now,
       updatedAt: now,
     })
@@ -104,7 +109,7 @@ export class Asignatura {
     return new Asignatura(props)
   }
 
-  update({ codigo, nombre, tipo, intensidadHorariaBase }: UpdateAsignaturaProps) {
+  update({ codigo, nombre, tipo, intensidadHorariaBase, updatedBy }: UpdateAsignaturaProps) {
     const nextCodigo = codigo ? AsignaturaCodigo.create(codigo).toString() : this.props.codigo
     const nextNombre = nombre ? AsignaturaNombre.create(nombre).toString() : this.props.nombre
     const nextTipo = tipo ? AsignaturaTipo.create(tipo).toValue() : this.props.tipo
@@ -119,6 +124,8 @@ export class Asignatura {
       nombre: nextNombre,
       tipo: nextTipo,
       intensidadHorariaBase: nextIntensidadHorariaBase,
+      version: this.props.version + 1,
+      updatedBy,
       updatedAt: new Date(),
     }
   }
@@ -161,6 +168,10 @@ export class Asignatura {
 
   get nombre() {
     return this.props.nombre
+  }
+
+  get version() {
+    return this.props.version
   }
 
   toPrimitives() {

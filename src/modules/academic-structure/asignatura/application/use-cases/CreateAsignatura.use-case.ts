@@ -1,4 +1,9 @@
 import type { AsignaturaRepository } from '@/modules/academic-structure/asignatura/application/ports/AsignaturaRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import { Asignatura } from '@/modules/academic-structure/asignatura/domain/Asignatura'
 import {
   AsignaturaCodeAlreadyExistsError,
@@ -17,14 +22,21 @@ interface CreateAsignaturaInput {
 
 export class CreateAsignaturaUseCase {
   private readonly repository: AsignaturaRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
 
-  constructor(repository: AsignaturaRepository) {
+  constructor(
+    repository: AsignaturaRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
   }
 
   async execute(input: CreateAsignaturaInput) {
-    const normalizedCodigo = input.codigo.trim().toUpperCase()
-    const normalizedNombre = input.nombre.trim()
+    await this.referentialIntegrityChecker.assertInstitutionScope(input.institucionId)
+
+    const normalizedCodigo = normalizeCatalogCode(input.codigo)
+    const normalizedNombre = normalizeCatalogName(input.nombre)
 
     if (
       await this.repository.existsByCodigoInInstitucion({

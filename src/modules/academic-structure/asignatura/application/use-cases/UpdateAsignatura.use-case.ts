@@ -1,4 +1,10 @@
 import type { AsignaturaRepository } from '@/modules/academic-structure/asignatura/application/ports/AsignaturaRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import {
   AsignaturaCodeAlreadyExistsError,
   AsignaturaNameAlreadyExistsError,
@@ -7,6 +13,8 @@ import {
 
 interface UpdateAsignaturaInput {
   id: string
+  expectedVersion: number
+  updatedBy: string
   codigo?: string
   nombre?: string
   tipo?: string
@@ -15,9 +23,17 @@ interface UpdateAsignaturaInput {
 
 export class UpdateAsignaturaUseCase {
   private readonly repository: AsignaturaRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
+  private readonly optimisticLockingPolicy: OptimisticLockingPolicy
 
-  constructor(repository: AsignaturaRepository) {
+  constructor(
+    repository: AsignaturaRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker,
+    optimisticLockingPolicy: OptimisticLockingPolicy
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
+    this.optimisticLockingPolicy = optimisticLockingPolicy
   }
 
   async execute(input: UpdateAsignaturaInput) {
@@ -26,8 +42,17 @@ export class UpdateAsignaturaUseCase {
       throw new AsignaturaNotFoundError(input.id)
     }
 
-    const nextCodigo = input.codigo?.trim().toUpperCase()
-    const nextNombre = input.nombre?.trim()
+    await this.referentialIntegrityChecker.assertInstitutionScope(asignatura.institucionId)
+
+    this.optimisticLockingPolicy.assertExpectedVersion({
+      aggregateName: 'Asignatura',
+      aggregateId: asignatura.id,
+      expectedVersion: input.expectedVersion,
+      currentVersion: asignatura.version,
+    })
+
+    const nextCodigo = input.codigo ? normalizeCatalogCode(input.codigo) : undefined
+    const nextNombre = input.nombre ? normalizeCatalogName(input.nombre) : undefined
 
     if (
       nextCodigo &&
@@ -56,6 +81,7 @@ export class UpdateAsignaturaUseCase {
       nombre: nextNombre,
       tipo: input.tipo,
       intensidadHorariaBase: input.intensidadHorariaBase,
+      updatedBy: input.updatedBy,
     })
 
     await this.repository.save(asignatura)

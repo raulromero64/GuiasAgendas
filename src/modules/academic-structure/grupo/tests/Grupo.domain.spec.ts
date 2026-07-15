@@ -48,6 +48,7 @@ describe('Grupo domain', () => {
       nombre: 'Grupo B',
       capacidadMaxima: 40,
       turno: 'Tarde',
+      updatedBy: 'user-1',
     })
 
     const updated = grupo.toPrimitives()
@@ -55,6 +56,8 @@ describe('Grupo domain', () => {
     expect(updated.nombre).toBe('Grupo B')
     expect(updated.capacidadMaxima).toBe(40)
     expect(updated.turno).toBe('tarde')
+    expect(updated.version).toBe(2)
+    expect(updated.updatedBy).toBe('user-1')
   })
 
   it('declara preparacion para relaciones futuras', () => {

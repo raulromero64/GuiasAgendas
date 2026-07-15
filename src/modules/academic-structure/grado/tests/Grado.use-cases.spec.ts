@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
 import type { GradoRepository } from '@/modules/academic-structure/grado/application/ports/GradoRepository'
 import { CreateGradoUseCase } from '@/modules/academic-structure/grado/application/use-cases/CreateGrado.use-case'
 import { ListGradosUseCase } from '@/modules/academic-structure/grado/application/use-cases/ListGrados.use-case'
@@ -11,6 +13,7 @@ import {
   GradoNameAlreadyExistsError,
   GradoNotFoundError,
 } from '@/modules/academic-structure/grado/domain/Grado.errors'
+import { OptimisticConcurrencyConflictError } from '@/modules/academic-structure/domain/OptimisticConcurrency.errors'
 
 class InMemoryGradoRepository implements GradoRepository {
   private readonly storage = new Map<string, Grado>()
@@ -97,10 +100,24 @@ class InMemoryGradoRepository implements GradoRepository {
   }
 }
 
+const referentialIntegrityCheckerStub: ReferentialIntegrityChecker = {
+  async assertInstitutionScope() {},
+  async assertGradoScope() {},
+  async assertGrupoScope() {},
+}
+
+const optimisticLockingPolicyStub: OptimisticLockingPolicy = {
+  assertExpectedVersion(input) {
+    if (input.expectedVersion !== input.currentVersion) {
+      throw new OptimisticConcurrencyConflictError(input)
+    }
+  },
+}
+
 describe('Grado use cases', () => {
   it('crea grado con unicidad por institucion + periodo + nivel + codigo', async () => {
     const repository = new InMemoryGradoRepository()
-    const useCase = new CreateGradoUseCase(repository)
+    const useCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
 
     const result = await useCase.execute({
       id: 'grado-1',
@@ -117,7 +134,7 @@ describe('Grado use cases', () => {
 
   it('rechaza codigo duplicado en mismo scope', async () => {
     const repository = new InMemoryGradoRepository()
-    const useCase = new CreateGradoUseCase(repository)
+    const useCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grado-1',
@@ -144,7 +161,7 @@ describe('Grado use cases', () => {
 
   it('permite repetir codigo en distinto nivel', async () => {
     const repository = new InMemoryGradoRepository()
-    const useCase = new CreateGradoUseCase(repository)
+    const useCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grado-1',
@@ -171,7 +188,7 @@ describe('Grado use cases', () => {
 
   it('rechaza nombre duplicado en mismo nivel y periodo', async () => {
     const repository = new InMemoryGradoRepository()
-    const useCase = new CreateGradoUseCase(repository)
+    const useCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grado-1',
@@ -198,8 +215,12 @@ describe('Grado use cases', () => {
 
   it('permite editar grado y mantiene validacion de unicidad en scope', async () => {
     const repository = new InMemoryGradoRepository()
-    const createUseCase = new CreateGradoUseCase(repository)
-    const updateUseCase = new UpdateGradoUseCase(repository)
+    const createUseCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateGradoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await createUseCase.execute({
       id: 'grado-1',
@@ -224,6 +245,8 @@ describe('Grado use cases', () => {
     await expect(() =>
       updateUseCase.execute({
         id: 'grado-2',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         codigo: 'G1',
       })
     ).rejects.toThrowError(GradoCodeAlreadyExistsError)
@@ -231,7 +254,7 @@ describe('Grado use cases', () => {
 
   it('lista grados ordenados por orden en el mismo nivel y periodo', async () => {
     const repository = new InMemoryGradoRepository()
-    const createUseCase = new CreateGradoUseCase(repository)
+    const createUseCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
     const listUseCase = new ListGradosUseCase(repository)
 
     await createUseCase.execute({
@@ -266,7 +289,7 @@ describe('Grado use cases', () => {
 
   it('activa e inactiva grado', async () => {
     const repository = new InMemoryGradoRepository()
-    const createUseCase = new CreateGradoUseCase(repository)
+    const createUseCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
     const setStatusUseCase = new SetGradoStatusUseCase(repository)
 
     await createUseCase.execute({
@@ -288,13 +311,48 @@ describe('Grado use cases', () => {
 
   it('falla al actualizar grado inexistente', async () => {
     const repository = new InMemoryGradoRepository()
-    const useCase = new UpdateGradoUseCase(repository)
+    const useCase = new UpdateGradoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await expect(() =>
       useCase.execute({
         id: 'no-existe',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         nombre: 'X',
       })
     ).rejects.toThrowError(GradoNotFoundError)
+  })
+
+  it('falla cuando la version esperada no coincide', async () => {
+    const repository = new InMemoryGradoRepository()
+    const createUseCase = new CreateGradoUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateGradoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
+
+    await createUseCase.execute({
+      id: 'grado-1',
+      institucionId: 'inst-1',
+      periodoLectivoId: 'periodo-2026',
+      nivelId: 'nivel-primaria',
+      codigo: 'G1',
+      nombre: 'Primero',
+      orden: 1,
+    })
+
+    await expect(() =>
+      updateUseCase.execute({
+        id: 'grado-1',
+        expectedVersion: 2,
+        updatedBy: 'user-2',
+        nombre: 'Primero Actualizado',
+      })
+    ).rejects.toThrowError(OptimisticConcurrencyConflictError)
   })
 })

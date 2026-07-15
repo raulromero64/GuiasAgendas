@@ -31,6 +31,8 @@ interface GrupoProps {
   }
   createdAt: Date
   updatedAt: Date
+  version: number
+  updatedBy: string
 }
 
 interface CreateGrupoProps {
@@ -51,6 +53,7 @@ interface UpdateGrupoProps {
   nombre?: string
   capacidadMaxima?: number
   turno?: string
+  updatedBy: string
 }
 
 export class Grupo {
@@ -115,6 +118,8 @@ export class Grupo {
         asistencia: true,
         calificaciones: true,
       },
+      version: 1,
+      updatedBy: 'system',
       createdAt: now,
       updatedAt: now,
     })
@@ -124,7 +129,7 @@ export class Grupo {
     return new Grupo(props)
   }
 
-  update({ codigo, nombre, capacidadMaxima, turno }: UpdateGrupoProps) {
+  update({ codigo, nombre, capacidadMaxima, turno, updatedBy }: UpdateGrupoProps) {
     const nextCodigo = codigo ? GrupoCodigo.create(codigo).toString() : this.props.codigo
     const nextNombre = nombre ? GrupoNombre.create(nombre).toString() : this.props.nombre
     const nextCapacidadMaxima =
@@ -139,6 +144,8 @@ export class Grupo {
       nombre: nextNombre,
       capacidadMaxima: nextCapacidadMaxima,
       turno: nextTurno,
+      version: this.props.version + 1,
+      updatedBy,
       updatedAt: new Date(),
     }
   }
@@ -193,6 +200,10 @@ export class Grupo {
 
   get nombre() {
     return this.props.nombre
+  }
+
+  get version() {
+    return this.props.version
   }
 
   toPrimitives() {

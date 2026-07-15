@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
 import type { NivelRepository } from '@/modules/academic-structure/nivel/application/ports/NivelRepository'
 import { CreateNivelUseCase } from '@/modules/academic-structure/nivel/application/use-cases/CreateNivel.use-case'
 import { ListNivelesUseCase } from '@/modules/academic-structure/nivel/application/use-cases/ListNiveles.use-case'
@@ -11,6 +13,7 @@ import {
   NivelNameAlreadyExistsError,
   NivelNotFoundError,
 } from '@/modules/academic-structure/nivel/domain/Nivel.errors'
+import { OptimisticConcurrencyConflictError } from '@/modules/academic-structure/domain/OptimisticConcurrency.errors'
 
 class InMemoryNivelRepository implements NivelRepository {
   private readonly storage = new Map<string, Nivel>()
@@ -29,19 +32,19 @@ class InMemoryNivelRepository implements NivelRepository {
     )
   }
 
-  async existsByCodigoInInstitucion(
-    institucionId: string,
-    codigo: string,
+  async existsByCodigoInInstitucion(params: {
+    institucionId: string
+    codigo: string
     excludingNivelId?: string
-  ) {
-    const normalized = codigo.trim().toUpperCase()
+  }) {
+    const normalized = params.codigo.trim().toUpperCase()
 
     return Array.from(this.storage.values()).some((nivel) => {
-      if (nivel.institucionId !== institucionId) {
+      if (nivel.institucionId !== params.institucionId) {
         return false
       }
 
-      if (excludingNivelId && nivel.id === excludingNivelId) {
+      if (params.excludingNivelId && nivel.id === params.excludingNivelId) {
         return false
       }
 
@@ -49,19 +52,19 @@ class InMemoryNivelRepository implements NivelRepository {
     })
   }
 
-  async existsByNombreInInstitucion(
-    institucionId: string,
-    nombre: string,
+  async existsByNombreInInstitucion(params: {
+    institucionId: string
+    nombre: string
     excludingNivelId?: string
-  ) {
-    const normalized = nombre.trim().toLowerCase()
+  }) {
+    const normalized = params.nombre.trim().toLowerCase()
 
     return Array.from(this.storage.values()).some((nivel) => {
-      if (nivel.institucionId !== institucionId) {
+      if (nivel.institucionId !== params.institucionId) {
         return false
       }
 
-      if (excludingNivelId && nivel.id === excludingNivelId) {
+      if (params.excludingNivelId && nivel.id === params.excludingNivelId) {
         return false
       }
 
@@ -70,10 +73,24 @@ class InMemoryNivelRepository implements NivelRepository {
   }
 }
 
+const referentialIntegrityCheckerStub: ReferentialIntegrityChecker = {
+  async assertInstitutionScope() {},
+  async assertGradoScope() {},
+  async assertGrupoScope() {},
+}
+
+const optimisticLockingPolicyStub: OptimisticLockingPolicy = {
+  assertExpectedVersion(input) {
+    if (input.expectedVersion !== input.currentVersion) {
+      throw new OptimisticConcurrencyConflictError(input)
+    }
+  },
+}
+
 describe('Nivel use cases', () => {
   it('crea nivel con codigo y nombre unicos por institucion', async () => {
     const repository = new InMemoryNivelRepository()
-    const useCase = new CreateNivelUseCase(repository)
+    const useCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
 
     const result = await useCase.execute({
       id: 'nivel-primaria',
@@ -88,7 +105,7 @@ describe('Nivel use cases', () => {
 
   it('rechaza codigo duplicado en la misma institucion', async () => {
     const repository = new InMemoryNivelRepository()
-    const useCase = new CreateNivelUseCase(repository)
+    const useCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'nivel-1',
@@ -111,7 +128,7 @@ describe('Nivel use cases', () => {
 
   it('rechaza nombre duplicado en la misma institucion', async () => {
     const repository = new InMemoryNivelRepository()
-    const useCase = new CreateNivelUseCase(repository)
+    const useCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'nivel-1',
@@ -134,8 +151,12 @@ describe('Nivel use cases', () => {
 
   it('permite editar nivel existente y valida unicidad', async () => {
     const repository = new InMemoryNivelRepository()
-    const createUseCase = new CreateNivelUseCase(repository)
-    const updateUseCase = new UpdateNivelUseCase(repository)
+    const createUseCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateNivelUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await createUseCase.execute({
       id: 'nivel-1',
@@ -156,6 +177,8 @@ describe('Nivel use cases', () => {
     await expect(() =>
       updateUseCase.execute({
         id: 'nivel-2',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         codigo: 'PRIMARIA',
       })
     ).rejects.toThrowError(NivelCodeAlreadyExistsError)
@@ -163,7 +186,7 @@ describe('Nivel use cases', () => {
 
   it('lista niveles ordenados por campo orden', async () => {
     const repository = new InMemoryNivelRepository()
-    const createUseCase = new CreateNivelUseCase(repository)
+    const createUseCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
     const listUseCase = new ListNivelesUseCase(repository)
 
     await createUseCase.execute({
@@ -190,7 +213,7 @@ describe('Nivel use cases', () => {
 
   it('activa/inactiva nivel existente', async () => {
     const repository = new InMemoryNivelRepository()
-    const createUseCase = new CreateNivelUseCase(repository)
+    const createUseCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
     const setStatusUseCase = new SetNivelStatusUseCase(repository)
 
     await createUseCase.execute({
@@ -216,13 +239,46 @@ describe('Nivel use cases', () => {
 
   it('falla cuando se intenta modificar un nivel inexistente', async () => {
     const repository = new InMemoryNivelRepository()
-    const updateUseCase = new UpdateNivelUseCase(repository)
+    const updateUseCase = new UpdateNivelUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await expect(() =>
       updateUseCase.execute({
         id: 'no-existe',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         nombre: 'Nuevo nivel',
       })
     ).rejects.toThrowError(NivelNotFoundError)
+  })
+
+  it('falla cuando la version esperada no coincide', async () => {
+    const repository = new InMemoryNivelRepository()
+    const createUseCase = new CreateNivelUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateNivelUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
+
+    await createUseCase.execute({
+      id: 'nivel-1',
+      institucionId: 'inst-1',
+      codigo: 'PRIMARIA',
+      nombre: 'Primaria',
+      orden: 1,
+    })
+
+    await expect(() =>
+      updateUseCase.execute({
+        id: 'nivel-1',
+        expectedVersion: 2,
+        updatedBy: 'user-2',
+        nombre: 'Primaria Actualizada',
+      })
+    ).rejects.toThrowError(OptimisticConcurrencyConflictError)
   })
 })

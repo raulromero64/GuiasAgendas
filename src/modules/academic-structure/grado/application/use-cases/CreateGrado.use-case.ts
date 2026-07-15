@@ -1,4 +1,9 @@
 import type { GradoRepository } from '@/modules/academic-structure/grado/application/ports/GradoRepository'
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import {
+  normalizeCatalogCode,
+  normalizeCatalogName,
+} from '@/modules/academic-structure/application/services/CatalogTextNormalization.service'
 import { Grado } from '@/modules/academic-structure/grado/domain/Grado'
 import {
   GradoCodeAlreadyExistsError,
@@ -18,14 +23,25 @@ interface CreateGradoInput {
 
 export class CreateGradoUseCase {
   private readonly repository: GradoRepository
+  private readonly referentialIntegrityChecker: ReferentialIntegrityChecker
 
-  constructor(repository: GradoRepository) {
+  constructor(
+    repository: GradoRepository,
+    referentialIntegrityChecker: ReferentialIntegrityChecker
+  ) {
     this.repository = repository
+    this.referentialIntegrityChecker = referentialIntegrityChecker
   }
 
   async execute(input: CreateGradoInput) {
-    const normalizedCodigo = input.codigo.trim().toUpperCase()
-    const normalizedNombre = input.nombre.trim()
+    await this.referentialIntegrityChecker.assertGradoScope({
+      institucionId: input.institucionId,
+      periodoLectivoId: input.periodoLectivoId,
+      nivelId: input.nivelId,
+    })
+
+    const normalizedCodigo = normalizeCatalogCode(input.codigo)
+    const normalizedNombre = normalizeCatalogName(input.nombre)
 
     if (
       await this.repository.existsByCodigoInScope({

@@ -1,7 +1,7 @@
 # 03 - ARQUITECTURA SMP
 
 Estado: Permanente
-Version: 1.0
+Version: 1.1
 Ambito: School Management Platform (SMP)
 
 ## 1. Proposito
@@ -86,3 +86,28 @@ START-HERE
 - Separacion obligatoria de datos: catalogos maestros y datos operativos no deben mezclarse.
 - Entidad raiz para crecimiento futuro: Institucion.
 - Principio permanente de producto: cada funcionalidad debe ahorrar tiempo, reducir errores o facilitar la toma de decisiones.
+
+## 9. Decisiones permanentes aprobadas (2026-07-15)
+
+### 9.1 Integridad referencial transversal obligatoria
+
+- La plataforma debe validar coherencia referencial transversal entre Institucion, PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Ningun caso de uso puede confirmar altas o actualizaciones que generen relaciones huerfanas o cruces institucionales invalidos.
+- La regla canonica vive en capa de aplicacion/dominio como politica reusable y transversal.
+- Las restricciones de persistencia se aplican como red de seguridad y no reemplazan la validacion funcional.
+
+### 9.2 Concurrencia estandar con Optimistic Locking
+
+- Todos los agregados institucionales y academicos deben operar con contrato homogeneo de versionado.
+- La politica oficial de concurrencia del SMP es Optimistic Locking transversal.
+- Cada comando de escritura debe incluir version esperada y fallar con conflicto de concurrencia si la version no coincide.
+- El contrato minimo por agregado incluye: id, institucionId, version, updatedAt, updatedBy.
+
+### 9.3 Ambito del contrato homogeneo
+
+- Institucion
+- PeriodoLectivo
+- Nivel
+- Grado
+- Grupo
+- Asignatura

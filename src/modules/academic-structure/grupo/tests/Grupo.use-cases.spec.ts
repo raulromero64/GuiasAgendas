@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
 import type { GrupoRepository } from '@/modules/academic-structure/grupo/application/ports/GrupoRepository'
 import { CreateGrupoUseCase } from '@/modules/academic-structure/grupo/application/use-cases/CreateGrupo.use-case'
 import { ListGruposUseCase } from '@/modules/academic-structure/grupo/application/use-cases/ListGrupos.use-case'
@@ -11,6 +13,7 @@ import {
   GrupoNameAlreadyExistsError,
   GrupoNotFoundError,
 } from '@/modules/academic-structure/grupo/domain/Grupo.errors'
+import { OptimisticConcurrencyConflictError } from '@/modules/academic-structure/domain/OptimisticConcurrency.errors'
 
 class InMemoryGrupoRepository implements GrupoRepository {
   private readonly storage = new Map<string, Grupo>()
@@ -97,10 +100,24 @@ class InMemoryGrupoRepository implements GrupoRepository {
   }
 }
 
+const referentialIntegrityCheckerStub: ReferentialIntegrityChecker = {
+  async assertInstitutionScope() {},
+  async assertGradoScope() {},
+  async assertGrupoScope() {},
+}
+
+const optimisticLockingPolicyStub: OptimisticLockingPolicy = {
+  assertExpectedVersion(input) {
+    if (input.expectedVersion !== input.currentVersion) {
+      throw new OptimisticConcurrencyConflictError(input)
+    }
+  },
+}
+
 describe('Grupo use cases', () => {
   it('crea grupo con unicidad por institucion + periodo + grado + codigo', async () => {
     const repository = new InMemoryGrupoRepository()
-    const useCase = new CreateGrupoUseCase(repository)
+    const useCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
 
     const result = await useCase.execute({
       id: 'grupo-1',
@@ -119,7 +136,7 @@ describe('Grupo use cases', () => {
 
   it('rechaza codigo duplicado en mismo grado y periodo', async () => {
     const repository = new InMemoryGrupoRepository()
-    const useCase = new CreateGrupoUseCase(repository)
+    const useCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grupo-1',
@@ -150,7 +167,7 @@ describe('Grupo use cases', () => {
 
   it('rechaza nombre duplicado en mismo grado y periodo', async () => {
     const repository = new InMemoryGrupoRepository()
-    const useCase = new CreateGrupoUseCase(repository)
+    const useCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grupo-1',
@@ -181,7 +198,7 @@ describe('Grupo use cases', () => {
 
   it('permite codigo repetido en distinto grado', async () => {
     const repository = new InMemoryGrupoRepository()
-    const useCase = new CreateGrupoUseCase(repository)
+    const useCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'grupo-1',
@@ -212,8 +229,12 @@ describe('Grupo use cases', () => {
 
   it('permite editar grupo y mantiene validacion de unicidad en scope', async () => {
     const repository = new InMemoryGrupoRepository()
-    const createUseCase = new CreateGrupoUseCase(repository)
-    const updateUseCase = new UpdateGrupoUseCase(repository)
+    const createUseCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateGrupoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await createUseCase.execute({
       id: 'grupo-1',
@@ -242,6 +263,8 @@ describe('Grupo use cases', () => {
     await expect(() =>
       updateUseCase.execute({
         id: 'grupo-2',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         codigo: 'A',
       })
     ).rejects.toThrowError(GrupoCodeAlreadyExistsError)
@@ -249,7 +272,7 @@ describe('Grupo use cases', () => {
 
   it('lista grupos ordenados por nombre en el mismo grado y periodo', async () => {
     const repository = new InMemoryGrupoRepository()
-    const createUseCase = new CreateGrupoUseCase(repository)
+    const createUseCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
     const listUseCase = new ListGruposUseCase(repository)
 
     await createUseCase.execute({
@@ -288,7 +311,7 @@ describe('Grupo use cases', () => {
 
   it('activa e inactiva grupo', async () => {
     const repository = new InMemoryGrupoRepository()
-    const createUseCase = new CreateGrupoUseCase(repository)
+    const createUseCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
     const setStatusUseCase = new SetGrupoStatusUseCase(repository)
 
     await createUseCase.execute({
@@ -312,13 +335,50 @@ describe('Grupo use cases', () => {
 
   it('falla al editar grupo inexistente', async () => {
     const repository = new InMemoryGrupoRepository()
-    const useCase = new UpdateGrupoUseCase(repository)
+    const useCase = new UpdateGrupoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await expect(() =>
       useCase.execute({
         id: 'no-existe',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         nombre: 'Grupo X',
       })
     ).rejects.toThrowError(GrupoNotFoundError)
+  })
+
+  it('falla cuando la version esperada no coincide', async () => {
+    const repository = new InMemoryGrupoRepository()
+    const createUseCase = new CreateGrupoUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateGrupoUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
+
+    await createUseCase.execute({
+      id: 'grupo-1',
+      institucionId: 'inst-1',
+      periodoLectivoId: 'periodo-2026',
+      nivelId: 'nivel-primaria',
+      gradoId: 'grado-1',
+      codigo: 'A',
+      nombre: 'Grupo A',
+      capacidadMaxima: 30,
+      turno: 'Manana',
+    })
+
+    await expect(() =>
+      updateUseCase.execute({
+        id: 'grupo-1',
+        expectedVersion: 2,
+        updatedBy: 'user-2',
+        nombre: 'Grupo A1',
+      })
+    ).rejects.toThrowError(OptimisticConcurrencyConflictError)
   })
 })

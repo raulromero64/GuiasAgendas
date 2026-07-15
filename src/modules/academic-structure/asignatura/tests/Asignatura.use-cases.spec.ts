@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import type { ReferentialIntegrityChecker } from '@/modules/academic-structure/application/ports/ReferentialIntegrityChecker'
+import type { OptimisticLockingPolicy } from '@/modules/academic-structure/application/ports/OptimisticLockingPolicy'
 import type { AsignaturaRepository } from '@/modules/academic-structure/asignatura/application/ports/AsignaturaRepository'
 import { CreateAsignaturaUseCase } from '@/modules/academic-structure/asignatura/application/use-cases/CreateAsignatura.use-case'
 import { ListAsignaturasUseCase } from '@/modules/academic-structure/asignatura/application/use-cases/ListAsignaturas.use-case'
@@ -11,6 +13,7 @@ import {
   AsignaturaNameAlreadyExistsError,
   AsignaturaNotFoundError,
 } from '@/modules/academic-structure/asignatura/domain/Asignatura.errors'
+import { OptimisticConcurrencyConflictError } from '@/modules/academic-structure/domain/OptimisticConcurrency.errors'
 
 class InMemoryAsignaturaRepository implements AsignaturaRepository {
   private readonly storage = new Map<string, Asignatura>()
@@ -70,10 +73,24 @@ class InMemoryAsignaturaRepository implements AsignaturaRepository {
   }
 }
 
+const referentialIntegrityCheckerStub: ReferentialIntegrityChecker = {
+  async assertInstitutionScope() {},
+  async assertGradoScope() {},
+  async assertGrupoScope() {},
+}
+
+const optimisticLockingPolicyStub: OptimisticLockingPolicy = {
+  assertExpectedVersion(input) {
+    if (input.expectedVersion !== input.currentVersion) {
+      throw new OptimisticConcurrencyConflictError(input)
+    }
+  },
+}
+
 describe('Asignatura use cases', () => {
   it('crea asignatura con unicidad por institucion y codigo', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const useCase = new CreateAsignaturaUseCase(repository)
+    const useCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
 
     const result = await useCase.execute({
       id: 'asignatura-1',
@@ -89,7 +106,7 @@ describe('Asignatura use cases', () => {
 
   it('rechaza codigo duplicado en la misma institucion', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const useCase = new CreateAsignaturaUseCase(repository)
+    const useCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'asignatura-1',
@@ -114,7 +131,7 @@ describe('Asignatura use cases', () => {
 
   it('rechaza nombre duplicado en la misma institucion', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const useCase = new CreateAsignaturaUseCase(repository)
+    const useCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'asignatura-1',
@@ -139,7 +156,7 @@ describe('Asignatura use cases', () => {
 
   it('permite codigo repetido en distinta institucion', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const useCase = new CreateAsignaturaUseCase(repository)
+    const useCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
 
     await useCase.execute({
       id: 'asignatura-1',
@@ -164,8 +181,12 @@ describe('Asignatura use cases', () => {
 
   it('permite editar asignatura y mantiene validacion de unicidad en institucion', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const createUseCase = new CreateAsignaturaUseCase(repository)
-    const updateUseCase = new UpdateAsignaturaUseCase(repository)
+    const createUseCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateAsignaturaUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await createUseCase.execute({
       id: 'asignatura-1',
@@ -188,6 +209,8 @@ describe('Asignatura use cases', () => {
     await expect(() =>
       updateUseCase.execute({
         id: 'asignatura-2',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         codigo: 'MAT101',
       })
     ).rejects.toThrowError(AsignaturaCodeAlreadyExistsError)
@@ -195,7 +218,7 @@ describe('Asignatura use cases', () => {
 
   it('lista asignaturas ordenadas por nombre en la institucion', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const createUseCase = new CreateAsignaturaUseCase(repository)
+    const createUseCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
     const listUseCase = new ListAsignaturasUseCase(repository)
 
     await createUseCase.execute({
@@ -224,7 +247,7 @@ describe('Asignatura use cases', () => {
 
   it('activa e inactiva asignatura', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const createUseCase = new CreateAsignaturaUseCase(repository)
+    const createUseCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
     const setStatusUseCase = new SetAsignaturaStatusUseCase(repository)
 
     await createUseCase.execute({
@@ -251,13 +274,47 @@ describe('Asignatura use cases', () => {
 
   it('falla al editar asignatura inexistente', async () => {
     const repository = new InMemoryAsignaturaRepository()
-    const useCase = new UpdateAsignaturaUseCase(repository)
+    const useCase = new UpdateAsignaturaUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
 
     await expect(() =>
       useCase.execute({
         id: 'no-existe',
+        expectedVersion: 1,
+        updatedBy: 'user-1',
         nombre: 'Quimica',
       })
     ).rejects.toThrowError(AsignaturaNotFoundError)
+  })
+
+  it('falla cuando la version esperada no coincide', async () => {
+    const repository = new InMemoryAsignaturaRepository()
+    const createUseCase = new CreateAsignaturaUseCase(repository, referentialIntegrityCheckerStub)
+    const updateUseCase = new UpdateAsignaturaUseCase(
+      repository,
+      referentialIntegrityCheckerStub,
+      optimisticLockingPolicyStub
+    )
+
+    await createUseCase.execute({
+      id: 'asignatura-1',
+      institucionId: 'inst-1',
+      codigo: 'MAT101',
+      nombre: 'Matematicas',
+      tipo: 'Obligatoria',
+      intensidadHorariaBase: 4,
+    })
+
+    await expect(() =>
+      updateUseCase.execute({
+        id: 'asignatura-1',
+        expectedVersion: 2,
+        updatedBy: 'user-2',
+        nombre: 'Matematicas I',
+      })
+    ).rejects.toThrowError(OptimisticConcurrencyConflictError)
   })
 })

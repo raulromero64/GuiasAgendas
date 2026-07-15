@@ -30,6 +30,7 @@ interface PeriodoLectivoProps {
   estado: EstadoPeriodoLectivo
   createdAt: Date
   updatedAt: Date
+  updatedBy: string
   version: number
   auditTrail: PeriodoLectivoAuditEntry[]
 }
@@ -81,6 +82,7 @@ export class PeriodoLectivo {
       ...this.props,
       ...update,
       updatedAt: new Date(),
+      updatedBy: metadata?.actorId ?? this.props.updatedBy,
       version: this.props.version + 1,
       auditTrail: [...this.props.auditTrail, PeriodoLectivo.createAuditEntry(action, metadata)],
     }
@@ -115,6 +117,7 @@ export class PeriodoLectivo {
       estado: activarAlCrear ? 'activo' : 'planificado',
       createdAt: now,
       updatedAt: now,
+      updatedBy: 'system',
       version: 1,
       auditTrail: [PeriodoLectivo.createAuditEntry('creado')],
     })
@@ -124,7 +127,7 @@ export class PeriodoLectivo {
     return new PeriodoLectivo(props)
   }
 
-  update({ nombre, fechaInicio, fechaFin }: UpdatePeriodoLectivoProps) {
+  update({ nombre, fechaInicio, fechaFin }: UpdatePeriodoLectivoProps, metadata?: AuditMetadata) {
     if (this.props.estado === 'cerrado') {
       throw new PeriodoLectivoAlreadyClosedError()
     }
@@ -144,7 +147,8 @@ export class PeriodoLectivo {
         fechaInicio: validatedFechas.fechaInicio,
         fechaFin: validatedFechas.fechaFin,
       },
-      'actualizado'
+      'actualizado',
+      metadata
     )
   }
 
@@ -178,6 +182,10 @@ export class PeriodoLectivo {
 
   get estado() {
     return this.props.estado
+  }
+
+  get version() {
+    return this.props.version
   }
 
   toPrimitives() {

@@ -56,9 +56,11 @@ Analizar -> Probar -> Corregir (solo si falla) -> Validar -> Commit de estabilid
 
 ## 8. Estado actual
 
-- Sprint activo: 1.2
+- Sprint activo: 1.9
 - Fase activa: Phase 1 - Platform Foundation
 - Estado de consolidacion documental: Completada
+- Sprint 1.8.1: Completado y cerrado oficialmente
+- Apertura oficial vigente: Sprint 1.9
 
 ## 9. Jerarquia oficial
 

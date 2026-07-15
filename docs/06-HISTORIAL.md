@@ -1,5 +1,21 @@
 # 06 - Historial
 
+## 2026-07-15 - Cierre oficial Sprint 1.8.1 y apertura Sprint 1.9
+
+### Resumen de la sesion
+
+- Se aprobó como estandar permanente la integridad referencial transversal entre Institucion, PeriodoLectivo, Nivel, Grado, Grupo y Asignatura.
+- Se aprobó como estandar permanente la concurrencia con Optimistic Locking y contrato homogeneo de versionado por agregado.
+- Se declaro oficialmente cerrado el Sprint 1.8.1.
+- Se declaro oficialmente abierto el Sprint 1.9.
+- Se ordeno mantener el Libro Oficial del Proyecto como explicacion funcional completa en lenguaje sencillo para audiencias no tecnicas.
+
+### Estado al cierre
+
+- Sprint 1.8.1: cerrado oficialmente.
+- Sprint 1.9: abierto oficialmente.
+- Arquitectura permanente: actualizada con los dos estandares aprobados.
+
 ## 2026-07-14 - Auditoria completa de Estructura Academica pre Sprint 1.9
 
 ### Resumen de la sesion

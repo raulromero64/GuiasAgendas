@@ -57,6 +57,7 @@ describe('Asignatura domain', () => {
       nombre: 'Matematicas Avanzadas',
       tipo: 'Electiva',
       intensidadHorariaBase: 6,
+      updatedBy: 'user-1',
     })
 
     const updated = asignatura.toPrimitives()
@@ -64,6 +65,8 @@ describe('Asignatura domain', () => {
     expect(updated.nombre).toBe('Matematicas Avanzadas')
     expect(updated.tipo).toBe('electiva')
     expect(updated.intensidadHorariaBase).toBe(6)
+    expect(updated.version).toBe(2)
+    expect(updated.updatedBy).toBe('user-1')
   })
 
   it('declara relacion futura por plan curricular y otras dependencias', () => {
