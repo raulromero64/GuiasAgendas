@@ -79,3 +79,37 @@ Este documento contiene unicamente el trabajo vigente y no redefine la planifica
 
 - Sprint 1.9 abierto oficialmente bajo las reglas permanentes actualizadas en arquitectura.
 - El trabajo de implementacion y documentacion del Sprint 1.9 se define por decision de ChatGPT.
+
+## 10. Foundation del producto SMP
+
+Durante el Sprint 1.9 se realizo trabajo de Foundation del producto SMP para el Proceso de Matriculas.
+
+Este trabajo corresponde a preparacion arquitectonica y de negocio del producto reutilizable SMP.
+No representa desarrollo funcional completo del modulo de Matriculas para operacion final.
+
+El cliente (colegio) conserva su implementacion particular de formularios y configuraciones,
+mientras que el proceso de negocio y la arquitectura se mantienen en el producto SMP.
+
+## 11. Alcance de Foundation ejecutado en esta sesion
+
+- Definicion de estados y transiciones oficiales de la Solicitud de Matricula.
+- Preparacion de configuracion institucional del formulario para campos, catalogos, documentos, grados y ventanas.
+- Preparacion de contratos para la conversion de solicitud aprobada en expediente inicial del estudiante.
+
+Este alcance no cambia el estado oficial del sprint y no declara cierre funcional del Proceso de Matriculas.
+
+## 12. Regla funcional oficial para Solicitud de Matricula
+
+La Solicitud de Matricula puede diligenciarse desde computador, tableta o dispositivo movil mediante un codigo de acceso valido suministrado por la institucion o adquirido por los canales autorizados.
+
+El diligenciamiento de la solicitud NO crea automaticamente un estudiante.
+
+Solo cuando el colegio aprueba oficialmente la solicitud, esta se convierte en el expediente inicial del estudiante.
+
+Esta decision garantiza:
+
+- Control institucional.
+- Trazabilidad completa.
+- Integridad de la informacion.
+
+La aprobacion final corresponde institucionalmente a Secretaria y Rectoria.

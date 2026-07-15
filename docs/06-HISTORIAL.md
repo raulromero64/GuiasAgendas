@@ -1,5 +1,25 @@
 # 06 - Historial
 
+## 2026-07-15 - Decision clave de arquitectura y negocio sobre Solicitud de Matricula
+
+### Resumen de la sesion
+
+- Se formalizo que el trabajo ejecutado corresponde a Foundation del producto SMP y no a desarrollo funcional completo del modulo de Matriculas.
+- Se establecio como regla funcional oficial:
+  - La Solicitud de Matricula puede diligenciarse desde computador, tableta o dispositivo movil mediante un codigo de acceso valido suministrado por la institucion o adquirido por los canales autorizados.
+  - El diligenciamiento de la solicitud NO crea automaticamente un estudiante.
+  - Solo la aprobacion oficial del colegio convierte la solicitud en expediente inicial del estudiante.
+- Se formalizo como decision de arquitectura y negocio:
+  - El formulario visible pertenece al cliente (colegio), mientras que el proceso de negocio y la arquitectura pertenecen al producto SMP.
+  - El formulario puede variar entre clientes, pero el proceso de negocio permanece estandarizado en SMP.
+- Se ratifico que la aprobacion final institucional corresponde a Secretaria y Rectoria.
+
+### Estado al cierre
+
+- Sprint 1.9: sin cambio de estado oficial.
+- Trazabilidad documental: actualizada y sincronizada para Sprint, Historial y Manual Funcional.
+- Filosofia vigente: producto reutilizable, cliente configurable, control institucional y estudiante creado solo despues de aprobacion oficial.
+
 ## 2026-07-15 - Cierre oficial Sprint 1.8.1 y apertura Sprint 1.9
 
 ### Resumen de la sesion

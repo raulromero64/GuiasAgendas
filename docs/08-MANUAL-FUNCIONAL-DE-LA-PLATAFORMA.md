@@ -288,6 +288,47 @@ Este modulo es la base directa para Matriculas, Horarios, Asistencia, Calificaci
 
 ---
 
+## Modulo 5 - Solicitud de Matricula y Proceso de Matriculas (Foundation del producto SMP)
+
+### ¿Que significa este avance en el estado actual?
+
+School Management Platform (SMP) es el producto reutilizable.
+Cada colegio es una implementacion particular del producto, con configuraciones propias de formulario, catalogos y reglas operativas.
+
+En este momento, el Proceso de Matriculas se encuentra en Foundation del producto SMP.
+Esto significa que la base funcional y de negocio ya esta preparada, pero el modulo de Matriculas aun no se declara como proceso operativo completo de punta a punta en produccion.
+
+### Regla funcional oficial
+
+La Solicitud de Matricula puede diligenciarse desde computador, tableta o dispositivo movil mediante un codigo de acceso valido suministrado por la institucion o adquirido por los canales autorizados.
+
+El diligenciamiento de la solicitud NO crea automaticamente un estudiante.
+
+Solo cuando el colegio aprueba oficialmente la solicitud, esta se convierte en el expediente inicial del estudiante.
+
+Esta decision garantiza:
+
+- Control institucional.
+- Trazabilidad completa.
+- Integridad de la informacion.
+
+### ¿Que permite esta base Foundation?
+
+- Definir que campos son obligatorios segun politica institucional.
+- Definir que documentos solicitar en cada convocatoria.
+- Definir grados disponibles para inscripcion.
+- Definir fechas y ventanas del Proceso de Matriculas.
+- Definir catalogos propios del colegio (por ejemplo EPS, jornadas y listas institucionales).
+
+### Gobernanza institucional
+
+- La familia diligencia la Solicitud de Matricula.
+- Secretaria y Rectoria conservan la aprobacion final.
+- El estudiante solo existe en el sistema despues de la aprobacion institucional.
+- El formulario visible pertenece al cliente (colegio), mientras que el proceso de negocio pertenece al producto SMP.
+
+---
+
 ## Flujo general de uso de la plataforma
 
 1. La persona ingresa con su identidad.

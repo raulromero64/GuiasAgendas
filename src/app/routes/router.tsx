@@ -4,6 +4,7 @@ import { AppLayout } from '@/app/layout/AppLayout'
 import { AuthLayout } from '@/app/layout/AuthLayout'
 import { PublicLayout } from '@/app/layout/PublicLayout'
 import { DashboardPage } from '@/app/pages/DashboardPage'
+import { StudentEnrollmentPage } from '@/app/pages/StudentEnrollmentPage'
 import { AuthorizationGuard } from '@/app/routes/AuthorizationGuard'
 import { SectionStructurePage } from '@/app/pages/SectionStructurePage'
 import {
@@ -86,14 +87,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: (
-                  <SectionStructurePage
-                    title="Estudiantes"
-                    summary="Contenedor estructural para el ciclo de vida estudiantil del SMP."
-                    scope="Preparar base de vistas, permisos y componentes reutilizables del dominio."
-                    status="Estructura final de pagina disponible, sin funcionalidades de negocio."
-                  />
-                ),
+                element: <StudentEnrollmentPage />,
               },
             ],
           },
