@@ -1,5 +1,7 @@
 export const institutionalThemeCssVariables = {
+  '--font-family-sans': '"Plus Jakarta Sans", sans-serif',
   '--font-family-public': '"Quicksand", sans-serif',
+  '--font-family-brand': '"Quicksand", sans-serif',
   '--color-brand-50': '238 248 241',
   '--color-brand-100': '217 239 223',
   '--color-brand-200': '183 223 194',

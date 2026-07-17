@@ -1,5 +1,36 @@
 # 06 - Historial
 
+## 2026-07-17 - A-030 Portal Publico Institucional y flujo de Matricula con PIN
+
+### Resumen de la sesion
+
+- Se implemento el Portal Publico Institucional del colegio como capa separada del dashboard administrativo.
+- Se consolido la separacion operacional: Plataforma SMP interna != Portal Publico del colegio.
+- Se estructuro la nueva capa publica en `src/public/portal/` con layout, componentes, paginas y secciones.
+- Se implemento Navbar institucional con menu publico y navegacion responsive con hamburguesa movil.
+- Se incorporo el acceso por PIN previo al wizard de Solicitud de Matricula.
+- Se formalizo el flujo publico: `Portal (/) -> Acceso Matricula (/acceso-matricula) -> Validacion PIN -> Wizard (/solicitud-matricula)`.
+- Se agrego navegacion de retorno para garantizar salida segura hacia el portal institucional.
+- Se ajusto UX de acceso para enfocar la pantalla en validacion de PIN sin enlaces distractores.
+
+### Validaciones realizadas
+
+- Validacion funcional de rutas publicas:
+  - `/` (portal institucional)
+  - `/acceso-matricula` (control de acceso por PIN)
+  - `/solicitud-matricula` (wizard publico)
+- Validacion visual de elementos clave:
+  - Enlace de retorno al inicio en acceso por PIN.
+  - Boton flotante `Volver al inicio` visible durante todo el wizard.
+- Validacion tecnica con compilacion de produccion en verde (`npm run build`).
+
+### Estado al cierre
+
+- Portal Publico Institucional: implementado y operativo.
+- Matricula publica: protegida por PIN demo (`1234`) con redireccion controlada.
+- Logica del `StudentEnrollmentWizard`: preservada sin modificaciones.
+- Build de produccion: exitoso.
+
 ## 2026-07-17 - A-028 Fase 2 - Quicksand para la App Publica
 
 ### Resumen de la sesion

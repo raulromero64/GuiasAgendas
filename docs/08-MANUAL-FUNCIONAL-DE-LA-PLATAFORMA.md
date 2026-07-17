@@ -136,15 +136,72 @@ Todo capitulo de modulo debe mantener exactamente esta estructura:
 
 ## Capitulo de modulo 5 - Solicitud de matricula
 
-1. Problema que resuelve.
-2. Como funciona.
-3. Flujo del proceso.
-4. Decisiones importantes de negocio.
-5. Beneficios para el colegio.
-6. Beneficios para cada usuario.
-7. Casos comunes.
-8. Preguntas frecuentes.
-9. Futuras ampliaciones.
+### 1. Problema que resuelve
+
+Permite que padres de familia inicien una solicitud de matricula de forma ordenada, estandar y trazable, sin depender de procesos manuales o formularios dispersos.
+
+### 2. Como funciona
+
+La experiencia publica se presta desde un portal institucional del colegio, separado de la plataforma administrativa interna.
+
+- El acudiente ingresa al Portal Publico Institucional.
+- Selecciona `Formulario de Matricula`.
+- Primero valida un PIN de acceso entregado por la institucion.
+- Si el PIN es valido, continua al wizard de solicitud.
+
+### 3. Flujo del proceso
+
+Flujo oficial actual:
+
+`Portal institucional (/) -> Acceso Matricula (/acceso-matricula) -> Validacion PIN -> Wizard (/solicitud-matricula)`
+
+Puntos de control:
+
+- El formulario no se abre directamente.
+- El acceso esta condicionado por codigo PIN.
+- El usuario puede regresar al portal en cualquier momento.
+
+### 4. Decisiones importantes de negocio
+
+- La solicitud de matricula es un proceso publico controlado, no un alta automatica.
+- El modelo comercial permite distribucion institucional de codigos PIN.
+- La solicitud diligenciada queda en estado de revision institucional.
+- No se crea automaticamente el estudiante hasta aprobacion oficial del colegio.
+
+### 5. Beneficios para el colegio
+
+- Control de acceso previo al formulario.
+- Reduccion de solicitudes no autorizadas.
+- Estandarizacion del proceso de ingreso.
+- Mejor trazabilidad para Secretaria y Rectoria.
+
+### 6. Beneficios para cada usuario
+
+- Padres de familia: acceso guiado y claro desde portal institucional.
+- Secretaria: recepcion ordenada de solicitudes.
+- Rectoria: control y aprobacion final con criterio institucional.
+- Equipo comercial: modelo escalable de PIN por institucion.
+
+### 7. Casos comunes
+
+- PIN valido: el acudiente continua al wizard y completa la solicitud.
+- PIN invalido: se bloquea el acceso y se muestra mensaje de error.
+- Navegacion de retorno: el usuario puede volver al portal sin perder control de contexto.
+
+### 8. Preguntas frecuentes
+
+- Se crea el estudiante cuando se envia la solicitud?
+  - No. La solicitud solo inicia el proceso.
+- Quien convierte la solicitud en expediente del estudiante?
+  - La institucion, tras aprobacion oficial.
+- El portal publico reemplaza el dashboard administrativo?
+  - No. Son capas separadas con responsabilidades distintas.
+
+### 9. Futuras ampliaciones
+
+- Gestion de PIN desde SMP administrativo (creacion, vigencia, revocacion, auditoria).
+- Politicas de expiracion y limite de intentos por codigo.
+- Integracion de notificaciones de estado de solicitud para familias.
 
 ---
 

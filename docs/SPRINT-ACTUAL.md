@@ -236,3 +236,20 @@ Validacion ejecutada:
 - Compilacion completa en verde.
 - Sin cambios en la logica del Wizard.
 - Sin cambios en estilos funcionales del dashboard.
+
+## 20. A-030 - Portal Publico Institucional y acceso a Matricula por PIN
+
+Estado del sprint sobre frente publico:
+
+- Portal publico institucional implementado en la raiz (`/`) con navegacion institucional responsive.
+- Matricula publica protegida por PIN mediante ruta de control de acceso (`/acceso-matricula`).
+- Wizard publico de Solicitud de Matricula mantenido en `/solicitud-matricula` sin alterar su logica funcional.
+- UX de navegacion publica completada:
+  - Retorno al inicio desde acceso por PIN.
+  - Boton flotante de retorno al inicio en el wizard publico.
+- Build validado en verde despues de los ajustes.
+
+Regla de separacion aplicada:
+
+- El portal del colegio opera desacoplado del dashboard administrativo.
+- No se mezcla `AuthLayout` ni navegacion de administracion en el flujo publico.

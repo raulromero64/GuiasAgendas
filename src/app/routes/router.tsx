@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 
 import { AppLayout } from '@/app/layout/AppLayout'
 import { AuthLayout } from '@/app/layout/AuthLayout'
@@ -9,9 +9,12 @@ import { AuthorizationGuard } from '@/app/routes/AuthorizationGuard'
 import { SectionStructurePage } from '@/app/pages/SectionStructurePage'
 import { EnrollmentAccessPage } from '@/public/pages/EnrollmentAccessPage'
 import { PublicEnrollmentWizardPage } from '@/public/pages/PublicEnrollmentWizardPage'
+import { PublicPortalLayout } from '@/public/portal/layout/PublicPortalLayout'
+import { PublicPortalHomePage } from '@/public/portal/pages/PublicPortalHomePage'
 import {
   AUTH_LAYOUT_ROUTE,
   DASHBOARD_ENTRY_ROUTE,
+  PUBLIC_ENROLLMENT_ACCESS_ROUTE,
   PUBLIC_ENROLLMENT_WIZARD_ROUTE,
   PUBLIC_ENTRY_ROUTE,
 } from '@/shared/constants/identity'
@@ -19,19 +22,31 @@ import { authorizationPolicies } from '@/shared/security/authorization.policies'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Navigate to={DASHBOARD_ENTRY_ROUTE} replace />,
+    path: PUBLIC_ENTRY_ROUTE,
+    element: <PublicPortalLayout />,
+    children: [
+      {
+        index: true,
+        element: <PublicPortalHomePage />,
+      },
+    ],
   },
   {
-    path: PUBLIC_ENTRY_ROUTE,
+    path: PUBLIC_ENROLLMENT_ACCESS_ROUTE,
     element: <PublicLayout />,
     children: [
       {
         index: true,
         element: <EnrollmentAccessPage />,
       },
+    ],
+  },
+  {
+    path: PUBLIC_ENROLLMENT_WIZARD_ROUTE,
+    element: <PublicLayout />,
+    children: [
       {
-        path: PUBLIC_ENROLLMENT_WIZARD_ROUTE.replace(`${PUBLIC_ENTRY_ROUTE}/`, ''),
+        index: true,
         element: <PublicEnrollmentWizardPage />,
       },
     ],

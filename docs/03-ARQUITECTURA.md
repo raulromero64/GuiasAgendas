@@ -203,3 +203,25 @@ flowchart TD
 - La App Publica debe usar `Quicksand` como fuente oficial de interfaz.
 - La aplicacion de esta fuente debe hacerse desde el sistema central de tipografia y no mediante overrides por componente.
 - El branding del logo institucional mantiene su fuente y no debe alterarse por esta decision.
+
+### 10.7 Capa publica institucional dedicada
+
+- Se formaliza `src/public/portal/` como capa oficial para la experiencia publica institucional del colegio.
+- Esta capa encapsula layout, navegacion publica, secciones institucionales y paginas de entrada.
+- El flujo publico de Matricula se organiza por rutas desacopladas:
+  - `/` portal institucional.
+  - `/acceso-matricula` control de acceso por PIN.
+  - `/solicitud-matricula` wizard publico.
+
+### 10.8 Separacion obligatoria: SMP interno vs portal del colegio
+
+- La Plataforma SMP interna (administracion) y el Portal Publico del colegio son dos experiencias distintas.
+- El portal publico no debe incorporar sidebar administrativa, permisos RBAC ni componentes de `AuthLayout`.
+- El dashboard administrativo no debe depender de la capa `src/public/portal/`.
+
+### 10.9 Branding institucional configurable y preparacion multiinstitucion
+
+- El portal publico consume identidad institucional desde `src/client/institutional/`.
+- `websiteUrl` y demas datos de identidad se consideran configurables por institucion cliente.
+- La arquitectura queda preparada para multiples instituciones sin clonar logica del nucleo SMP.
+- Toda variacion institucional debe resolverse en `client`, preservando el nucleo reusable en `platform`.

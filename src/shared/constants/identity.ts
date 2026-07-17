@@ -49,9 +49,11 @@ export const SESSION_STORAGE_KEY = 'smp.identity.session'
 /**
  * Ruta por defecto al expirar o faltar sesion.
  */
-export const PUBLIC_ENTRY_ROUTE = '/public'
+export const PUBLIC_ENTRY_ROUTE = '/'
 
-export const PUBLIC_ENROLLMENT_WIZARD_ROUTE = '/public/solicitud-matricula'
+export const PUBLIC_ENROLLMENT_ACCESS_ROUTE = '/acceso-matricula'
+
+export const PUBLIC_ENROLLMENT_WIZARD_ROUTE = '/solicitud-matricula'
 
 export const DASHBOARD_ENTRY_ROUTE = '/app'
 
@@ -67,7 +69,7 @@ export const IDENTITY_ROUTE_FLOW: Array<{
   {
     id: 'public-layout',
     title: 'PublicLayout',
-    path: '/public',
+    path: '/',
     description: 'Entrada publica e informativa del SMP.',
     access: 'public',
   },

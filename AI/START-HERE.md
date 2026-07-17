@@ -48,5 +48,7 @@ Auditor técnico y apoyo de implementación
 - Ningun trabajo puede darse por terminado sin fase obligatoria de consolidacion.
 - La consolidacion final debe verificar: arquitectura consistente, codigo limpio, buenas practicas, ausencia de duplicacion, ausencia de archivos obsoletos, imports correctos, compilacion exitosa y documentacion sincronizada.
 - Mantener respuestas y reportes concisos para ahorrar contexto.
+- Mantener separacion estricta entre Portal Publico Institucional (`src/public/portal/`) y plataforma administrativa SMP (`/app`).
+- No mezclar componentes, layouts o navegacion de administracion dentro del flujo publico del colegio.
 
 Fin del documento.
