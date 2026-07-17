@@ -9,8 +9,8 @@ interface GuardiansStepProps {
 }
 
 const RELATION_LABEL: Record<'padre' | 'madre', string> = {
-  padre: 'Apellidos y nombre del padre',
-  madre: 'Apellidos y nombre de la madre',
+  padre: 'Datos del padre',
+  madre: 'Datos de la madre',
 }
 
 function GuardianCard({
@@ -95,6 +95,8 @@ function GuardianCard({
 }
 
 export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProps) {
+  const acudiente = guardians.find((item) => item.relation === 'acudiente')
+
   return (
     <div className="space-y-4">
       {(['padre', 'madre'] as const).map((relation) => {
@@ -116,6 +118,56 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
           />
         )
       })}
+
+      <Card className="space-y-4">
+        <h3 className="text-sm font-semibold text-content-primary">Datos del acudiente</h3>
+        <div className="grid gap-4 md:grid-cols-2">
+          <WizardInput
+            label="Nombre completo"
+            name="acudienteFullName"
+            value={acudiente?.fullName ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { fullName: event.target.value })
+            }}
+            required
+            maxLength={120}
+          />
+          <WizardInput
+            label="Parentesco"
+            name="acudienteParentesco"
+            value={acudiente?.occupation ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { occupation: event.target.value })
+            }}
+            required
+            maxLength={100}
+          />
+          <WizardInput
+            label="Telefono"
+            name="acudientePhone"
+            value={acudiente?.phone ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { phone: event.target.value })
+            }}
+            required
+            inputMode="tel"
+            pattern="[0-9+ ()-]{7,20}"
+            maxLength={20}
+          />
+        </div>
+      </Card>
     </div>
   )
 }

@@ -29,6 +29,7 @@ export function AcademicHistoryStep({ rows, onRowChange }: AcademicHistoryStepPr
                     value={row.institution}
                     onChange={(event) => onRowChange(row.id, { institution: event.target.value })}
                     placeholder="Institucion"
+                    required
                     maxLength={160}
                   />
                 </td>
@@ -38,6 +39,7 @@ export function AcademicHistoryStep({ rows, onRowChange }: AcademicHistoryStepPr
                     value={row.year}
                     onChange={(event) => onRowChange(row.id, { year: event.target.value })}
                     placeholder="Ano"
+                    required
                     inputMode="numeric"
                     pattern="[0-9]{4}"
                     maxLength={4}

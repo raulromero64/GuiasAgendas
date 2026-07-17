@@ -28,13 +28,10 @@ export function EnrollmentAccessPage() {
 
   return (
     <section className="mx-auto w-full max-w-3xl space-y-6">
-      <InstitutionalBrandHeader />
+      <InstitutionalBrandHeader showSchoolName={false} />
 
       <Card className="space-y-6 p-6 md:p-8">
         <header className="space-y-3 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-700">
-            {institutionalBranding.schoolName}
-          </p>
           <h1 className="font-brand text-3xl font-semibold text-content-primary md:text-4xl">
             {institutionalBranding.accessTitle}
           </h1>
@@ -68,7 +65,10 @@ export function EnrollmentAccessPage() {
             </p>
           )}
 
-          <Button type="submit" className="w-full bg-brand-800 py-3 text-base hover:bg-brand-900">
+          <Button
+            type="submit"
+            className="w-full bg-brand-700 py-3 text-base transition-colors duration-200 ease-out hover:bg-[rgb(82_132_100)]"
+          >
             Continuar
           </Button>
         </form>
@@ -80,7 +80,7 @@ export function EnrollmentAccessPage() {
         <footer className="text-center">
           <Link
             to={PUBLIC_ENTRY_ROUTE}
-            className="inline-block text-sm font-semibold text-brand-700 transition hover:text-brand-800"
+            className="inline-block text-sm font-semibold text-brand-700 transition-colors duration-200 ease-out hover:text-brand-600"
           >
             ← Volver al inicio
           </Link>

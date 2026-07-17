@@ -119,6 +119,17 @@ function createDefaultGuardians(): WizardGuardianState[] {
       phone: '',
       email: '',
     },
+    {
+      id: createLocalId('guardian'),
+      relation: GuardianRelation.ACUDIENTE,
+      fullName: '',
+      documentNumber: '',
+      documentIssuedAt: '',
+      occupation: '',
+      company: '',
+      phone: '',
+      email: '',
+    },
   ]
 }
 

@@ -253,3 +253,25 @@ Regla de separacion aplicada:
 
 - El portal del colegio opera desacoplado del dashboard administrativo.
 - No se mezcla `AuthLayout` ni navegacion de administracion en el flujo publico.
+
+## 21. Cierre funcional del Formulario de Solicitud de Matricula (wizard publico)
+
+Estado funcional consolidado en esta fase:
+
+- Todos los campos del wizard quedaron definidos como obligatorios por paso.
+- Ningun paso permite avanzar con informacion pendiente.
+- El boton `Siguiente` permanece bloqueado por validacion del paso actual cuando hay campos incompletos.
+- El sistema resalta automaticamente campos invalidos y dirige el foco al primer campo pendiente.
+- El paso `Verificar Informacion` queda como etapa exclusiva de revision previa al envio.
+
+Decisiones de formulario adoptadas en la revision:
+
+- Se elimina el bloque de fotografia del estudiante en esta fase.
+- Se crea la seccion `Datos del acudiente` con nombre completo, parentesco y telefono.
+- Se corrige nomenclatura visible del campo `I.P.S.`.
+- Se alinea la identidad visual de botones principales y pantalla de ingreso por PIN al color institucional del logotipo.
+
+Validacion de cierre:
+
+- Compilacion en verde (`npm run build`).
+- Sin cambios de arquitectura, rutas ni logica de negocio externa al alcance de validacion del formulario.

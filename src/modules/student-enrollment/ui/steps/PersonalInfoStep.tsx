@@ -58,6 +58,7 @@ export function PersonalInfoStep({ data, onChange }: PersonalInfoStepProps) {
         name="otherPeople"
         value={data.otherPeople}
         onChange={(event) => onChange({ otherPeople: event.target.value })}
+        required
         maxLength={200}
       />
       <WizardInput
@@ -65,6 +66,7 @@ export function PersonalInfoStep({ data, onChange }: PersonalInfoStepProps) {
         name="siblingCount"
         value={data.siblingCount}
         onChange={(event) => onChange({ siblingCount: event.target.value })}
+        required
         inputMode="numeric"
         pattern="[0-9]{1,2}"
         maxLength={2}
@@ -74,6 +76,7 @@ export function PersonalInfoStep({ data, onChange }: PersonalInfoStepProps) {
         name="siblingOrder"
         value={data.siblingOrder}
         onChange={(event) => onChange({ siblingOrder: event.target.value })}
+        required
         inputMode="numeric"
         pattern="[0-9]{1,2}"
         maxLength={2}
@@ -90,7 +93,7 @@ export function PersonalInfoStep({ data, onChange }: PersonalInfoStepProps) {
         name="psychologicalReason"
         value={data.psychologicalReason}
         onChange={(event) => onChange({ psychologicalReason: event.target.value })}
-        required={data.psychologicalEvaluation === 'si'}
+        required
         maxLength={500}
       />
     </div>

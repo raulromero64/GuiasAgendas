@@ -84,6 +84,7 @@ export function HealthStep({ data, onChange }: HealthStepProps) {
         value={data.observations}
         onChange={(event) => onChange({ observations: event.target.value })}
         containerClassName="md:col-span-2"
+        required
         maxLength={700}
       />
     </div>

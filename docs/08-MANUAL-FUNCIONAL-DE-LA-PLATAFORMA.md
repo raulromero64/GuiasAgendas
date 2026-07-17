@@ -160,6 +160,7 @@ Puntos de control:
 - El formulario no se abre directamente.
 - El acceso esta condicionado por codigo PIN.
 - El usuario puede regresar al portal en cualquier momento.
+- El wizard solo permite avanzar cuando el paso actual esta completamente diligenciado.
 
 ### 4. Decisiones importantes de negocio
 
@@ -167,6 +168,11 @@ Puntos de control:
 - El modelo comercial permite distribucion institucional de codigos PIN.
 - La solicitud diligenciada queda en estado de revision institucional.
 - No se crea automaticamente el estudiante hasta aprobacion oficial del colegio.
+- Todos los campos del formulario son obligatorios para garantizar completitud de la radicacion.
+- El paso `Verificar Informacion` se usa solo para confirmar datos antes del envio.
+- El bloque de fotografia del estudiante queda fuera de esta fase funcional.
+- La solicitud contempla seccion de `Datos del acudiente` cuando es diferente de padre y madre.
+- Se estandariza la nomenclatura visible del campo `I.P.S.` en el formulario.
 
 ### 5. Beneficios para el colegio
 
@@ -187,6 +193,7 @@ Puntos de control:
 - PIN valido: el acudiente continua al wizard y completa la solicitud.
 - PIN invalido: se bloquea el acceso y se muestra mensaje de error.
 - Navegacion de retorno: el usuario puede volver al portal sin perder control de contexto.
+- Intento de avance con campos pendientes: el sistema bloquea el paso, resalta campos vacios y enfoca el primer error.
 
 ### 8. Preguntas frecuentes
 
@@ -196,6 +203,10 @@ Puntos de control:
   - La institucion, tras aprobacion oficial.
 - El portal publico reemplaza el dashboard administrativo?
   - No. Son capas separadas con responsabilidades distintas.
+- Se puede enviar una solicitud incompleta?
+  - No. El wizard exige completar cada paso antes de continuar.
+- Para que sirve la seccion Datos del acudiente?
+  - Para registrar el responsable cuando no corresponde al padre o a la madre.
 
 ### 9. Futuras ampliaciones
 

@@ -96,13 +96,15 @@ export function StudentInfoStep({ data, onChange }: StudentInfoStepProps) {
         name="studentEps"
         value={data.eps}
         onChange={(event) => onChange({ eps: event.target.value })}
+        required
         maxLength={120}
       />
       <WizardInput
-        label="P.P.S."
+        label="I.P.S."
         name="studentPps"
         value={data.pps}
         onChange={(event) => onChange({ pps: event.target.value })}
+        required
         maxLength={120}
       />
       <WizardInput

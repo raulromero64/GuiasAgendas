@@ -149,7 +149,7 @@ export function ReviewStep({ data, onGoToStep }: ReviewStepProps) {
             { label: 'Edad', value: data.studentInfo.age },
             { label: 'Grupo RH', value: data.studentInfo.bloodGroup },
             { label: 'EPS', value: data.studentInfo.eps },
-            { label: 'PPS', value: data.studentInfo.pps },
+            { label: 'I.P.S.', value: data.studentInfo.pps },
             { label: 'Direccion', value: data.studentInfo.address },
             { label: 'Barrio', value: data.studentInfo.neighborhood },
             { label: 'Telefono', value: data.studentInfo.phone },

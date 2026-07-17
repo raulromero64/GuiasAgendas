@@ -1,5 +1,31 @@
 # 06 - Historial
 
+## 2026-07-17 - Cierre revision funcional del Formulario de Solicitud de Matricula
+
+### Resumen de la sesion
+
+- Se completo la revision funcional integral del wizard publico de Solicitud de Matricula.
+- Se establecio como regla operativa obligatoria que todos los campos del formulario son obligatorios por paso.
+- Se bloqueo el avance del wizard cuando existen campos pendientes y se limito el salto a pasos futuros sin validacion del paso actual.
+- Se incorporo retroalimentacion inmediata de validacion: mensaje claro, resaltado visual de campos incompletos y foco automatico al primer campo invalido.
+- Se formalizo que el paso `Verificar Informacion` es exclusivamente de lectura y control previo al envio.
+- Se elimino el espacio funcional de fotografia del estudiante para esta fase.
+- Se incorporo la seccion `Datos del acudiente` con campos iniciales de nombre completo, parentesco y telefono.
+- Se corrigio la nomenclatura visible del campo `I.P.S.`.
+- Se alineo identidad visual de acciones clave del flujo publico (pantalla PIN y botones principales) al color institucional del logotipo.
+
+### Validaciones realizadas
+
+- Validacion funcional del bloqueo de avance por campos pendientes en todos los pasos.
+- Validacion visual de resaltado de errores y foco en primer campo invalido.
+- Compilacion de produccion en verde (`npm run build`).
+
+### Estado al cierre
+
+- Solicitud de Matricula: revision funcional cerrada para esta fase.
+- Flujo publico: consistente con control institucional y requisitos de completitud.
+- Build de produccion: exitoso.
+
 ## 2026-07-17 - A-030 Portal Publico Institucional y flujo de Matricula con PIN
 
 ### Resumen de la sesion
