@@ -1,5 +1,6 @@
 {
-  "name": "magic-portal",
+  "name": "elcervantista-smp",
+  "description": "ElCervantista - School Management Platform (SMP)",
   "private": true,
   "version": "0.0.0",
   "type": "module",
