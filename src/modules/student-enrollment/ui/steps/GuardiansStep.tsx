@@ -9,16 +9,18 @@ interface GuardiansStepProps {
 }
 
 const RELATION_LABEL: Record<'padre' | 'madre', string> = {
-  padre: 'Padre',
-  madre: 'Madre',
+  padre: 'Apellidos y nombre del padre',
+  madre: 'Apellidos y nombre de la madre',
 }
 
 function GuardianCard({
   title,
+  emailLabel,
   guardian,
   onChange,
 }: {
   title: string
+  emailLabel: string
   guardian?: GuardianInfo
   onChange: (patch: Partial<GuardianInfo>) => void
 }) {
@@ -27,40 +29,65 @@ function GuardianCard({
       <h3 className="text-sm font-semibold text-content-primary">{title}</h3>
       <div className="grid gap-4 md:grid-cols-2">
         <WizardInput
-          label="Nombre completo"
+          label="Apellidos y nombre"
+          name={`${guardian?.relation ?? 'guardian'}FullName`}
           value={guardian?.fullName ?? ''}
           onChange={(event) => onChange({ fullName: event.target.value })}
+          required
+          maxLength={120}
         />
         <WizardInput
-          label="Documento"
+          label="Identificacion C.C. N.o"
+          name={`${guardian?.relation ?? 'guardian'}DocumentNumber`}
           value={guardian?.documentNumber ?? ''}
           onChange={(event) => onChange({ documentNumber: event.target.value })}
+          required
+          maxLength={30}
+          inputMode="numeric"
+          pattern="[0-9]{5,30}"
         />
         <WizardInput
-          label="Lugar de expedicion"
+          label="De"
+          name={`${guardian?.relation ?? 'guardian'}DocumentIssuedAt`}
           value={guardian?.documentIssuedAt ?? ''}
           onChange={(event) => onChange({ documentIssuedAt: event.target.value })}
+          required
+          maxLength={120}
         />
         <WizardInput
-          label="Ocupacion"
+          label="Ocupacion:"
+          name={`${guardian?.relation ?? 'guardian'}Occupation`}
           value={guardian?.occupation ?? ''}
           onChange={(event) => onChange({ occupation: event.target.value })}
+          required
+          maxLength={100}
         />
         <WizardInput
-          label="Empresa"
+          label="Nombre empresa donde trabaja:"
+          name={`${guardian?.relation ?? 'guardian'}Company`}
           value={guardian?.company ?? ''}
           onChange={(event) => onChange({ company: event.target.value })}
+          required
+          maxLength={120}
         />
         <WizardInput
-          label="Telefono"
+          label="Telefono:"
+          name={`${guardian?.relation ?? 'guardian'}Phone`}
           value={guardian?.phone ?? ''}
           onChange={(event) => onChange({ phone: event.target.value })}
+          required
+          inputMode="tel"
+          pattern="[0-9+ ()-]{7,20}"
+          maxLength={20}
         />
         <WizardInput
-          label="Email"
+          label={emailLabel}
+          name={`${guardian?.relation ?? 'guardian'}Email`}
           type="email"
           value={guardian?.email ?? ''}
           onChange={(event) => onChange({ email: event.target.value })}
+          required
+          maxLength={120}
         />
       </div>
     </Card>
@@ -77,6 +104,7 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
           <GuardianCard
             key={relation}
             title={RELATION_LABEL[relation]}
+            emailLabel={relation === 'padre' ? 'E-mail del padre:' : 'E-mail de la madre:'}
             guardian={guardian}
             onChange={(patch) => {
               if (!guardian) {
@@ -88,11 +116,6 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
           />
         )
       })}
-
-      <p className="text-xs text-content-muted">
-        La estructura de datos ya permite incorporar acudientes adicionales sin cambiar la
-        arquitectura.
-      </p>
     </div>
   )
 }

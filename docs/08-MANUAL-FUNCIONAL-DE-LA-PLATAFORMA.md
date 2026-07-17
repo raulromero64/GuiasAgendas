@@ -1,395 +1,210 @@
-# MANUAL FUNCIONAL DE LA PLATAFORMA
+# LIBRO SCHOOL MANAGEMENT PLATFORM (SMP)
 
-## School Management Platform (SMP)
+## Guia funcional, operativa y de procesos para instituciones educativas.
 
-> Documento funcional oficial para clientes, rectores, secretarias, docentes, padres y estudiantes.
-> Explica que hace la plataforma, como se usa y que resultados produce en la operacion diaria de una institucion educativa.
-
----
-
-## Como leer este manual
-
-- Este documento explica la plataforma desde el punto de vista funcional, no tecnico.
-- No describe programacion, bases de datos ni arquitectura interna.
-- Puede usarse como material comercial, de capacitacion y de referencia operativa.
-- EL CERVANTISTA ya no se presenta como el producto: ahora es una implementacion o configuracion particular de un cliente dentro de School Management Platform (SMP).
+> Documento oficial de referencia de School Management Platform (SMP).
+> Define el funcionamiento de la plataforma desde el negocio, los procesos y los usuarios.
 
 ---
 
-## ¿Que es School Management Platform?
+# Presentacion
 
-School Management Platform (SMP) es una plataforma para organizar y controlar la operacion de un colegio desde un solo lugar.
+## Que es SMP
 
-Su objetivo es ayudar a la institucion a trabajar con menos errores, menos tareas manuales y mayor claridad para cada area. En lugar de manejar procesos separados en hojas de calculo, chats, cuadernos o sistemas aislados, la plataforma conecta la informacion academica y administrativa para que cada rol vea lo que necesita y pueda actuar en el momento correcto.
+School Management Platform (SMP) es una plataforma institucional para organizar, coordinar y dar continuidad a los procesos escolares y administrativos de un colegio.
 
-SMP esta pensada para acompañar el ciclo completo de la vida escolar: acceso seguro, control por perfiles, organizacion academica, matriculas, horarios, asistencia, calificaciones, reportes y comunicacion institucional.
+## Cual es su objetivo
 
-Antes de una plataforma como esta, un colegio suele tener informacion repetida, decisiones lentas, validaciones manuales y poca trazabilidad. Despues de implementar SMP, la institucion trabaja con una base comun, procesos conectados y una operacion mas ordenada.
+Su objetivo es brindar una base comun de trabajo para que cada area de la institucion opere con claridad, orden y trazabilidad.
 
-La plataforma genera informacion clave para la toma de decisiones: estructura academica vigente, usuarios activos, permisos por rol, estado de procesos y, mas adelante, matriculas, asistencia, rendimiento y reportes institucionales.
+## Que problemas resuelve
+
+- Informacion dispersa en diferentes medios.
+- Retrabajo por procesos manuales.
+- Falta de continuidad entre areas.
+- Dificultad para tomar decisiones con informacion confiable.
+
+## Por que existe
+
+SMP existe para transformar la operacion escolar en un proceso institucional integrado, donde cada usuario entiende su rol, cada proceso tiene un flujo claro y cada decision puede sustentarse en informacion ordenada.
+
+## Como debe leerse este libro
+
+- Este libro se lee desde la operacion, no desde la tecnologia.
+- Cada parte responde cuatro preguntas base: que hace, por que existe, como funciona y que beneficio aporta.
+- Puede usarse para capacitacion, implementacion, soporte comercial y formacion de nuevos integrantes.
 
 ---
 
-## Vision funcional de la plataforma
+# PARTE I - LA PLATAFORMA
 
-SMP se organiza por modulos que se conectan entre si.
+## 1. Filosofia
+
+SMP parte de una idea central: primero se ordena la institucion, luego se digitalizan sus procesos.
+
+## 2. Principios
+
+- Claridad de roles.
+- Trazabilidad institucional.
+- Continuidad operativa.
+- Gobernanza por procesos.
+- Escalabilidad por modulos.
+
+## 3. Usuarios
+
+- Rectoria.
+- Secretaria.
+- Docentes.
+- Padres de familia.
+- Equipo comercial.
+- Equipo de implementacion.
+
+## 4. Arquitectura funcional (no tecnica)
+
+La plataforma se organiza en modulos conectados por procesos.
 
 - Un modulo prepara informacion para el siguiente.
-- Cada area del colegio usa la misma base operativa.
-- Cada rol participa en momentos diferentes del proceso.
-- La plataforma evita retrabajo y mejora la trazabilidad institucional.
-
-En el estado actual, la plataforma ya cuenta con la base funcional para:
-
-- saber quien entra al sistema;
-- validar el acceso de forma segura;
-- controlar que puede hacer cada perfil;
-- organizar la estructura academica del colegio.
+- Los procesos institucionales se ejecutan por etapas.
+- Cada usuario participa segun su responsabilidad.
+- La plataforma garantiza continuidad entre decisiones y acciones.
 
 ---
 
-## Modulo 1 - Identidad de usuarios
+# PARTE II - MODULOS
 
-### ¿Que hace?
+## Estructura oficial para cada capitulo de modulo
 
-Permite reconocer a cada persona que entra a la plataforma y asociarla con su perfil dentro del colegio.
+Todo capitulo de modulo debe mantener exactamente esta estructura:
 
-### ¿Que problema resuelve?
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
-Evita cuentas compartidas, accesos confusos y acciones sin responsable claro.
+## Capitulo de modulo 1 - Identidad de usuarios
 
-### ¿Quien lo utiliza?
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
-- Rectoría
-- Secretaría
-- Docentes
-- Padres
-- Estudiantes
+## Capitulo de modulo 2 - Inicio de sesion seguro
 
-### ¿Que sucede antes?
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
-Antes de este modulo, el colegio depende de cuentas informales, poca trazabilidad y validaciones manuales para saber quien realizo una accion.
+## Capitulo de modulo 3 - Control de permisos
 
-### ¿Como funciona?
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
-Cada persona entra con una identidad propia. La plataforma reconoce su perfil y lo relaciona con el tipo de acceso que le corresponde.
+## Capitulo de modulo 4 - Estructura academica
 
-### ¿Que sucede despues?
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
-La persona puede continuar al sistema con una base clara de identificacion, lo que permite ordenar el acceso y preparar el control por roles.
+## Capitulo de modulo 5 - Solicitud de matricula
 
-### ¿Que informacion genera?
-
-- Identidad de la persona usuaria
-- Relacion con su perfil dentro de la institucion
-- Base de trazabilidad para acciones futuras
-
-### Beneficios por perfil
-
-- Rectoría: mayor control institucional y trazabilidad inicial.
-- Secretaría: menos tiempo validando manualmente usuarios.
-- Docentes: acceso claro y contexto correcto desde el inicio.
-- Padres: mayor confianza sobre privacidad y acceso.
-- Estudiantes: menor riesgo de confusiones de cuenta.
-
-### Relacion con otros modulos
-
-Este modulo es la base para inicio de sesion, permisos, estructura academica y todos los procesos posteriores.
-
----
-
-## Modulo 2 - Inicio de sesion seguro
-
-### ¿Que hace?
-
-Valida de forma segura que la persona que intenta entrar realmente es quien dice ser.
-
-### ¿Que problema resuelve?
-
-Reduce riesgo de suplantacion, accesos inseguros y sobrecarga administrativa por problemas de ingreso.
-
-### ¿Quien lo utiliza?
-
-- Rectoría
-- Secretaría
-- Docentes
-- Padres
-- Estudiantes
-
-### ¿Que sucede antes?
-
-Sin este modulo, el acceso depende de practicas informales y el colegio pierde confianza en la seguridad de la informacion.
-
-### ¿Como funciona?
-
-La persona se autentica y la plataforma confirma su ingreso para permitir una sesion valida y estable.
-
-### ¿Que sucede despues?
-
-Con el acceso ya validado, la plataforma puede decidir que areas mostrar y que acciones permitir segun el perfil.
-
-### ¿Que informacion genera?
-
-- Sesion validada
-- Evidencia de acceso seguro
-- Continuidad de uso sin reingresos innecesarios
-
-### Beneficios por perfil
-
-- Rectoría: menor riesgo reputacional y mejor gobierno digital.
-- Secretaría: menos tickets y menos apoyo manual para ingreso.
-- Docentes: experiencia de acceso mas estable.
-- Padres: confianza en el resguardo de la informacion.
-- Estudiantes: acceso mas seguro y confiable.
-
-### Relacion con otros modulos
-
-Prepara el camino para permisos, consultas, registros academicos y procesos administrativos.
+1. Problema que resuelve.
+2. Como funciona.
+3. Flujo del proceso.
+4. Decisiones importantes de negocio.
+5. Beneficios para el colegio.
+6. Beneficios para cada usuario.
+7. Casos comunes.
+8. Preguntas frecuentes.
+9. Futuras ampliaciones.
 
 ---
 
-## Modulo 3 - Control de permisos
+# PARTE III - PROCESOS COMPLETOS
 
-### ¿Que hace?
+En esta parte se documentan procesos completos de punta a punta, con enfoque operativo y de gobernanza institucional.
 
-Define que puede ver o hacer cada perfil dentro de la plataforma.
+## Procesos prioritarios
 
-### ¿Que problema resuelve?
+- Solicitud de matricula.
+- Matricula.
+- Promocion.
+- Boletines.
+- Pagos.
+- Otros procesos institucionales definidos por la institucion.
 
-Evita que una persona acceda a informacion o acciones que no le corresponden.
+## Estructura recomendada para cada proceso completo
 
-### ¿Quien lo utiliza?
-
-- Rectoría
-- Secretaría
-- Docentes
-- Padres
-- Estudiantes
-
-### ¿Que sucede antes?
-
-Sin control de permisos, el sistema genera desorden operativo, riesgo de privacidad y decisiones inconsistentes entre areas.
-
-### ¿Como funciona?
-
-La plataforma reconoce el perfil de la persona y habilita solo las secciones y acciones permitidas para su rol.
-
-### ¿Que sucede despues?
-
-Cada usuario trabaja dentro de un entorno coherente con sus responsabilidades reales.
-
-### ¿Que informacion genera?
-
-- Permisos aplicados por perfil
-- Control de acceso a secciones y acciones
-- Mayor consistencia institucional
-
-### Beneficios por perfil
-
-- Rectoría: control claro del gobierno institucional.
-- Secretaría: acceso ordenado a sus funciones operativas.
-- Docentes: experiencia enfocada en sus tareas reales.
-- Padres: acceso protegido a informacion familiar.
-- Estudiantes: consulta limitada a su informacion correspondiente.
-
-### Relacion con otros modulos
-
-Es la puerta de control para matriculas, estructura academica, asistencia, calificaciones y reportes.
+1. Objetivo del proceso.
+2. Actores que participan.
+3. Etapas del proceso.
+4. Reglas de negocio.
+5. Riesgos comunes y controles.
+6. Resultados esperados.
 
 ---
 
-## Modulo 4 - Estructura Academica
+# PARTE IV - ADMINISTRACION
 
-### ¿Que hace?
+## 1. Roles
 
-Organiza el mapa academico del colegio mediante Periodo Lectivo, Nivel, Grado, Grupo y Asignatura.
+Define responsabilidades institucionales y alcance operativo por perfil.
 
-### ¿Que problema resuelve?
+## 2. Permisos
 
-Evita improvisacion, datos duplicados, grupos mal relacionados y desorden academico al preparar la operacion escolar.
+Define que puede ver y hacer cada rol en cada etapa de los procesos.
 
-### ¿Quien lo utiliza?
+## 3. Configuraciones
 
-- Rectoría
-- Secretaría
-- Docentes
-
-### ¿Que sucede antes?
-
-Antes de este modulo, un colegio suele definir su organizacion academica en archivos separados, con nombres inconsistentes y poca trazabilidad.
-
-### ¿Como funciona?
-
-La institucion crea primero su periodo lectivo, luego sus niveles, despues los grados, los grupos y finalmente las asignaturas. Esa secuencia ordena la oferta academica y prepara todos los procesos que vienen despues.
-
-### ¿Que sucede despues?
-
-Con la estructura academica completa, el colegio queda listo para procesos como matriculas, horarios, asistencia, calificaciones y reportes.
-
-### ¿Que informacion genera?
-
-- Periodo lectivo vigente y su estado
-- Niveles academicos definidos por institucion
-- Grados vinculados al periodo y al nivel
-- Grupos organizados por grado
-- Asignaturas disponibles para la oferta academica
-
-### Submodulo - Periodo Lectivo
-
-Define el marco temporal oficial del trabajo academico del colegio.
-
-- Antes: el colegio puede tener fechas dispersas o criterios distintos entre areas.
-- Despues: toda la operacion academica se apoya en un mismo periodo de trabajo.
-- Beneficio: ordena matriculas, horarios, asistencia, calificaciones y cierres escolares.
-
-### Submodulo - Nivel
-
-Organiza grandes etapas de la trayectoria escolar, como preescolar, primaria o secundaria.
-
-- Antes: la institucion puede manejar clasificaciones poco consistentes.
-- Despues: la oferta academica queda agrupada de forma clara.
-- Beneficio: mejora planeacion, filtros, reportes y comunicacion interna.
-
-### Submodulo - Grado
-
-Ubica cada tramo especifico de aprendizaje dentro de un nivel y un periodo lectivo.
-
-- Antes: pueden existir grados repetidos o mal relacionados.
-- Despues: cada grado queda definido en el contexto correcto.
-- Beneficio: prepara de forma segura grupos, matriculas y distribucion academica.
-
-### Submodulo - Grupo
-
-Representa cada conjunto real de estudiantes dentro de un grado.
-
-- Antes: los grupos pueden quedar mal clasificados o sin capacidad clara.
-- Despues: la institucion puede ordenar salones, turnos y carga operativa.
-- Beneficio: facilita horarios, asistencia, seguimiento y organizacion docente.
-
-### Submodulo - Asignatura
-
-Define las materias que la institucion ofrece dentro de su estructura academica.
-
-- Antes: los nombres y codigos pueden repetirse o variar sin control.
-- Despues: el colegio trabaja con una base comun para planeacion academica y futuras calificaciones.
-- Beneficio: da claridad curricular y consistencia en todos los procesos posteriores.
-
-### Beneficios por perfil
-
-- Rectoría: panorama claro de la organizacion academica y mejor control institucional.
-- Secretaría: base ordenada para matriculas, reportes y gestion operativa.
-- Docentes: contexto claro para saber donde imparten clase y con que grupos trabajan.
-- Padres: mejor comprension de la ubicacion academica de sus hijos.
-- Estudiantes: trayecto academico mejor organizado y mas coherente.
-
-### Relacion con otros modulos
-
-Este modulo es la base directa para Matriculas, Horarios, Asistencia, Calificaciones, Planeacion Academica y Reportes.
+Define parametros institucionales para adaptar formularios, flujos y reglas de operacion segun la realidad del colegio.
 
 ---
 
-## Modulo 5 - Solicitud de Matricula y Proceso de Matriculas (Foundation del producto SMP)
+# PARTE V - ANEXOS
 
-### ¿Que significa este avance en el estado actual?
+## 1. Glosario
 
-School Management Platform (SMP) es el producto reutilizable.
-Cada colegio es una implementacion particular del producto, con configuraciones propias de formulario, catalogos y reglas operativas.
+Terminos clave del libro para garantizar lenguaje comun entre usuarios, equipo comercial e implementacion.
 
-En este momento, el Proceso de Matriculas se encuentra en Foundation del producto SMP.
-Esto significa que la base funcional y de negocio ya esta preparada, pero el modulo de Matriculas aun no se declara como proceso operativo completo de punta a punta en produccion.
+## 2. Preguntas frecuentes
 
-### Regla funcional oficial
+Respuestas estandar para adopcion, operacion y acompanamiento institucional.
 
-La Solicitud de Matricula puede diligenciarse desde computador, tableta o dispositivo movil mediante un codigo de acceso valido suministrado por la institucion o adquirido por los canales autorizados.
+## 3. Buenas practicas
 
-El diligenciamiento de la solicitud NO crea automaticamente un estudiante.
-
-Solo cuando el colegio aprueba oficialmente la solicitud, esta se convierte en el expediente inicial del estudiante.
-
-Esta decision garantiza:
-
-- Control institucional.
-- Trazabilidad completa.
-- Integridad de la informacion.
-
-### ¿Que permite esta base Foundation?
-
-- Definir que campos son obligatorios segun politica institucional.
-- Definir que documentos solicitar en cada convocatoria.
-- Definir grados disponibles para inscripcion.
-- Definir fechas y ventanas del Proceso de Matriculas.
-- Definir catalogos propios del colegio (por ejemplo EPS, jornadas y listas institucionales).
-
-### Gobernanza institucional
-
-- La familia diligencia la Solicitud de Matricula.
-- Secretaria y Rectoria conservan la aprobacion final.
-- El estudiante solo existe en el sistema despues de la aprobacion institucional.
-- El formulario visible pertenece al cliente (colegio), mientras que el proceso de negocio pertenece al producto SMP.
+Lineamientos para operar con orden, mantener trazabilidad y sostener mejora continua en la institucion.
 
 ---
 
-## Flujo general de uso de la plataforma
+## Nota editorial
 
-1. La persona ingresa con su identidad.
-2. La plataforma valida el acceso.
-3. Se aplican permisos segun el perfil.
-4. La institucion trabaja sobre su estructura academica oficial.
-5. A partir de esa base se ejecutan los procesos operativos del colegio.
-
----
-
-## Beneficios institucionales de SMP
-
-### Para Rectoría
-
-- Mayor control sobre la operacion del colegio.
-- Mejor base para toma de decisiones.
-- Menor dependencia de procesos manuales y reportes dispersos.
-
-### Para Secretaría
-
-- Menos retrabajo administrativo.
-- Informacion mas ordenada y consistente.
-- Mejor soporte para matriculas, listados y seguimiento operativo.
-
-### Para Docentes
-
-- Contexto academico mas claro.
-- Menos confusiones sobre grupos, grados y asignaturas.
-- Mejor base para procesos futuros de asistencia y calificaciones.
-
-### Para Padres
-
-- Mayor claridad sobre el recorrido escolar de sus hijos.
-- Mejor confianza en la organizacion institucional.
-- Expectativa de informacion mas ordenada y oportuna.
-
-### Para Estudiantes
-
-- Trayectoria academica mas coherente.
-- Menor riesgo de errores administrativos.
-- Mejor continuidad entre los procesos escolares.
-
----
-
-## Relacion entre el producto y sus clientes
-
-School Management Platform (SMP) es el producto principal.
-
-Cada institucion educativa puede tener una implementacion propia, una configuracion particular y una forma de adopcion ajustada a su operacion. En ese contexto, EL CERVANTISTA se entiende como una implementacion o configuracion especifica de cliente dentro de la plataforma, no como el nombre del producto base.
-
----
-
-## Estado funcional actual
-
-En este momento, SMP ya cuenta con la base funcional necesaria para iniciar los modulos operativos siguientes sobre una estructura academica ordenada.
-
-La plataforma ya resuelve cuatro necesidades clave:
-
-- identidad de usuarios;
-- acceso seguro;
-- control de permisos;
-- estructura academica institucional.
-
-Los siguientes modulos dependeran de esta base para operar con claridad, consistencia y trazabilidad.
+Este libro se mantendra vivo y versionado como referencia oficial de School Management Platform (SMP).
+Toda ampliacion futura debe respetar su enfoque funcional, operativo y de procesos.

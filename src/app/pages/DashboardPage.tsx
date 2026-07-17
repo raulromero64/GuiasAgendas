@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { InstitutionalBrandHeader } from '@/client/institutional/InstitutionalBrandHeader'
 import { Badge, Button, Card, Input, SectionHeading, StatTile } from '@/shared/components/ui'
 import { IDENTITY_BADGE_TONE, IDENTITY_ROUTE_FLOW } from '@/shared/constants/identity'
 import { useAuth } from '@/shared/hooks/useAuth'
@@ -14,9 +15,19 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <InstitutionalBrandHeader />
+
+      <div className="flex justify-center">
+        <Link to="/app/estudiantes" aria-label="Ir al formulario de matricula">
+          <Button variant="primary" className="px-8 py-2.5 text-base tracking-[0.08em]">
+            INICIO
+          </Button>
+        </Link>
+      </div>
+
       <SectionHeading
-        title="Identity Foundation Showcase"
-        description="Catalogo visual del flujo IAM reusable y componentes base del SMP."
+        title="School Management Platform (SMP)"
+        description="School Management Platform (SMP). Plataforma institucional para la gestion academica, administrativa y de procesos del colegio."
       />
 
       <Card>

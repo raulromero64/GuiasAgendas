@@ -1,3 +1,4 @@
+import { institutionalThemeCssVariables } from '@/client/institutional/theme'
 import { themeCssVariables } from '@/shared/constants/tokens/theme'
 
 /**
@@ -7,7 +8,12 @@ export const themeService = {
   applyTheme() {
     const root = document.documentElement
 
-    Object.entries(themeCssVariables).forEach(([token, value]) => {
+    const runtimeTheme = {
+      ...themeCssVariables,
+      ...institutionalThemeCssVariables,
+    }
+
+    Object.entries(runtimeTheme).forEach(([token, value]) => {
       root.style.setProperty(token, value)
     })
   },

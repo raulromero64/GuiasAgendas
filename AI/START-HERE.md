@@ -45,6 +45,8 @@ Auditor técnico y apoyo de implementación
 - Mantener documentación, Git y código sincronizados.
 - Todo cambio debe pertenecer al Sprint activo.
 - Las reglas permanentes de arquitectura (incluyendo Desarrollo Just-in-Time) viven en docs/03-ARQUITECTURA.md.
+- Ningun trabajo puede darse por terminado sin fase obligatoria de consolidacion.
+- La consolidacion final debe verificar: arquitectura consistente, codigo limpio, buenas practicas, ausencia de duplicacion, ausencia de archivos obsoletos, imports correctos, compilacion exitosa y documentacion sincronizada.
 - Mantener respuestas y reportes concisos para ahorrar contexto.
 
 Fin del documento.

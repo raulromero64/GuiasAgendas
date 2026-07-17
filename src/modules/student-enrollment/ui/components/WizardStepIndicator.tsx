@@ -22,9 +22,10 @@ export function WizardStepIndicator({
             <button
               type="button"
               onClick={() => onStepSelect(index)}
+              aria-current={isActive ? 'step' : undefined}
               className={cn(
-                'flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-xs font-semibold transition',
-                isActive && 'border-brand-500 bg-brand-50 text-brand-900',
+                'flex w-full items-center gap-2 rounded-md border px-3 py-2 text-left text-xs transition',
+                isActive && 'border-emerald-200 bg-emerald-50 text-emerald-900',
                 !isActive &&
                   isCompleted &&
                   'border-border-strong bg-surface-panel text-content-primary',
@@ -35,15 +36,15 @@ export function WizardStepIndicator({
             >
               <span
                 className={cn(
-                  'inline-flex h-5 w-5 items-center justify-center rounded-full text-[11px]',
-                  isActive && 'bg-brand-700 text-surface-panel',
+                  'inline-flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-semibold',
+                  isActive && 'bg-emerald-600 text-white',
                   !isActive && isCompleted && 'bg-brand-600 text-surface-panel',
                   !isActive && !isCompleted && 'bg-neutral-300 text-content-secondary'
                 )}
               >
                 {index + 1}
               </span>
-              <span className="truncate">{step}</span>
+              <span className={cn('truncate', isActive && 'font-bold')}>{step}</span>
             </button>
           </li>
         )

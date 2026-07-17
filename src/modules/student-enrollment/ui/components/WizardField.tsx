@@ -7,12 +7,16 @@ interface FieldShellProps {
   label: string
   children: ReactNode
   className?: string
+  required?: boolean
 }
 
-function FieldShell({ label, children, className }: FieldShellProps) {
+function FieldShell({ label, children, className, required }: FieldShellProps) {
   return (
     <label className={cn('space-y-2 text-sm', className)}>
-      <span className="font-medium text-content-primary">{label}</span>
+      <span className="font-medium text-content-primary">
+        {label}
+        {required && <span className="ml-1 text-brand-700">*</span>}
+      </span>
       {children}
     </label>
   )
@@ -25,7 +29,7 @@ type WizardInputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function WizardInput({ label, containerClassName, ...props }: WizardInputProps) {
   return (
-    <FieldShell label={label} className={containerClassName}>
+    <FieldShell label={label} className={containerClassName} required={Boolean(props.required)}>
       <Input {...props} />
     </FieldShell>
   )
@@ -47,8 +51,9 @@ export function WizardSelect({
   ...props
 }: WizardSelectProps) {
   return (
-    <FieldShell label={label} className={containerClassName}>
+    <FieldShell label={label} className={containerClassName} required={Boolean(props.required)}>
       <select
+        aria-required={props.required}
         className={cn(
           'w-full rounded-md border border-border-strong bg-surface-panel px-3 py-2 text-sm text-content-primary focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100',
           className
@@ -78,8 +83,9 @@ export function WizardTextarea({
   ...props
 }: WizardTextareaProps) {
   return (
-    <FieldShell label={label} className={containerClassName}>
+    <FieldShell label={label} className={containerClassName} required={Boolean(props.required)}>
       <textarea
+        aria-required={props.required}
         className={cn(
           'min-h-24 w-full rounded-md border border-border-strong bg-surface-panel px-3 py-2 text-sm text-content-primary placeholder:text-content-muted focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100',
           className

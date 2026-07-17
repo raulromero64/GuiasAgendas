@@ -1,0 +1,15 @@
+export const institutionalThemeCssVariables = {
+  '--font-family-sans': '"Plus Jakarta Sans", sans-serif',
+  '--font-family-public': '"Quicksand", sans-serif',
+  '--font-family-brand': '"Montserrat", sans-serif',
+  '--color-brand-50': '238 248 241',
+  '--color-brand-100': '217 239 223',
+  '--color-brand-200': '183 223 194',
+  '--color-brand-300': '143 203 158',
+  '--color-brand-400': '99 180 121',
+  '--color-brand-500': '63 153 92',
+  '--color-brand-600': '47 127 73',
+  '--color-brand-700': '39 101 61',
+  '--color-brand-800': '35 81 53',
+  '--color-brand-900': '31 67 45',
+} as const

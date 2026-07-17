@@ -51,6 +51,8 @@ export const SESSION_STORAGE_KEY = 'smp.identity.session'
  */
 export const PUBLIC_ENTRY_ROUTE = '/public'
 
+export const PUBLIC_ENROLLMENT_WIZARD_ROUTE = '/public/solicitud-matricula'
+
 export const DASHBOARD_ENTRY_ROUTE = '/app'
 
 export const AUTH_LAYOUT_ROUTE = '/auth'

@@ -20,7 +20,7 @@ export function ShellSidebar({ navItems }: ShellSidebarProps) {
           {CURRENT_PHASE}
         </p>
         <div className="mt-2 flex items-center gap-2">
-          <p className="text-sm text-content-secondary">Identity Foundation activa.</p>
+          <p className="text-sm text-content-secondary">School Management Platform</p>
           <Badge tone="info">{CURRENT_SPRINT}</Badge>
         </div>
       </div>

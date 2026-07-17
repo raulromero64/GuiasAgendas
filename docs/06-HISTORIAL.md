@@ -1,5 +1,94 @@
 # 06 - Historial
 
+## 2026-07-17 - A-028 Fase 2 - Quicksand para la App Publica
+
+### Resumen de la sesion
+
+- Se implemento `Quicksand` como fuente oficial de toda la App Publica.
+- La configuracion se realizo desde el sistema central de tipografia y desde el layout publico para asegurar herencia automatica.
+- Se mantuvo `Montserrat` exclusivamente para el branding institucional del logo.
+- No se introdujeron cambios en logica del Wizard ni en reglas de negocio.
+
+### Estado al cierre
+
+- Fase 2 de A-028: completada y validada.
+- Compilacion: exitosa.
+- App Publica: alineada con la decision tipografica aprobada.
+
+## 2026-07-17 - Decision A-029 sobre estructura profesional del Libro Oficial
+
+### Resumen de la sesion
+
+- Se aprueba que `docs/08-PROYECTO-EXPLICADO.md` mantenga estructura de libro profesional.
+- Se incorpora Indice General por capitulos.
+- Se incorpora Indice Alfabetico para localizacion rapida de temas.
+- Se incorporan referencias cruzadas entre capitulos relacionados.
+- Se formaliza que toda decision importante registrada en el Libro debe quedar ubicada en su capitulo correspondiente y, cuando aplique, reflejada tambien en el indice alfabetico.
+
+### Estado al cierre
+
+- Libro Oficial: reorganizado como manual profesional de referencia.
+- Lenguaje: mantenido para publico no tecnico.
+- Trazabilidad documental: actualizada.
+
+## 2026-07-17 - A-028 Fase 1 - Consolidacion de branding y tipografias
+
+### Resumen de la sesion
+
+- Se consolido el branding institucional en `src/client/` como fuente compartida para App Publica y dashboard.
+- Se creo un encabezado institucional unico para evitar duplicacion entre capas.
+- Se formalizo el uso de `Montserrat SemiBold` para branding y `Plus Jakarta Sans` para interfaz.
+- Se elimino la duplicacion de encabezados institucionales anteriores ya aprobados como obsoletos.
+- Se actualizo la constante visible del sprint para mantener consistencia operativa.
+
+### Estado al cierre
+
+- Fase 1 de A-028: completada y validada.
+- Compilacion: exitosa.
+- Wizard de Solicitud de Matricula: sin modificaciones de logica.
+- Dashboard administrativo: estable.
+
+## 2026-07-17 - Politica permanente de calidad y consolidacion obligatoria
+
+### Resumen de la sesion
+
+- Se aprueba como politica permanente que toda implementacion finalice con una fase obligatoria de consolidacion.
+- Se formaliza que antes de cerrar cualquier trabajo se debe verificar arquitectura, limpieza, buenas practicas, ausencia de duplicacion, ausencia de obsoletos, imports correctos, compilacion exitosa y documentacion sincronizada.
+- Se establece que ningun Sprint puede cerrarse sin completar esta verificacion.
+- Se actualizan Framework IA, Sprint Actual, Arquitectura SMP y Libro Explicativo para mantener trazabilidad completa.
+
+### Estado al cierre
+
+- Politica permanente de calidad: vigente.
+- Regla de cierre de Sprint: reforzada y documentada.
+- Sin cambios funcionales en codigo fuente.
+
+## 2026-07-17 - Decision A-024 y primera implementacion de la separacion platform / client / public
+
+### Resumen de la sesion
+
+- Se aprobo e implemento la base tecnica de la arquitectura oficial `platform / client / public`.
+- Se formalizo que el nucleo del producto SMP debe vivir en `src/platform/`.
+- Se formalizo que la personalizacion institucional por colegio debe vivir en `src/client/`.
+- Se formalizo que la App Publica del Colegio debe vivir en `src/public/` y permanecer desacoplada del dashboard administrativo.
+- Se implemento una nueva entrada publica para Solicitud de Matricula con acceso por PIN sin logica de validacion.
+- Se habilito una ruta publica dedicada para consumir el wizard existente sin modificar su logica funcional.
+- Se mantuvo compatibilidad con rutas actuales y se preservo el comportamiento del dashboard administrativo.
+
+### Justificacion arquitectonica
+
+- SMP debe operar como producto independiente del portal institucional del colegio.
+- El colegio puede tener portal propio, portal desarrollado por nosotros o no tener sitio web.
+- La App Publica debe poder integrarse desde cualquier enlace o boton externo.
+- La identidad visual y los datos institucionales no deben contaminar el nucleo funcional reutilizable del producto.
+
+### Estado al cierre
+
+- Arquitectura oficial: actualizada con el modelo `platform / client / public`.
+- App Publica: base inicial creada para acceso y continuidad hacia Solicitud de Matricula.
+- Dashboard administrativo: sin regresiones funcionales detectadas.
+- Build de produccion: ejecutado satisfactoriamente.
+
 ## 2026-07-15 - Decision clave de arquitectura y negocio sobre Solicitud de Matricula
 
 ### Resumen de la sesion

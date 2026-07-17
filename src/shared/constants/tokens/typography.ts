@@ -3,7 +3,9 @@
  */
 export const typography = {
   fontFamily: {
-    sans: ['Manrope', 'sans-serif'],
+    sans: ['var(--font-family-sans)', 'sans-serif'],
+    public: ['var(--font-family-public)', 'sans-serif'],
+    brand: ['var(--font-family-brand)', 'sans-serif'],
   },
   fontSize: {
     xs: ['0.75rem', { lineHeight: '1rem' }],

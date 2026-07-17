@@ -10,10 +10,7 @@ import { InscriptionStep } from '@/modules/student-enrollment/ui/steps/Inscripti
 import { PersonalInfoStep } from '@/modules/student-enrollment/ui/steps/PersonalInfoStep'
 import { ReviewStep } from '@/modules/student-enrollment/ui/steps/ReviewStep'
 import { StudentInfoStep } from '@/modules/student-enrollment/ui/steps/StudentInfoStep'
-import {
-  createEmptyAcademicHistoryRow,
-  createInitialStudentEnrollmentData,
-} from '@/modules/student-enrollment/ui/state/studentEnrollmentWizard.state'
+import { createInitialStudentEnrollmentData } from '@/modules/student-enrollment/ui/state/studentEnrollmentWizard.state'
 import {
   type AcademicHistoryRow,
   type GuardianInfo,
@@ -25,20 +22,23 @@ import {
 
 const STEP_TITLES = [
   'Inscripcion',
-  'Informacion del estudiante',
-  'Padres y acudientes',
-  'Informacion personal',
+  'Estudiante',
+  'Padres o Acudientes',
+  'Informacion Personal',
   'Salud',
-  'Historial academico',
-  'Revision',
+  'Historial Academico',
+  'Verificar Informacion',
 ]
 
 export function StudentEnrollmentWizard() {
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState(() => createInitialStudentEnrollmentData())
+  const totalSteps = STEP_TITLES.length
+  const currentStepNumber = currentStep + 1
+  const progressPercent = Math.round((currentStepNumber / totalSteps) * 100)
 
   const isFirstStep = currentStep === 0
-  const isLastStep = currentStep === STEP_TITLES.length - 1
+  const isLastStep = currentStep === totalSteps - 1
 
   const updateInscriptionStep = (patch: Partial<InscriptionStepData>) => {
     setFormData((previous) => ({
@@ -98,15 +98,8 @@ export function StudentEnrollmentWizard() {
     }))
   }
 
-  const addAcademicHistoryRow = () => {
-    setFormData((previous) => ({
-      ...previous,
-      academicHistory: [...previous.academicHistory, createEmptyAcademicHistoryRow()],
-    }))
-  }
-
   const goToNextStep = () => {
-    setCurrentStep((previous) => Math.min(previous + 1, STEP_TITLES.length - 1))
+    setCurrentStep((previous) => Math.min(previous + 1, totalSteps - 1))
   }
 
   const goToPreviousStep = () => {
@@ -130,11 +123,10 @@ export function StudentEnrollmentWizard() {
           <AcademicHistoryStep
             rows={formData.academicHistory}
             onRowChange={updateAcademicHistoryRow}
-            onAddRow={addAcademicHistoryRow}
           />
         )
       case 6:
-        return <ReviewStep data={formData} />
+        return <ReviewStep data={formData} onGoToStep={setCurrentStep} />
       default:
         return null
     }
@@ -148,39 +140,76 @@ export function StudentEnrollmentWizard() {
         onStepSelect={setCurrentStep}
       />
 
+      <Card className="space-y-3">
+        <div className="flex items-center justify-between text-sm">
+          <p className="font-medium text-content-primary">
+            Paso {currentStepNumber} de {totalSteps}
+          </p>
+          <p className="font-semibold text-content-secondary">{progressPercent}%</p>
+        </div>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
+          <div
+            className="h-full rounded-full bg-brand-600 transition-all duration-300"
+            style={{ width: `${progressPercent}%` }}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressPercent}
+            aria-label="Progreso de la solicitud"
+          />
+        </div>
+      </Card>
+
       <Card className="space-y-4">
         <header className="space-y-1">
           <h3 className="text-lg font-semibold text-content-primary">{STEP_TITLES[currentStep]}</h3>
           <p className="text-sm text-content-secondary">
-            Paso {currentStep + 1} de {STEP_TITLES.length}
+            Paso {currentStepNumber} de {totalSteps}
           </p>
+          <p className="text-xs text-content-muted">Los campos marcados con * son obligatorios.</p>
         </header>
 
         {renderStep()}
       </Card>
 
-      <footer className="flex flex-wrap items-center justify-between gap-3">
-        <div>
+      <footer className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="w-full sm:w-auto">
           {!isFirstStep && (
-            <Button type="button" variant="outline" onClick={goToPreviousStep}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={goToPreviousStep}
+              className="w-full sm:w-auto"
+            >
               Anterior
             </Button>
           )}
         </div>
 
-        <div>
+        <div className="w-full sm:w-auto">
           {!isLastStep && (
-            <Button type="button" onClick={goToNextStep}>
+            <Button type="button" onClick={goToNextStep} className="w-full sm:w-auto">
               Siguiente
+            </Button>
+          )}
+          {isLastStep && (
+            <Button type="button" className="w-full sm:w-auto">
+              Enviar Solicitud de Matricula
             </Button>
           )}
         </div>
       </footer>
 
       {isLastStep && (
-        <p className="text-sm text-content-muted">
-          Boton Guardar pendiente de implementacion en una fase posterior.
-        </p>
+        <Card className="space-y-2 border-dashed bg-neutral-50">
+          <p className="text-sm text-content-primary">
+            El padre de familia unicamente envia una solicitud de matricula.
+          </p>
+          <p className="text-sm text-content-secondary">
+            La aprobacion y la creacion de la matricula corresponden al colegio y se implementaran
+            en un modulo posterior.
+          </p>
+        </Card>
       )}
     </section>
   )

@@ -1,7 +1,7 @@
 # 03 - ARQUITECTURA SMP
 
 Estado: Permanente
-Version: 1.1
+Version: 1.2
 Ambito: School Management Platform (SMP)
 
 ## 1. Proposito
@@ -64,6 +64,23 @@ Construir -> Consolidar -> Limpiar -> Visualizar -> Documentar -> Commit
 - Corregir imports afectados por migraciones o limpieza.
 - Validar compilacion y ejecucion visual antes de cierre de entrega.
 
+## 5.1 Politica permanente de consolidacion de calidad
+
+Toda implementacion debe finalizar con una fase obligatoria de consolidacion.
+
+Antes de dar por terminado cualquier trabajo se debe verificar:
+
+- Arquitectura consistente.
+- Codigo limpio.
+- Buenas practicas.
+- Sin duplicacion.
+- Sin archivos obsoletos.
+- Imports correctos.
+- Compilacion exitosa.
+- Documentacion sincronizada.
+
+Objetivo operativo: impedir cierres parciales, deriva arquitectonica y deuda tecnica silenciosa entre sprints.
+
 ## 6. Relacion documental
 
 Flujo oficial de contexto:
@@ -111,3 +128,78 @@ START-HERE
 - Grado
 - Grupo
 - Asignatura
+
+## 10. Decision permanente aprobada (2026-07-17)
+
+### 10.1 Modelo oficial de separacion de responsabilidades
+
+La arquitectura oficial del proyecto se organiza en tres capas de responsabilidad:
+
+- `src/platform/`: nucleo del producto SMP.
+- `src/client/`: personalizacion por colegio.
+- `src/public/`: aplicacion publica del colegio.
+
+Objetivo:
+
+- Permitir que SMP opere como producto independiente.
+- Permitir que cada colegio personalice identidad y configuracion sin invadir el nucleo.
+- Permitir que la App Publica pueda exponerse desde cualquier portal externo sin depender del dashboard administrativo.
+
+### 10.2 Estructura oficial
+
+```mermaid
+flowchart TD
+	Portal[Portal Institucional o sitio existente] --> Public[public\nApp Publica del Colegio]
+	Public --> Platform[platform\nSchool Management Platform]
+	Client[client\nBranding y configuracion institucional] --> Public
+	Client --> Platform
+```
+
+```mermaid
+flowchart TD
+	src[src/] --> platform[platform/]
+	src --> client[client/]
+	src --> public[public/]
+
+	platform --> p1[Logica funcional y administrativa SMP]
+	client --> c1[Branding]
+	client --> c2[Assets]
+	client --> c3[Configuracion]
+	client --> c4[Temas]
+	client --> c5[Datos institucionales]
+	public --> u1[Acceso por PIN]
+	public --> u2[Wizard Solicitud de Matricula]
+	public --> u3[Futuros servicios publicos]
+```
+
+### 10.3 Reglas oficiales de dependencia
+
+- `platform` no depende de `public`.
+- `public` puede consumir componentes, contratos y servicios expuestos por `platform`.
+- `client` no contiene logica funcional del SMP.
+- `client` solo provee identidad institucional, configuracion y personalizacion visual.
+- `public` no debe depender del shell administrativo ni de navegacion de `/app`.
+- `public` no debe incorporar permisos, sidebar ni layouts del dashboard administrativo.
+- `platform` conserva la logica funcional y administrativa del producto.
+- Todo flujo publico que necesite un modulo funcional debe consumirlo sin duplicarlo.
+
+### 10.4 Aplicacion de la decision en Sprint 1.9
+
+- Se creo `src/platform/student-enrollment/ui` como fachada de consumo para el wizard existente.
+- Se creo `src/client/institutional/branding.ts` para branding institucional inicial.
+- Se creo `src/public/` como base de la futura App Publica del Colegio.
+- Se migro la entrada publica actual hacia una pantalla profesional de acceso y una ruta publica dedicada para el wizard.
+- El dashboard administrativo en `/app` permanece desacoplado y sin alteraciones funcionales.
+
+### 10.5 Consolidacion A-028 - branding y tema institucional
+
+- La identidad institucional debe consumirse desde `src/client/` y no desde modulos funcionales ni paginas duplicadas.
+- El encabezado institucional reusable debe vivir en `src/client/` para poder ser compartido entre App Publica y dashboard sin duplicacion.
+- La tipografia institucional oficial queda definida como `Montserrat SemiBold` para branding y `Plus Jakarta Sans` para interfaz.
+- Las personalizaciones visuales por colegio deben aplicarse como override de runtime desde `client`, preservando el nucleo reusable de `platform`.
+
+### 10.6 Fase 2 - tipografia oficial de la App Publica
+
+- La App Publica debe usar `Quicksand` como fuente oficial de interfaz.
+- La aplicacion de esta fuente debe hacerse desde el sistema central de tipografia y no mediante overrides por componente.
+- El branding del logo institucional mantiene su fuente y no debe alterarse por esta decision.

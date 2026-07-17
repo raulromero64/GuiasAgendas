@@ -75,6 +75,17 @@ function createLocalId(prefix: string) {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`
 }
 
+const PHYSICAL_FORM_GRADES = [
+  'Prejardin',
+  'Jardin',
+  'Transicion',
+  'Primero',
+  'Segundo',
+  'Tercero',
+  'Cuarto',
+  'Quinto',
+] as const
+
 export function createEmptyAcademicHistoryRow(): AcademicHistoryRow {
   return {
     id: createLocalId('academic-history'),
@@ -158,6 +169,11 @@ export function createInitialStudentEnrollmentData(): StudentEnrollmentFormData 
       wearsGlassesDetail: '',
       observations: '',
     },
-    academicHistory: [createEmptyAcademicHistoryRow()],
+    academicHistory: PHYSICAL_FORM_GRADES.map((grade) => ({
+      id: createLocalId('academic-history'),
+      grade,
+      institution: '',
+      year: '',
+    })),
   }
 }

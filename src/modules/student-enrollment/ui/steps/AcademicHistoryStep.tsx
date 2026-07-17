@@ -1,14 +1,13 @@
-import { Button, Input } from '@/shared/components/ui'
+import { Input } from '@/shared/components/ui'
 
 import type { AcademicHistoryRow } from '@/modules/student-enrollment/ui/state/studentEnrollmentWizard.state'
 
 interface AcademicHistoryStepProps {
   rows: AcademicHistoryRow[]
   onRowChange: (id: string, patch: Partial<AcademicHistoryRow>) => void
-  onAddRow: () => void
 }
 
-export function AcademicHistoryStep({ rows, onRowChange, onAddRow }: AcademicHistoryStepProps) {
+export function AcademicHistoryStep({ rows, onRowChange }: AcademicHistoryStepProps) {
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto rounded-lg border border-border-subtle bg-surface-panel">
@@ -23,25 +22,25 @@ export function AcademicHistoryStep({ rows, onRowChange, onAddRow }: AcademicHis
           <tbody className="divide-y divide-border-subtle">
             {rows.map((row) => (
               <tr key={row.id}>
+                <td className="px-3 py-2 font-medium text-content-primary">{row.grade}</td>
                 <td className="px-3 py-2">
                   <Input
-                    value={row.grade}
-                    onChange={(event) => onRowChange(row.id, { grade: event.target.value })}
-                    placeholder="Grado"
-                  />
-                </td>
-                <td className="px-3 py-2">
-                  <Input
+                    name={`academicHistoryInstitution-${row.grade}`}
                     value={row.institution}
                     onChange={(event) => onRowChange(row.id, { institution: event.target.value })}
                     placeholder="Institucion"
+                    maxLength={160}
                   />
                 </td>
                 <td className="px-3 py-2">
                   <Input
+                    name={`academicHistoryYear-${row.grade}`}
                     value={row.year}
                     onChange={(event) => onRowChange(row.id, { year: event.target.value })}
                     placeholder="Ano"
+                    inputMode="numeric"
+                    pattern="[0-9]{4}"
+                    maxLength={4}
                   />
                 </td>
               </tr>
@@ -49,10 +48,6 @@ export function AcademicHistoryStep({ rows, onRowChange, onAddRow }: AcademicHis
           </tbody>
         </table>
       </div>
-
-      <Button type="button" variant="outline" onClick={onAddRow}>
-        Agregar fila
-      </Button>
     </div>
   )
 }

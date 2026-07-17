@@ -3,8 +3,8 @@
  */
 export const APP_NAME = 'School Management Platform'
 export const APP_SHORT = 'SMP'
-export const CURRENT_PHASE = 'Phase 1'
-export const CURRENT_SPRINT = 'Sprint 1.6'
+export const CURRENT_PHASE = 'FASE 1'
+export const CURRENT_SPRINT = 'Sprint 1.9'
 
 const env = import.meta.env
 

@@ -13,25 +13,31 @@ export function InscriptionStep({ data, onChange }: InscriptionStepProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <WizardInput
-        label="Numero de inscripcion"
+        label="Formulario Inscripcion No."
+        name="inscriptionNumber"
         value={data.inscriptionNumber}
         onChange={(event) => onChange({ inscriptionNumber: event.target.value })}
-        readOnly
-        placeholder="Se asignara automaticamente"
+        required
+        maxLength={30}
+        placeholder="Numero de inscripcion"
       />
 
       <WizardSelect
-        label="Grado al que aspira"
+        label="Grado al que aspira entrar el estudiante:"
+        name="targetGrade"
         value={data.targetGrade}
         onChange={(event) => onChange({ targetGrade: event.target.value })}
         options={GRADE_OPTIONS}
         placeholder="Seleccionar grado"
+        required
       />
 
       <WizardBinaryField
-        label="Repitente"
+        label="Repitencia de ano:"
         value={data.isRepeating}
         onChange={(value) => onChange({ isRepeating: value })}
+        required
+        name="isRepeating"
       />
 
       <Card className="border-dashed">

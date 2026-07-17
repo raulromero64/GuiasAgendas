@@ -7,9 +7,12 @@ import { DashboardPage } from '@/app/pages/DashboardPage'
 import { StudentEnrollmentPage } from '@/app/pages/StudentEnrollmentPage'
 import { AuthorizationGuard } from '@/app/routes/AuthorizationGuard'
 import { SectionStructurePage } from '@/app/pages/SectionStructurePage'
+import { EnrollmentAccessPage } from '@/public/pages/EnrollmentAccessPage'
+import { PublicEnrollmentWizardPage } from '@/public/pages/PublicEnrollmentWizardPage'
 import {
   AUTH_LAYOUT_ROUTE,
   DASHBOARD_ENTRY_ROUTE,
+  PUBLIC_ENROLLMENT_WIZARD_ROUTE,
   PUBLIC_ENTRY_ROUTE,
 } from '@/shared/constants/identity'
 import { authorizationPolicies } from '@/shared/security/authorization.policies'
@@ -25,14 +28,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <SectionStructurePage
-            title="Portal Publico"
-            summary="Punto de entrada publico del SMP para comunicacion general y acceso controlado."
-            scope="Presentar acceso institucional, lineamientos y redireccion hacia zonas autenticadas."
-            status="Estructura base establecida sin logica funcional adicional."
-          />
-        ),
+        element: <EnrollmentAccessPage />,
+      },
+      {
+        path: PUBLIC_ENROLLMENT_WIZARD_ROUTE.replace(`${PUBLIC_ENTRY_ROUTE}/`, ''),
+        element: <PublicEnrollmentWizardPage />,
       },
     ],
   },

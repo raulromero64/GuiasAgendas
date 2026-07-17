@@ -105,6 +105,23 @@ Ninguna decision estructural de alto impacto se considera valida sin su aprobaci
 - Registrar hallazgos, riesgos y acciones correctivas.
 - Asegurar coherencia entre codigo, documentacion y estado operativo.
 
+### 11.1 Politica permanente de consolidacion
+
+Ninguna implementacion puede darse por finalizada sin una fase obligatoria de consolidacion.
+
+La consolidacion debe verificar, como minimo:
+
+- Arquitectura consistente.
+- Codigo limpio.
+- Buenas practicas.
+- Sin duplicacion.
+- Sin archivos obsoletos.
+- Imports correctos.
+- Compilacion exitosa.
+- Documentacion sincronizada.
+
+Ningun Sprint puede cerrarse sin completar esta verificacion.
+
 ## 12. Orden de Implementacion y Congelacion
 
 1. Actualizar la documentacion.

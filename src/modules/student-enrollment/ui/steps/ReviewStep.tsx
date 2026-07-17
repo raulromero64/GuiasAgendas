@@ -9,6 +9,7 @@ import type {
 
 interface ReviewStepProps {
   data: StudentEnrollmentFormData
+  onGoToStep: (stepIndex: number) => void
 }
 
 function formatYesNo(value: YesNoValue) {
@@ -97,11 +98,34 @@ function AcademicHistorySummary({ rows }: { rows: AcademicHistoryRow[] }) {
   )
 }
 
-export function ReviewStep({ data }: ReviewStepProps) {
+function SectionHeader({
+  title,
+  step,
+  onGoToStep,
+}: {
+  title: string
+  step: number
+  onGoToStep: (stepIndex: number) => void
+}) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2">
+      <h3 className="text-sm font-semibold text-content-primary">{title}</h3>
+      <button
+        type="button"
+        onClick={() => onGoToStep(step)}
+        className="text-xs font-semibold text-brand-700 hover:text-brand-800"
+      >
+        Ir al paso
+      </button>
+    </div>
+  )
+}
+
+export function ReviewStep({ data, onGoToStep }: ReviewStepProps) {
   return (
     <div className="space-y-4">
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Inscripcion</h3>
+        <SectionHeader title="Inscripcion" step={0} onGoToStep={onGoToStep} />
         <SummaryList
           items={[
             { label: 'Numero de inscripcion', value: data.inscription.inscriptionNumber },
@@ -112,7 +136,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
       </Card>
 
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Informacion del estudiante</h3>
+        <SectionHeader title="Informacion del estudiante" step={1} onGoToStep={onGoToStep} />
         <SummaryList
           items={[
             { label: 'Apellidos', value: data.studentInfo.lastName },
@@ -136,12 +160,12 @@ export function ReviewStep({ data }: ReviewStepProps) {
       </Card>
 
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Padres y acudientes</h3>
+        <SectionHeader title="Padres y acudientes" step={2} onGoToStep={onGoToStep} />
         <GuardiansSummary guardians={data.guardians} />
       </Card>
 
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Informacion personal</h3>
+        <SectionHeader title="Informacion personal" step={3} onGoToStep={onGoToStep} />
         <SummaryList
           items={[
             { label: 'Vive con', value: data.personalInfo.livesWith },
@@ -159,7 +183,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
       </Card>
 
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Salud</h3>
+        <SectionHeader title="Salud" step={4} onGoToStep={onGoToStep} />
         <SummaryList
           items={[
             {
@@ -179,7 +203,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
       </Card>
 
       <Card className="space-y-3">
-        <h3 className="text-sm font-semibold text-content-primary">Historial academico</h3>
+        <SectionHeader title="Historial academico" step={5} onGoToStep={onGoToStep} />
         <AcademicHistorySummary rows={data.academicHistory} />
       </Card>
     </div>

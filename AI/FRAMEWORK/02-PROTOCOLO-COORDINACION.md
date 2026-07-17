@@ -194,6 +194,21 @@ Una tarea solo se considera finalizada cuando:
 
 ✓ Commit de estabilidad realizado
 
+✓ Fase de consolidacion completada
+
+## 8.1 Verificacion obligatoria de consolidacion
+
+Antes de dar por terminado cualquier trabajo debera verificarse:
+
+- Arquitectura consistente.
+- Codigo limpio.
+- Buenas practicas.
+- Sin duplicacion.
+- Sin archivos obsoletos.
+- Imports correctos.
+- Compilacion exitosa.
+- Documentacion sincronizada.
+
 ## 9. Cierre de sesion
 
 Antes de finalizar una sesion sera obligatorio verificar:
@@ -203,6 +218,7 @@ Antes de finalizar una sesion sera obligatorio verificar:
 - La Planificacion continua siendo coherente.
 - El Framework permanece sin modificaciones.
 - El proyecto puede retomarse en una nueva sesion sin depender de la conversacion anterior.
+- La fase de consolidacion fue completada si hubo implementacion.
 
 ## 10. Inmutabilidad del Framework
 

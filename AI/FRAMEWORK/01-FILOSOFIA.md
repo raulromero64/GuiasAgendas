@@ -40,6 +40,12 @@ Las soluciones deben poder crecer sin rehacerse por completo. El framework impul
 
 El sistema debe poder entenderse, modificarse y operarse en el tiempo por distintos colaboradores. La mantenibilidad se asegura con estructura clara, convenciones consistentes, documentacion vigente y trazabilidad de cambios.
 
+## 11. Consolidacion por fases en migraciones estructurales
+
+Cuando el proyecto atraviesa migraciones estructurales, la consolidacion debe ejecutarse por fases pequenas y validables.
+
+Cada fase debe cerrar con verificacion tecnica, sincronizacion documental y evidencia de estabilidad antes de avanzar a la siguiente.
+
 ---
 
 Naturaleza: Generico y reutilizable
