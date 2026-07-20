@@ -3,12 +3,12 @@ import { useRef, useState } from 'react'
 import { Button, Card } from '@/shared/components/ui'
 
 import { WizardStepIndicator } from '@/modules/student-enrollment/ui/components/WizardStepIndicator'
+import { RegistroMatricula } from '@/modules/student-enrollment/documentos'
 import { AcademicHistoryStep } from '@/modules/student-enrollment/ui/steps/AcademicHistoryStep'
 import { GuardiansStep } from '@/modules/student-enrollment/ui/steps/GuardiansStep'
 import { HealthStep } from '@/modules/student-enrollment/ui/steps/HealthStep'
 import { InscriptionStep } from '@/modules/student-enrollment/ui/steps/InscriptionStep'
 import { PersonalInfoStep } from '@/modules/student-enrollment/ui/steps/PersonalInfoStep'
-import { ReviewStep } from '@/modules/student-enrollment/ui/steps/ReviewStep'
 import { StudentInfoStep } from '@/modules/student-enrollment/ui/steps/StudentInfoStep'
 import { createInitialStudentEnrollmentData } from '@/modules/student-enrollment/ui/state/studentEnrollmentWizard.state'
 import {
@@ -178,7 +178,7 @@ export function StudentEnrollmentWizard() {
           />
         )
       case 6:
-        return <ReviewStep data={formData} onGoToStep={setCurrentStep} />
+        return <RegistroMatricula data={formData} />
       default:
         return null
     }

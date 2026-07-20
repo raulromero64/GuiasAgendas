@@ -14,7 +14,12 @@ export function HealthStep({ data, onChange }: HealthStepProps) {
         label="Tiene alguna recomendacion medica especial:"
         name="medicalRecommendation"
         value={data.medicalRecommendation}
-        onChange={(value) => onChange({ medicalRecommendation: value })}
+        onChange={(value) =>
+          onChange({
+            medicalRecommendation: value,
+            medicalRecommendationDetail: value === 'si' ? data.medicalRecommendationDetail : '',
+          })
+        }
         required
       />
       {data.medicalRecommendation === 'si' && (
@@ -31,7 +36,12 @@ export function HealthStep({ data, onChange }: HealthStepProps) {
         label="Toma algun medicamento:"
         name="medications"
         value={data.medications}
-        onChange={(value) => onChange({ medications: value })}
+        onChange={(value) =>
+          onChange({
+            medications: value,
+            medicationsDetail: value === 'si' ? data.medicationsDetail : '',
+          })
+        }
         required
       />
       {data.medications === 'si' && (
@@ -48,7 +58,12 @@ export function HealthStep({ data, onChange }: HealthStepProps) {
         label="Ha tenido alguna cirugia:"
         name="surgeries"
         value={data.surgeries}
-        onChange={(value) => onChange({ surgeries: value })}
+        onChange={(value) =>
+          onChange({
+            surgeries: value,
+            surgeriesDetail: value === 'si' ? data.surgeriesDetail : '',
+          })
+        }
         required
       />
       {data.surgeries === 'si' && (
@@ -65,7 +80,12 @@ export function HealthStep({ data, onChange }: HealthStepProps) {
         label="Usa lentes o gafas:"
         name="wearsGlasses"
         value={data.wearsGlasses}
-        onChange={(value) => onChange({ wearsGlasses: value })}
+        onChange={(value) =>
+          onChange({
+            wearsGlasses: value,
+            wearsGlassesDetail: value === 'si' ? data.wearsGlassesDetail : '',
+          })
+        }
         required
       />
       {data.wearsGlasses === 'si' && (

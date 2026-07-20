@@ -51,15 +51,14 @@ Auditor técnico y apoyo de implementación
 - Mantener separacion estricta entre Portal Publico Institucional (`src/public/portal/`) y plataforma administrativa SMP (`/app`).
 - No mezclar componentes, layouts o navegacion de administracion dentro del flujo publico del colegio.
 
-## Estado funcional vigente - Solicitud de Matricula (2026-07-17)
+## Estado funcional vigente - Solicitud de Matricula (2026-07-20)
 
-- Todos los campos del wizard son obligatorios por paso.
-- No se permite avanzar ni saltar pasos si hay informacion pendiente.
+- Todos los campos del wizard son obligatorios por paso y no se permite avanzar con informacion pendiente.
 - `Siguiente` valida el paso actual, muestra mensaje de campos pendientes y enfoca el primer error.
-- El paso `Verificar Informacion` es solo de revision antes del envio.
-- Se retiro el bloque de fotografia del estudiante del formulario.
-- Se incorporo la seccion `Datos del acudiente`.
-- Se normalizo la nomenclatura visible a `I.P.S.`.
-- La pantalla de acceso por PIN y las acciones principales del wizard quedaron alineadas al color institucional del logotipo.
+- El paso final de verificacion consume el documento oficial de matricula (`RegistroMatricula`) para vista previa institucional.
+- Se incorporo referencia de foto del estudiante en inscripcion y se amplio la seccion completa del acudiente.
+- Se mantuvo la nomenclatura visible `I.P.S.` y la compatibilidad del flujo actual del wizard.
+- La pantalla de acceso por PIN se centra completamente en viewport y hereda tipografia publica `Quicksand` para experiencia amigable.
+- No hay persistencia, APIs ni cambios de logica de negocio en este alcance.
 
 Fin del documento.

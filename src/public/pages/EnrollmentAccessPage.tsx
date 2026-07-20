@@ -27,65 +27,67 @@ export function EnrollmentAccessPage() {
   }
 
   return (
-    <section className="mx-auto w-full max-w-3xl space-y-6">
-      <InstitutionalBrandHeader showSchoolName={false} />
+    <section className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-3xl items-center justify-center font-public">
+      <div className="w-full space-y-6">
+        <InstitutionalBrandHeader showSchoolName={false} />
 
-      <Card className="space-y-6 p-6 md:p-8">
-        <header className="space-y-3 text-center">
-          <h1 className="font-brand text-3xl font-semibold text-content-primary md:text-4xl">
-            {institutionalBranding.accessTitle}
-          </h1>
-          <p className="text-sm text-content-secondary md:text-base">
-            Ingrese el codigo entregado por la institucion
-          </p>
-        </header>
-
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block space-y-2">
-            <span className="text-sm font-semibold text-content-primary">PIN de acceso</span>
-            <Input
-              type="text"
-              inputMode="numeric"
-              value={pin}
-              onChange={(event) => {
-                setPin(event.target.value)
-                if (pinError) {
-                  setPinError(null)
-                }
-              }}
-              placeholder={institutionalBranding.accessPlaceholder}
-              aria-label="PIN de acceso institucional"
-              maxLength={12}
-            />
-          </label>
-
-          {pinError && (
-            <p className="rounded-md border border-semantic-danger/35 bg-semantic-danger/10 px-3 py-2 text-sm text-semantic-danger">
-              {pinError}
+        <Card className="space-y-6 p-6 md:p-8">
+          <header className="space-y-3 text-center">
+            <h1 className="font-public text-3xl font-semibold text-content-primary md:text-4xl">
+              {institutionalBranding.accessTitle}
+            </h1>
+            <p className="text-sm text-content-secondary md:text-base">
+              Ingrese el codigo entregado por la institucion
             </p>
-          )}
+          </header>
 
-          <Button
-            type="submit"
-            className="w-full bg-brand-700 py-3 text-base transition-colors duration-200 ease-out hover:bg-[rgb(82_132_100)]"
-          >
-            Continuar
-          </Button>
-        </form>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <label className="block space-y-2">
+              <span className="text-sm font-semibold text-content-primary">PIN de acceso</span>
+              <Input
+                type="text"
+                inputMode="numeric"
+                value={pin}
+                onChange={(event) => {
+                  setPin(event.target.value)
+                  if (pinError) {
+                    setPinError(null)
+                  }
+                }}
+                placeholder={institutionalBranding.accessPlaceholder}
+                aria-label="PIN de acceso institucional"
+                maxLength={12}
+              />
+            </label>
 
-        <div className="rounded-xl border border-dashed border-border-strong bg-neutral-50 px-4 py-3 text-sm text-content-secondary">
-          {institutionalBranding.validationPlaceholder}
-        </div>
+            {pinError && (
+              <p className="rounded-md border border-semantic-danger/35 bg-semantic-danger/10 px-3 py-2 text-sm text-semantic-danger">
+                {pinError}
+              </p>
+            )}
 
-        <footer className="text-center">
-          <Link
-            to={PUBLIC_ENTRY_ROUTE}
-            className="inline-block text-sm font-semibold text-brand-700 transition-colors duration-200 ease-out hover:text-brand-600"
-          >
-            ← Volver al inicio
-          </Link>
-        </footer>
-      </Card>
+            <Button
+              type="submit"
+              className="w-full bg-brand-700 py-3 text-base transition-colors duration-200 ease-out hover:bg-[rgb(82_132_100)]"
+            >
+              Continuar
+            </Button>
+          </form>
+
+          <div className="rounded-xl border border-dashed border-border-strong bg-neutral-50 px-4 py-3 text-sm text-content-secondary">
+            {institutionalBranding.validationPlaceholder}
+          </div>
+
+          <footer className="text-center">
+            <Link
+              to={PUBLIC_ENTRY_ROUTE}
+              className="inline-block text-sm font-semibold text-brand-700 transition-colors duration-200 ease-out hover:text-brand-600"
+            >
+              ← Volver al inicio
+            </Link>
+          </footer>
+        </Card>
+      </div>
     </section>
   )
 }

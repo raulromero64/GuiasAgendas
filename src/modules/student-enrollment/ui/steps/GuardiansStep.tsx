@@ -151,6 +151,50 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
             maxLength={100}
           />
           <WizardInput
+            label="Identificacion C.C. N.o"
+            name="acudienteDocumentNumber"
+            value={acudiente?.documentNumber ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { documentNumber: event.target.value })
+            }}
+            required
+            maxLength={30}
+            inputMode="numeric"
+            pattern="[0-9]{5,30}"
+          />
+          <WizardInput
+            label="De"
+            name="acudienteDocumentIssuedAt"
+            value={acudiente?.documentIssuedAt ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { documentIssuedAt: event.target.value })
+            }}
+            required
+            maxLength={120}
+          />
+          <WizardInput
+            label="Nombre empresa donde trabaja"
+            name="acudienteCompany"
+            value={acudiente?.company ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { company: event.target.value })
+            }}
+            required
+            maxLength={120}
+          />
+          <WizardInput
             label="Telefono"
             name="acudientePhone"
             value={acudiente?.phone ?? ''}
@@ -165,6 +209,21 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
             inputMode="tel"
             pattern="[0-9+ ()-]{7,20}"
             maxLength={20}
+          />
+          <WizardInput
+            label="E-mail del acudiente"
+            name="acudienteEmail"
+            type="email"
+            value={acudiente?.email ?? ''}
+            onChange={(event) => {
+              if (!acudiente) {
+                return
+              }
+
+              onGuardianChange(acudiente.id, { email: event.target.value })
+            }}
+            required
+            maxLength={120}
           />
         </div>
       </Card>

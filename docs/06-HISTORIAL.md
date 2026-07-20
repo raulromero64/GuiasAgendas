@@ -1,5 +1,33 @@
 # 06 - Historial
 
+## 2026-07-20 - Continuidad Sprint 1.9: Acceso centrado y avance Wizard Matricula Nivel 2
+
+### Resumen de la sesion
+
+- Se aplico primero el ajuste visual acordado en la pantalla de acceso al formulario:
+  - centrado completo de la experiencia en viewport,
+  - tipografia publica amigable alineada a Quicksand,
+  - sin romper el layout ni el Design System vigente.
+- Se continuo la replicacion del formulario fisico en el wizard publico:
+  - el campo de referencia de foto del estudiante en inscripcion queda obligatorio,
+  - en Salud se reforzo validacion local condicional limpiando detalles cuando la respuesta binaria cambia a `No`.
+- Se preservo el alcance tecnico del sprint:
+  - sin persistencia,
+  - sin APIs,
+  - sin cambios de logica de negocio,
+  - sin alteraciones de arquitectura.
+
+### Validaciones realizadas
+
+- Verificacion de errores de editor: sin errores.
+- Compilacion TypeScript en verde (`npx tsc -b --pretty false`).
+
+### Estado al cierre
+
+- Sprint 1.9 continua activo en frente `Wizard de Solicitud de Matricula - Nivel 2`.
+- App Publica con acceso por PIN centrado y consistente con identidad tipografica aprobada.
+- Wizard mantiene compatibilidad de flujo y validaciones por paso.
+
 ## 2026-07-17 - Cierre revision funcional del Formulario de Solicitud de Matricula
 
 ### Resumen de la sesion

@@ -48,6 +48,12 @@ Hoy su primera funcion es servir como punto de entrada para:
 
 En el futuro, la misma App Publica podra reunir mas servicios institucionales en un solo lugar.
 
+Actualizacion funcional relevante (Sprint 1.9, continuidad Nivel 2):
+
+- La pantalla de acceso por PIN fue ajustada para quedar completamente centrada y con apariencia mas amigable para familias,
+  manteniendo la identidad visual institucional y la tipografia publica oficial.
+- La Solicitud de Matricula continua su replica campo por campo del formato fisico del colegio para asegurar coherencia entre documento institucional y captura digital.
+
 Decision importante registrada en este capitulo:
 
 - La App Publica debe permanecer desacoplada del dashboard administrativo.
@@ -203,6 +209,7 @@ Ver Capitulo 1 para la definicion general de SMP y Capitulo 2 para la evolucion 
 ## Indice Alfabetico
 
 - Acceso por PIN: Capitulo 2, Capitulo 4
+- Acceso por PIN centrado: Capitulo 2
 - App Publica: Capitulo 2, Capitulo 6, Capitulo 8
 - Arquitectura `platform / client / public`: Capitulo 6
 - Calidad del proyecto: Capitulo 7
@@ -223,4 +230,5 @@ Ver Capitulo 1 para la definicion general de SMP y Capitulo 2 para la evolucion 
 - School Management Platform (SMP): Capitulo 1, Capitulo 6, Capitulo 8
 - Secretaria Academica y Administrativa: Capitulo 1, Capitulo 8
 - Solicitud de Matricula: Capitulo 1, Capitulo 2, Capitulo 4, Capitulo 8
+- Solicitud de Matricula (replica de formato fisico): Capitulo 2, Capitulo 4
 - Tipografias institucionales: Capitulo 3

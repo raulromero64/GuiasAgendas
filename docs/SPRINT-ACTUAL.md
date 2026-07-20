@@ -275,3 +275,19 @@ Validacion de cierre:
 
 - Compilacion en verde (`npm run build`).
 - Sin cambios de arquitectura, rutas ni logica de negocio externa al alcance de validacion del formulario.
+
+## 22. Continuidad Sprint 1.9 - Wizard de Solicitud de Matricula Nivel 2 (2026-07-20)
+
+Avances ejecutados en esta continuidad:
+
+- Ajuste prioritario aplicado en App Publica: pantalla de acceso por PIN centrada completamente (eje vertical y horizontal) y tipografia publica amigable (`Quicksand`) respetando el Design System.
+- Continuacion de replicacion campo por campo del formulario fisico en wizard:
+  - Inscripcion: referencia de foto del estudiante marcada como obligatoria.
+  - Salud: limpieza y consistencia de detalles condicionales al responder `No` en preguntas binarias (sin logica de negocio, solo validacion local de UI).
+- Se mantiene el flujo actual del wizard, sin persistencia, sin APIs y sin cambios de arquitectura.
+
+Estado funcional en esta fase:
+
+- Navegacion y validaciones por paso preservadas.
+- Documento oficial de matricula como vista previa final del paso de verificacion.
+- Compilacion TypeScript validada en verde.
