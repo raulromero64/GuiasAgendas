@@ -19,10 +19,12 @@ export function EnrollmentAccessPage() {
 
     if (pin.trim() === DEMO_ENROLLMENT_PIN) {
       setPinError(null)
+      setPin('')
       navigate(PUBLIC_ENROLLMENT_WIZARD_ROUTE)
       return
     }
 
+    setPin('')
     setPinError('Codigo invalido. Verifique el PIN entregado por la institucion.')
   }
 
@@ -56,6 +58,10 @@ export function EnrollmentAccessPage() {
                 }}
                 placeholder={institutionalBranding.accessPlaceholder}
                 aria-label="PIN de acceso institucional"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck={false}
                 maxLength={12}
               />
             </label>

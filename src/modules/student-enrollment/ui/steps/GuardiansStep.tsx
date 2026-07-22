@@ -99,6 +99,9 @@ export function GuardiansStep({ guardians, onGuardianChange }: GuardiansStepProp
 
   return (
     <div className="space-y-4">
+      <p className="text-xs text-content-muted">
+        Registre los datos exactamente como estan en los documentos de identificacion.
+      </p>
       {(['padre', 'madre'] as const).map((relation) => {
         const guardian = guardians.find((item) => item.relation === relation)
 

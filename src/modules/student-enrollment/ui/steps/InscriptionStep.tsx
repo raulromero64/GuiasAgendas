@@ -11,6 +11,9 @@ interface InscriptionStepProps {
 export function InscriptionStep({ data, onChange }: InscriptionStepProps) {
   return (
     <div className="space-y-4">
+      <p className="text-xs text-content-muted">
+        Datos iniciales de control institucional del formulario de matricula.
+      </p>
       <div className="grid gap-4 md:grid-cols-2">
         <WizardInput
           label="Formulario Inscripcion No."

@@ -291,3 +291,46 @@ Estado funcional en esta fase:
 - Navegacion y validaciones por paso preservadas.
 - Documento oficial de matricula como vista previa final del paso de verificacion.
 - Compilacion TypeScript validada en verde.
+
+## 23. Continuidad Sprint 1.9 - Wizard Nivel 2 (fidelidad campo por campo)
+
+Avances ejecutados en esta iteracion:
+
+- Revision paso a paso contra el formulario fisico para reforzar orden y comprension de diligenciamiento.
+- Ajustes de interfaz sin alterar arquitectura:
+  - etiquetas mas explicitas en datos del estudiante,
+  - ayudas visuales contextuales por seccion,
+  - placeholders alineados al lenguaje institucional.
+- Validaciones visuales locales reforzadas manteniendo componentes reutilizables del Design System.
+
+Restricciones cumplidas:
+
+- Sin persistencia.
+- Sin APIs.
+- Sin logica de negocio adicional.
+- Manteniendo arquitectura y flujo actual del wizard.
+
+Validacion tecnica:
+
+- Compilacion TypeScript en verde (`npx tsc -b --pretty false`).
+
+## 24. Continuidad Sprint 1.9 - Privacy by Design (Wizard Nivel 2)
+
+Decision aplicada en esta fase:
+
+- Se adopta el principio `Privacy by Design` para el flujo de Solicitud de Matricula.
+
+Aplicaciones concretas del avance:
+
+- Revision de campos para mantener solo datos necesarios al proceso institucional.
+- Confirmacion de ausencia de logs con datos personales en el flujo del wizard.
+- Confirmacion de ausencia de datos sensibles en URLs o query params del flujo publico.
+- Refuerzo de captura segura en acceso por PIN (limpieza de valor tras envio y desactivacion de ayudas de autocompletado/correccion no necesarias).
+- Preparacion del codigo para futuras capas de autenticacion, autorizacion y auditoria sin introducirlas aun.
+
+Alcance tecnico mantenido:
+
+- Sin persistencia.
+- Sin APIs.
+- Sin cambios de logica de negocio.
+- Manteniendo arquitectura vigente.

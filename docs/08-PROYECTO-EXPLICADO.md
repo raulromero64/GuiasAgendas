@@ -53,6 +53,7 @@ Actualizacion funcional relevante (Sprint 1.9, continuidad Nivel 2):
 - La pantalla de acceso por PIN fue ajustada para quedar completamente centrada y con apariencia mas amigable para familias,
   manteniendo la identidad visual institucional y la tipografia publica oficial.
 - La Solicitud de Matricula continua su replica campo por campo del formato fisico del colegio para asegurar coherencia entre documento institucional y captura digital.
+- En la continuidad del Nivel 2 se ajustaron etiquetas, ayudas visuales y orden de lectura por seccion para que el diligenciamiento digital sea mas fiel al formato institucional.
 
 Decision importante registrada en este capitulo:
 
@@ -183,6 +184,28 @@ Esto permite que el proyecto crezca con orden y que cada nueva fase no deteriore
 Referencia cruzada:
 Ver Capitulo 3 para centralizacion de identidad institucional y Capitulo 6 para la estructura oficial del proyecto.
 
+### 7.1 Por que la proteccion de datos estudiantiles es un pilar fundamental
+
+En esta plataforma se gestionan datos de ninos, ninas, adolescentes y sus familias.
+
+Por eso, la privacidad no puede tratarse como un detalle tecnico opcional.
+Debe estar presente desde el diseno de cada pantalla y cada decision funcional.
+
+Principio aplicado: `Privacy by Design`.
+
+En lenguaje sencillo, esto significa:
+
+- Pedir solo la informacion necesaria para el proceso institucional.
+- Evitar mostrar o exponer datos personales en lugares inseguros (como URLs o trazas de consola).
+- Mantener controles de validacion que ayuden al usuario sin revelar informacion sensible.
+- Preparar el sistema para futuras capas de autenticacion, autorizacion y auditoria.
+
+Beneficio para el colegio y las familias:
+
+- Menor riesgo de fuga accidental de informacion.
+- Mayor confianza en el uso de la plataforma.
+- Base solida para cumplimiento normativo y trazabilidad institucional.
+
 ## Capitulo 8 - Hacia donde va el proyecto
 
 La meta del proyecto no es resolver solo un formulario.
@@ -213,6 +236,7 @@ Ver Capitulo 1 para la definicion general de SMP y Capitulo 2 para la evolucion 
 - App Publica: Capitulo 2, Capitulo 6, Capitulo 8
 - Arquitectura `platform / client / public`: Capitulo 6
 - Calidad del proyecto: Capitulo 7
+- Datos estudiantiles (proteccion): Capitulo 7
 - Client: Capitulo 3, Capitulo 6
 - Colegio con portal propio: Capitulo 4, Capitulo 5
 - Dashboard administrativo: Capitulo 2, Capitulo 6
@@ -231,4 +255,6 @@ Ver Capitulo 1 para la definicion general de SMP y Capitulo 2 para la evolucion 
 - Secretaria Academica y Administrativa: Capitulo 1, Capitulo 8
 - Solicitud de Matricula: Capitulo 1, Capitulo 2, Capitulo 4, Capitulo 8
 - Solicitud de Matricula (replica de formato fisico): Capitulo 2, Capitulo 4
+- Solicitud de Matricula (etiquetas y ayudas alineadas): Capitulo 2
 - Tipografias institucionales: Capitulo 3
+- Privacy by Design: Capitulo 7

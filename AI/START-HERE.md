@@ -57,8 +57,10 @@ Auditor técnico y apoyo de implementación
 - `Siguiente` valida el paso actual, muestra mensaje de campos pendientes y enfoca el primer error.
 - El paso final de verificacion consume el documento oficial de matricula (`RegistroMatricula`) para vista previa institucional.
 - Se incorporo referencia de foto del estudiante en inscripcion y se amplio la seccion completa del acudiente.
+- Se ajustaron etiquetas, ayudas visuales y placeholders en los pasos del wizard para mayor fidelidad con el orden del formato fisico del colegio.
 - Se mantuvo la nomenclatura visible `I.P.S.` y la compatibilidad del flujo actual del wizard.
 - La pantalla de acceso por PIN se centra completamente en viewport y hereda tipografia publica `Quicksand` para experiencia amigable.
+- Se adopta `Privacy by Design` como criterio activo del sprint: minimizacion de datos, sin logs de datos personales, sin datos sensibles en URL y sin almacenamiento temporal fuera del estado del formulario.
 - No hay persistencia, APIs ni cambios de logica de negocio en este alcance.
 
 Fin del documento.

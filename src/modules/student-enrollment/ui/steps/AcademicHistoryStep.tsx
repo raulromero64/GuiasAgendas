@@ -10,6 +10,9 @@ interface AcademicHistoryStepProps {
 export function AcademicHistoryStep({ rows, onRowChange }: AcademicHistoryStepProps) {
   return (
     <div className="space-y-4">
+      <p className="text-xs text-content-muted">
+        Registre la institucion y el ano cursado para cada grado del formato institucional.
+      </p>
       <div className="overflow-x-auto rounded-lg border border-border-subtle bg-surface-panel">
         <table className="min-w-full divide-y divide-border-subtle text-sm">
           <thead className="bg-neutral-100 text-left text-content-secondary">

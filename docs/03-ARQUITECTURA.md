@@ -225,3 +225,28 @@ flowchart TD
 - `websiteUrl` y demas datos de identidad se consideran configurables por institucion cliente.
 - La arquitectura queda preparada para multiples instituciones sin clonar logica del nucleo SMP.
 - Toda variacion institucional debe resolverse en `client`, preservando el nucleo reusable en `platform`.
+
+## 11. Decision permanente aprobada (2026-07-20)
+
+### 11.1 Privacy by Design para procesos con datos estudiantiles
+
+Se establece como principio permanente de arquitectura para SMP y su App Publica:
+
+- Minimizar datos: solicitar solo informacion estrictamente necesaria para el proceso institucional.
+- No exponer datos personales en logs de consola, mensajes tecnicos, rutas o query params.
+- No almacenar temporalmente datos sensibles fuera del estado controlado del formulario durante el flujo activo.
+- Mantener las validaciones de UI enfocadas en orientacion al usuario sin revelar detalles sensibles.
+- Preparar cada modulo para futuras capas de autenticacion, autorizacion y auditoria sin romper el desacople arquitectonico actual.
+
+Objetivo operativo:
+
+- Proteger la privacidad de estudiantes y familias desde el diseno inicial del sistema.
+- Reducir riesgo de fuga accidental de datos en etapas tempranas.
+- Facilitar cumplimiento normativo y trazabilidad cuando se incorporen capas de seguridad avanzadas.
+
+### 11.2 Aplicacion inmediata en Wizard de Solicitud de Matricula (Nivel 2)
+
+- Flujo sin persistencia ni APIs en esta fase.
+- Estado del formulario como unica fuente temporal de datos del diligenciamiento.
+- Mensajeria de error neutra y sin datos personales.
+- Navegacion publica sin paso de informacion sensible por URL.

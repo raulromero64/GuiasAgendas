@@ -1,5 +1,56 @@
 # 06 - Historial
 
+## 2026-07-20 - Continuidad Sprint 1.9: Privacy by Design en Solicitud de Matricula
+
+### Resumen de la sesion
+
+- Se aplico el principio `Privacy by Design` al Wizard Nivel 2 sin alterar arquitectura.
+- Se revisaron los campos del formulario para mantener solicitud de datos estrictamente necesarios.
+- Se verifico ausencia de trazas de datos personales en consola, errores tecnicos y URLs del flujo publico.
+- Se reforzo la captura del PIN de acceso con limpieza del valor tras envio y desactivacion de ayudas de autocompletado no necesarias.
+
+### Alcance tecnico respetado
+
+- Sin persistencia.
+- Sin APIs.
+- Sin logica de negocio adicional.
+- Preparado para futuras capas de autenticacion, autorizacion y auditoria.
+
+### Validaciones realizadas
+
+- Verificacion de errores del editor: sin errores.
+- Compilacion TypeScript en verde (`npx tsc -b --pretty false`).
+
+### Estado al cierre
+
+- Wizard Nivel 2 continua con mayor proteccion de privacidad desde diseno.
+- Documentacion oficial sincronizada con la decision arquitectonica permanente.
+
+## 2026-07-20 - Continuidad Sprint 1.9: fidelidad de etiquetas y ayudas del Wizard Nivel 2
+
+### Resumen de la sesion
+
+- Se continuo la replica del formulario fisico del colegio en el Wizard de Solicitud de Matricula.
+- Se revisaron los pasos del wizard y se ajustaron etiquetas, textos de ayuda y placeholders para mejorar fidelidad y comprension del diligenciamiento.
+- Se reforzaron validaciones visuales locales sin alterar arquitectura ni logica de negocio.
+
+### Alcance tecnico respetado
+
+- Sin persistencia.
+- Sin APIs.
+- Sin logica de negocio adicional.
+- Reutilizando componentes del Design System y manteniendo el flujo vigente del wizard.
+
+### Validaciones realizadas
+
+- Verificacion de errores de editor: sin errores.
+- Compilacion TypeScript en verde (`npx tsc -b --pretty false`).
+
+### Estado al cierre
+
+- Wizard Nivel 2 continua activo con mayor fidelidad campo por campo frente al formulario fisico.
+- Proyecto listo para siguiente commit de continuidad.
+
 ## 2026-07-20 - Continuidad Sprint 1.9: Acceso centrado y avance Wizard Matricula Nivel 2
 
 ### Resumen de la sesion
